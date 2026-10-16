@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HKJC V25.0 Argon — 港馬極簡精算實戰終端</title>
+  <title>HKJC V25.0 Argon — 港馬極簡精算與即時 AI 分析終端</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -41,15 +41,15 @@
     .brand-sub { font-size: 12px; color: #94A3B8; margin-top: 2px; }
 
     /* Mode Switch Tabs */
-    .nav-tabs { display: flex; gap: 6px; background: #020617; padding: 5px; border-radius: 12px; border: 1px solid #1E293B; }
+    .nav-tabs { display: flex; flex-wrap: wrap; gap: 6px; background: #020617; padding: 5px; border-radius: 12px; border: 1px solid #1E293B; }
     .tab-btn {
-      padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 700;
+      padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 700;
       color: #94A3B8; background: transparent; border: none; cursor: pointer; transition: 0.15s;
     }
     .tab-btn:hover { color: #FFFFFF; }
     .tab-btn.active { background: #F59E0B; color: #020617; }
 
-    /* Quick Track & Bias Bar (Always accessible, clean 4-column grid) */
+    /* Quick Track & Bias Bar */
     .quick-bar {
       background: #111827;
       border: 1px solid #1E293B;
@@ -117,6 +117,22 @@
     .b-blue { background: rgba(56, 189, 248, 0.2); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.4); }
     .b-red { background: rgba(244, 63, 94, 0.2); color: #FB7185; border: 1px solid rgba(244, 63, 94, 0.4); }
 
+    /* Live AI Instant Analysis Bar on Single Race View */
+    .live-ai-bar {
+      margin-top: 14px;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.12) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      border-radius: 14px;
+      padding: 14px 18px;
+    }
+    .live-ai-header {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px;
+    }
+    .pulse-dot {
+      width: 9px; height: 9px; border-radius: 50%; background: #38BDF8; display: inline-block;
+      box-shadow: 0 0 10px #38BDF8;
+    }
+
     /* 3 Big Action Cards (Core Takeaways) */
     .cards-grid {
       display: grid;
@@ -178,9 +194,36 @@
       border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
     }
     .btn-amber { background: #F59E0B; color: #020617; }
+    .btn-sky { background: linear-gradient(90deg, #0EA5E9, #4F46E5); color: #FFFFFF; }
     .btn-slate { background: #1E293B; color: #E2E8F0; border: 1px solid #334155; }
     .btn-green { background: #059669; color: #FFFFFF; }
     .btn-red { background: #E11D48; color: #FFFFFF; }
+
+    /* AI Chat Console Styles */
+    .ai-console-grid {
+      display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px;
+    }
+    @media (min-width: 960px) {
+      .ai-console-grid { grid-template-columns: 340px 1fr; }
+    }
+    .cmd-btn {
+      width: 100%; text-align: left; padding: 11px 14px; border-radius: 10px;
+      background: #020617; border: 1px solid #1E293B; color: #E2E8F0;
+      font-size: 13px; font-weight: 600; cursor: pointer; margin-bottom: 8px; transition: 0.15s;
+    }
+    .cmd-btn:hover { border-color: #38BDF8; background: rgba(14, 165, 233, 0.1); }
+    .chat-box {
+      height: 460px; overflow-y: auto; background: #020617; border: 1px solid #1E293B;
+      border-radius: 12px; padding: 14px; margin: 12px 0;
+    }
+    .msg-ai {
+      background: #0F172A; border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 12px; padding: 14px; margin-bottom: 12px; font-size: 14px; line-height: 1.6;
+    }
+    .msg-user {
+      background: #F59E0B; color: #020617; font-weight: 800;
+      border-radius: 12px; padding: 9px 14px; margin-bottom: 12px; font-size: 14px; display: inline-block;
+    }
 
     /* Toast */
     #toast {
@@ -205,6 +248,7 @@
       </div>
       <div class="nav-tabs">
         <button class="tab-btn active" onclick="switchView('single', this)">🎯 單場實戰看板</button>
+        <button class="tab-btn" onclick="switchView('ai', this)">🤖 Argon 即時 AI 分析</button>
         <button class="tab-btn" onclick="switchView('overview', this)">📋 全日 11 場總表</button>
         <button class="tab-btn" onclick="switchView('sectional', this)">⏱️ 場地移欄與分段調校</button>
       </div>
@@ -275,16 +319,17 @@
         <span style="font-size:13px; font-weight:800; color:#FBBF24;">
           選擇場次 (2026-10-19 沙田 R1–R11) &nbsp;|&nbsp; <span style="color:#6EE7B7;">綠框 = 主攻場 (全日精選3場)</span> &nbsp;|&nbsp; <span style="color:#FDA4AF;">紅框 = 建議 PASS</span>
         </span>
-        <div style="display:flex; gap:8px;">
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <button class="btn btn-sky" onclick="switchView('ai', document.querySelectorAll('.tab-btn')[1]); runAiCommand('patrol_all')">🤖 AI 全場巡航 (鎖定3大子彈)</button>
           <button class="btn btn-slate" onclick="simulateOddsDrop()">⚡ 模擬臨場落飛</button>
-          <button class="btn btn-amber" onclick="switchView('overview', document.querySelectorAll('.tab-btn')[1])">📋 睇全日 11 場總表</button>
+          <button class="btn btn-amber" onclick="switchView('overview', document.querySelectorAll('.tab-btn')[2])">📋 睇全日 11 場總表</button>
         </div>
       </div>
       <div id="raceStrip" class="race-strip"></div>
     </div>
 
     <!-- ==================================================================== -->
-    <!-- VIEW 1: SINGLE RACE CLEAN DASHBOARD (極簡一頁看清本場結論)             -->
+    <!-- VIEW 1: SINGLE RACE CLEAN DASHBOARD (極簡一頁看清本場結論 + 即時AI解盤) -->
     <!-- ==================================================================== -->
     <div id="view-single">
 
@@ -297,9 +342,28 @@
           </div>
           <div id="singleNarrative" class="race-meta">步速與賽道診斷載入中...</div>
         </div>
-        <div style="text-align:right;">
-          <div style="font-size:12px; color:#94A3B8;">本場步速拓撲</div>
-          <div id="singlePaceBadge" style="font-size:15px; font-weight:800; color:#38BDF8;">慢至中步速 (N_lead=1)</div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="text-align:right;">
+            <div style="font-size:12px; color:#94A3B8;">本場步速拓撲</div>
+            <div id="singlePaceBadge" style="font-size:15px; font-weight:800; color:#38BDF8;">慢至中步速 (N_lead=1)</div>
+          </div>
+          <button class="btn btn-sky" onclick="switchView('ai', document.querySelectorAll('.tab-btn')[1]); runAiCommand('current_race')">
+            🤖 深度 AI 拆解本場
+          </button>
+        </div>
+      </div>
+
+      <!-- Instant Live AI Dynamic Commentary Box (Updates automatically with odds/rail changes!) -->
+      <div class="live-ai-bar">
+        <div class="live-ai-header">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="pulse-dot"></span>
+            <strong style="color:#38BDF8; font-size:14px;">Argon AI 即時動態精算解盤（隨移欄、分段及賠率變動自動重算）</strong>
+          </div>
+          <span id="liveAiRailTag" class="badge b-blue mono">沙田 C+3</span>
+        </div>
+        <div id="liveAiSummaryText" style="font-size:14px; color:#E2E8F0; line-height:1.6;">
+          正在計算即時 AI 診斷...
         </div>
       </div>
 
@@ -366,7 +430,7 @@
       <div class="table-card">
         <div class="table-header">
           <div>
-            <strong style="font-size:16px; color:#FFFFFF;">📊 本場參賽馬排位與即時賠率表（直接改賠率會自動重算）</strong>
+            <strong style="font-size:16px; color:#FFFFFF;">📊 本場參賽馬排位與即時賠率表（直接改賠率會自動觸發 AI 重算）</strong>
             <div style="font-size:12px; color:#94A3B8; margin-top:2px;">黃底 = 唯一單注膽 ｜ 藍底 = Q/QP 配腳 ｜ 紅底 = 過熱或外檔重磅警戒</div>
           </div>
         </div>
@@ -393,7 +457,65 @@
     </div>
 
     <!-- ==================================================================== -->
-    <!-- VIEW 2: ALL 11 RACES OVERVIEW TABLE (一表睇晒全日 11 場)              -->
+    <!-- VIEW 2: ARGON LIVE AI ANALYSIS & INTERACTIVE AGENT CONSOLE            -->
+    <!-- ==================================================================== -->
+    <div id="view-ai" class="hidden">
+      <div class="ai-console-grid">
+
+        <!-- Left Sidebar: One-Click AI Commands & Optional Gemini Cloud Key -->
+        <div class="action-card" style="justify-content: flex-start; gap: 14px;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="pulse-dot"></span>
+              <strong style="font-size:16px; color:#FFFFFF;">🤖 Argon V25.0 即時 AI 分析引擎</strong>
+            </div>
+            <p style="font-size:13px; color:#94A3B8;">
+              結合當前選中嘅移欄配置、即時賠率同 20,000 次蒙地卡羅模擬，一鍵生成六層精算推理報告：
+            </p>
+          </div>
+
+          <div>
+            <div style="font-size:12px; font-weight:800; color:#FBBF24; margin-bottom:8px;">⚡ 一鍵 AI 深度分析指令：</div>
+            <button class="cmd-btn" onclick="runAiCommand('patrol_all')">🔍 1. 巡航全日 11 場：找出最高把握 3 粒實戰子彈</button>
+            <button class="cmd-btn" onclick="runAiCommand('current_race')">🎯 2. 深度拆解當前場次（結合最新賠率與移欄）</button>
+            <button class="cmd-btn" onclick="runAiCommand('r8_g2')">🏆 3. 拆解 R8 沙田錦標 G2：點解 1號遨遊氣泡要折減？</button>
+            <button class="cmd-btn" onclick="runAiCommand('r6_straight')">🚀 4. 拆解 R6 直路 1000m：外欄霸權與減 7 磅伏兵</button>
+            <button class="cmd-btn" onclick="runAiCommand('apprentice')">🏇 5. 掃描全日「見習生減 7 磅 / 3 磅」高價值伏兵</button>
+            <button class="cmd-btn" onclick="runAiCommand('traps')">🚨 6. 掃描當前賠率版 ≤1.6 倍假落飛與高危大熱</button>
+          </div>
+
+          <div style="background:#020617; border:1px solid #1E293B; border-radius:10px; padding:12px; margin-top:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-size:12px; font-weight:700; color:#CBD5E1;">🔑 Gemini API Key (選填雲端擴充)</span>
+              <span style="font-size:11px; color:#34D399;" class="mono">內置AI已免Key啟用</span>
+            </div>
+            <input id="inpGeminiKey" type="password" placeholder="選填 Gemini API Key 啟用雲端對話..." style="font-size:12px; padding:6px 8px;">
+            <div style="font-size:11px; color:#64748B; margin-top:5px;">
+              唔填 Key 亦會 100% 使用內置 Argon V25.0 確定性精算引擎即時回答。
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Main Area: AI Reasoning Stream & Chat Input -->
+        <div class="action-card" style="justify-content: space-between;">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1E293B; padding-bottom:10px;">
+            <strong style="font-size:16px; color:#38BDF8;">🧠 Argon AI 實時推理與互動問答終端</strong>
+            <button class="btn btn-slate" style="padding:4px 10px; font-size:12px;" onclick="document.getElementById('aiChatBox').innerHTML=''">清除對話</button>
+          </div>
+
+          <div id="aiChatBox" class="chat-box"></div>
+
+          <form onsubmit="handleAiInputSubmit(event)" style="display:flex; gap:8px;">
+            <input id="aiUserInput" type="text" placeholder="直接輸入問題（例如：分析 R9、邊隻馬有第4名死穴、輸入分段 23.2 22.6 23.8 點睇...）" style="flex:1;">
+            <button type="submit" class="btn btn-amber" style="padding:0 20px;">發送提問</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================================================================== -->
+    <!-- VIEW 3: ALL 11 RACES OVERVIEW TABLE (一表睇晒全日 11 場)              -->
     <!-- ==================================================================== -->
     <div id="view-overview" class="hidden">
       <div class="table-card">
@@ -423,7 +545,7 @@
     </div>
 
     <!-- ==================================================================== -->
-    <!-- VIEW 3: SECTIONAL TIME SOLVER & RAIL GUIDE (分段秒數解碼與移欄百科)   -->
+    <!-- VIEW 4: SECTIONAL TIME SOLVER & RAIL GUIDE (分段秒數解碼與移欄百科)   -->
     <!-- ==================================================================== -->
     <div id="view-sectional" class="hidden">
       <div class="cards-grid">
@@ -587,7 +709,7 @@
       },
       {
         no: 6, name: "新田圍讓賽", dist: 1000, cls: "四班直路", score: 86, tier: "🔥 TIER 1 主攻場", nLead: 3, pace: "直路外欄霸權",
-        desc: "【全日最高把握 86/100】沙田 1000m 直路 9–14 檔貼看台外欄獲 +0.28s 絕對優勢！3號紅海旺 (14檔潘頓) 唯一單注膽；配 1號當家精彩 (降班×減7磅9檔) 及 4號飛來閃耀 (12檔)。",
+        desc: "【全日最高把握 86/100】沙田 1000m 直路 9–14 檔貼看台外欄獲 +0.28s 絕對優勢！3號紅海旺 (14檔潘頓) 與 1號當家精彩 (降班×減7磅9檔) 雙雄主導，配 4號飛來閃耀 (12檔)。",
         runners: [
           [1, "當家精彩", "K322", 9, "袁幸堯(-7)", 135, 7, "L", "⚡降班×減7磅9檔外欄", 5.8, 2.2],
           [2, "高度評價", "L316", 3, "梁家俊", 133, 0, "S", "🚨3檔內欄直路吃虧", 8.5, 2.6],
@@ -705,7 +827,6 @@
       var list = r.runners;
       var n = list.length;
       var iters = 20000;
-      var meanWt = list.reduce(function(acc, x) { return acc + (x[5] - x[6]); }, 0) / n;
 
       var params = list.map(function(x) {
         var actualWt = x[5] - x[6];
@@ -781,7 +902,7 @@
         var score = (overbet ? -0.55 : 0) + (trap4 ? -0.25 : 0) + pt * 1.25 + ev * 0.30;
         return {
           no: x[0], name: x[1], brand: x[2], draw: x[3], jockey: x[4],
-          actualWt: params[j].actualWt, style: x[7], tag: x[8],
+          actualWt: params[j].actualWt, claim: x[6], style: x[7], tag: x[8],
           winO: x[9], plaO: x[10], pw: pw, pt: pt, p4: p4, ev: ev,
           overbet: overbet, trap4: trap4, vuln: params[j].isVulnFav, score: score
         };
@@ -836,7 +957,7 @@
 
       runAllSims();
       renderAll();
-      notify("已切換至「" + rc.name + "」並重算全日 11 場勝率！");
+      notify("🤖 AI 已根據「" + rc.name + "」即時重算全日 11 場模擬！");
     }
 
     function applyCustomSectional() {
@@ -870,7 +991,167 @@
     }
 
     // ============================================================================
-    // 5. CLEAN UI RENDERING
+    // 5. LIVE AI ANALYSIS ENGINE (Instant Dynamic Commentary + Chat Terminal)
+    // ============================================================================
+    function buildLiveAiRaceCommentary(idx) {
+      var r = RACES[idx];
+      var sim = APP.sims[idx];
+      var b = sim.bullet;
+      var l1 = sim.legs[0], l2 = sim.legs[1];
+      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.ST_C3;
+      var isPass = r.score < 60;
+
+      var trapText = sim.traps.length > 0
+        ? "同時 AI 攔截咗 <strong>#" + sim.traps[0].no + " " + sim.traps[0].name + "</strong>（" + (sim.traps[0].overbet ? "位置 " + sim.traps[0].plaO + "x 過熱低水" : "外檔/頂磅觸發 LBS -25% 折減") + "），切忌單買熱位置。"
+        : "本場目前無明顯 ≤1.6 倍位置過熱陷阱。";
+
+      if (isPass) {
+        return "⚠️ <strong>【AI 避戰警報】</strong>本場 L2 可賭性評分僅 <strong>" + r.score + "/100</strong>，屬於高噪音混戰局。喺當前「" + rc.name + "」設定下，系統強制建議 <strong>PASS 觀戰保本</strong>（若純睇數據，僅 <strong>#" + b.no + " " + b.name + "</strong> 上名率 " + (b.pt * 100).toFixed(1) + "% 較穩）。" + trapText;
+      }
+
+      return "🎯 <strong>【AI 實時鎖定】</strong>喺當前「<strong>" + rc.name + "</strong>」及「" + r.pace + "」環境下，經過 20,000 次蒙地卡羅模擬，<strong>#" + b.no + " " + b.name + " (" + b.draw + "檔 " + b.jockey + " 實負" + b.actualWt + "磅)</strong> 上名率高達 <strong>" + (b.pt * 100).toFixed(1) + "%</strong>（位置 " + b.plaO + "x，期望值 EV=" + b.ev + "，第4死穴率僅 " + (b.p4 * 100).toFixed(1) + "%），鎖定為本場<strong>唯一單注實戰膽</strong>！建議用佢拖 <strong>#" + l1.no + " " + l1.name + "</strong> 及 <strong>#" + l2.no + " " + l2.name + "</strong> 兩注 Q/QP。" + trapText;
+    }
+
+    function appendAiChat(role, html) {
+      var box = document.getElementById("aiChatBox");
+      if (!box) return;
+      if (role === "user") {
+        box.innerHTML += '<div style="text-align:right;"><div class="msg-user">' + html + '</div></div>';
+      } else {
+        box.innerHTML += '<div class="msg-ai">' + html + '</div>';
+      }
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function runAiCommand(cmd) {
+      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.ST_C3;
+      if (cmd === "patrol_all") {
+        appendAiChat("user", "🔍 巡航全日 11 場：找出最高把握 3 粒實戰子彈");
+        var t1List = [5, 7, 8].map(function(i) {
+          var r = RACES[i], s = APP.sims[i], b = s.bullet;
+          return "• <strong>第 " + r.no + " 場 " + r.name + " (" + r.dist + "m · 評分 " + r.score + ")</strong>：唯一單注膽 <strong style='color:#FBBF24;'>#" + b.no + " " + b.name + " (" + b.draw + "檔 " + b.jockey + ")</strong> — 模擬上名率 <strong style='color:#34D399;'>" + (b.pt * 100).toFixed(1) + "%</strong> (位置 " + b.plaO + "x, EV=" + b.ev + ")，精確 Q/QP 配腳拖 <strong>#" + s.legs[0].no + " " + s.legs[0].name + "</strong>、<strong>#" + s.legs[1].no + " " + s.legs[1].name + "</strong>";
+        }).join("<br><br>");
+        appendAiChat("ai",
+          "<strong>🤖 Argon AI 全場自主巡航報告（當前移欄：" + rc.name + "）</strong><br><br>" +
+          t1List + "<br><br>" +
+          "<span style='color:#FDA4AF;'>⛔ 強制避戰場次：第 1 場 (48分五班長途亂局) 及 第 4 場 (54分潘頓10檔過熱陷阱) 建議 PASS 觀戰！</span>"
+        );
+      } else if (cmd === "current_race") {
+        var r = RACES[APP.raceIdx];
+        appendAiChat("user", "🎯 深度拆解第 " + r.no + " 場 (" + r.name + ") 最新賠率與移欄走勢");
+        appendAiChat("ai",
+          "<strong>🤖 第 " + r.no + " 場 (" + r.dist + "m " + r.cls + ") 六層精算拆解：</strong><br><br>" +
+          "• <strong>L2 場次評級</strong>：" + r.tier + " (" + r.score + "/100) ｜ <strong>L3 步速環境</strong>：" + r.pace + "<br>" +
+          "• <strong>賽道與陣營邏輯</strong>：" + r.desc + "<br>" +
+          "• " + buildLiveAiRaceCommentary(APP.raceIdx)
+        );
+      } else if (cmd === "r8_g2") {
+        APP.raceIdx = 7; renderAll();
+        var s8 = APP.sims[7], b8 = s8.bullet;
+        appendAiChat("user", "🏆 拆解 R8 沙田錦標 G2：點解 1號遨遊氣泡要折減？");
+        appendAiChat("ai",
+          "<strong>🏆 R8 沙田錦標 (G2 1600m) AI 精算報告：</strong><br><br>" +
+          "1. <strong>點解 #1 遨遊氣泡 (12檔135磅) 觸發 LBS 折減？</strong> 佢今仗負 135 磅頂磅兼抽 12 檔大外檔，轉第一個彎極易被頂喺三疊無遮擋（波動率 σ=0.44s）。按 Lo-Bacon-Shek 反哈維爾定理，外檔頂磅大熱一旦早段耗力就會跌出三甲，1.5 倍位置毫無值博率！<br>" +
+          "2. <strong>點解 #6 手機錶霸 (1檔116磅) 只宜作配腳？</strong> 佢負 116 磅排 1 檔極慳位，但慢步速下內欄跟跑第 4 名死穴率偏高，最啱攞嚟做 Q/QP 配腳。<br>" +
+          "3. <strong>🔥 唯一實戰單注膽：#" + b8.no + " " + b8.name + " (" + b8.draw + "檔 " + b8.jockey + ")</strong> — 模擬上名率 <strong>" + (b8.pt * 100).toFixed(1) + "%</strong>，配 <strong>#" + s8.legs[0].no + " " + s8.legs[0].name + "</strong> 及 <strong>#" + s8.legs[1].no + " " + s8.legs[1].name + "</strong>！"
+        );
+      } else if (cmd === "r6_straight") {
+        APP.raceIdx = 5; renderAll();
+        var s6 = APP.sims[5], b6 = s6.bullet;
+        appendAiChat("user", "🚀 拆解 R6 直路 1000m：外欄霸權與減 7 磅伏兵");
+        appendAiChat("ai",
+          "<strong>🚀 R6 四班 1000m 直路賽 AI 專項報告：</strong><br><br>" +
+          "• <strong>外欄幾何定律</strong>：沙田直路 1000m 9–14 檔貼看台外欄獲 +0.24s 絕對優勢，1–4 檔內欄馬全部扣分剔除。<br>" +
+          "• <strong>雙雄鎖定</strong>：<strong>#1 當家精彩 (9檔袁幸堯減7磅實負128磅・降班馬槓桿)</strong> 與 <strong>#3 紅海旺 (14檔潘頓霸王位)</strong> 包辦最高上名率，再拖埋 12 檔 <strong>#4 飛來閃耀</strong> 構成鐵三角！"
+        );
+      } else if (cmd === "apprentice") {
+        appendAiChat("user", "🏇 掃描全日「見習生減 7 磅 / 3 磅」高價值伏兵");
+        var list = [];
+        RACES.forEach(function(rx, idx) {
+          APP.sims[idx].out.forEach(function(run) {
+            if (run.claim >= 3 && (run.draw <= 7 || rx.dist === 1000)) {
+              list.push("• <strong>R" + rx.no + " #" + run.no + " " + run.name + "</strong> (" + run.jockey + " · " + run.draw + "檔 · 實負 " + run.actualWt + "磅) — 模擬上名 <strong>" + (run.pt * 100).toFixed(1) + "%</strong> (位置 " + run.plaO + "x, EV=" + run.ev + ")");
+            }
+          });
+        });
+        appendAiChat("ai", "<strong>🏇 全日見習生減磅高槓桿搏殺名單：</strong><br><br>" + list.join("<br>"));
+      } else if (cmd === "traps") {
+        appendAiChat("user", "🚨 掃描當前賠率版 ≤1.6 倍假落飛與高危大熱");
+        var tList = [];
+        RACES.forEach(function(rx, idx) {
+          APP.sims[idx].traps.forEach(function(t) {
+            tList.push("• <strong>R" + rx.no + " #" + t.no + " " + t.name + " (" + t.draw + "檔 " + t.jockey + ")</strong> — 獨贏 " + t.winO + "x / 位置 <span style='color:#FB7185;'>" + t.plaO + "x</span> (" + (t.overbet ? "≤1.6x 低水禁買" : "外檔頂磅 LBS 折減") + ")");
+          });
+        });
+        appendAiChat("ai", "<strong>🚨 全日高危大熱與低水避買清單：</strong><br><br>" + tList.join("<br>"));
+      }
+    }
+
+    async function handleAiInputSubmit(e) {
+      e.preventDefault();
+      var inp = document.getElementById("aiUserInput");
+      var q = inp.value.trim();
+      if (!q) return;
+      inp.value = "";
+      appendAiChat("user", q);
+
+      // 1. Check if user typed a race number like "R8" or "第6場"
+      var m = q.match(/R(\d{1,2})|第\s*(\d{1,2})\s*場/i);
+      if (m) {
+        var rNo = parseInt(m[1] || m[2], 10);
+        if (rNo >= 1 && rNo <= 11) {
+          APP.raceIdx = rNo - 1;
+          renderAll();
+        }
+      }
+
+      // 2. Check if user typed sectional splits like "23.2 22.6 23.8"
+      var sm = q.match(/(\d{2}\.\d{1,2})\D+(\d{2}\.\d{1,2})\D+(\d{2}\.\d{1,2})/);
+      if (sm) {
+        document.getElementById("secSplit1").value = sm[1];
+        document.getElementById("secSplit2").value = sm[2];
+        document.getElementById("secSplit3").value = sm[3];
+        applyCustomSectional();
+        appendAiChat("ai", "✅ <strong>已自動捕獲你輸入嘅分段秒數 (" + sm[1] + "s - " + sm[2] + "s - " + sm[3] + "s) 並完成全場重算！</strong><br><br>" + buildLiveAiRaceCommentary(APP.raceIdx));
+        return;
+      }
+
+      // 3. Optional Cloud Gemini API call if user entered an API Key
+      var apiKey = document.getElementById("inpGeminiKey").value.trim();
+      var curR = RACES[APP.raceIdx];
+      var curSim = APP.sims[APP.raceIdx];
+      if (apiKey) {
+        appendAiChat("ai", "⏳ <em>正在連接雲端 Gemini API 深度推理中...</em>");
+        try {
+          var sysPrompt = "你係 HKJC V25.0 Argon 港馬量化精算 AI Agent。請用廣東話簡潔回答。當前聚焦第 " + curR.no + " 場 (" + curR.name + ", " + curR.dist + "m)，唯一單注膽係 #" + curSim.bullet.no + " " + curSim.bullet.name + " (上名率 " + (curSim.bullet.pt*100).toFixed(1) + "%)，配腳 #" + curSim.legs[0].no + " " + curSim.legs[0].name + " 及 #" + curSim.legs[1].no + " " + curSim.legs[1].name + "。";
+          var resp = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + encodeURIComponent(apiKey), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: sysPrompt + "\n用家問題：" + q }] }]
+            })
+          });
+          var data = await resp.json();
+          var reply = data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0].text;
+          if (reply) {
+            appendAiChat("ai", "<strong>🤖 Gemini Cloud 即時回應：</strong><br><br>" + reply.replace(/\n/g, "<br>"));
+            return;
+          }
+        } catch (err) {
+          // Fallback to built-in deterministic engine
+        }
+      }
+
+      // 4. Built-in Argon V25.0 Instant Response
+      appendAiChat("ai",
+        "<strong>🤖 Argon AI 針對「第 " + curR.no + " 場 " + curR.name + "」即時分析：</strong><br><br>" +
+        buildLiveAiRaceCommentary(APP.raceIdx) + "<br><br>" +
+        "<span style='color:#94A3B8; font-size:12px;'>提示：你可以輸入「R1」至「R11」切換場次，或直接喺表格改賠率測試 AI 反應！</span>"
+      );
+    }
+
+    // ============================================================================
+    // 6. CLEAN UI RENDERING
     // ============================================================================
     function renderAll() {
       document.getElementById("lossCounter").textContent = APP.losses;
@@ -890,19 +1171,23 @@
       var b = sim.bullet;
       var isPass = r.score < 60;
       var isLocked = APP.losses >= 2;
+      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.ST_C3;
 
       var bankroll = parseFloat(document.getElementById("inpBankroll").value) || 3000;
       var maxCap = Math.floor((bankroll * 0.10) / 10) * 10;
       var plaStake = (isPass || isLocked) ? 0 : Math.max(10, Math.round((maxCap * 0.65) / 10) * 10);
       var qpStake = (isPass || isLocked) ? 0 : Math.max(10, Math.round((maxCap * 0.15) / 10) * 10);
 
-      // 2. Single Race Banner
+      // 2. Single Race Banner & Live AI Commentary Bar
       var tb = document.getElementById("singleTierBadge");
       tb.textContent = r.tier + " (" + r.score + "/100)";
       tb.className = "badge " + (r.score >= 75 ? "b-green" : isPass ? "b-red" : "b-gold");
       document.getElementById("singleTitle").textContent = "第 " + r.no + " 場 — " + r.name + " (" + r.dist + "米 · " + r.cls + ")";
       document.getElementById("singleNarrative").textContent = r.desc;
       document.getElementById("singlePaceBadge").textContent = r.pace;
+
+      document.getElementById("liveAiRailTag").textContent = rc.name;
+      document.getElementById("liveAiSummaryText").innerHTML = buildLiveAiRaceCommentary(APP.raceIdx);
 
       // 3. Card 1: Single Bullet
       document.getElementById("cardBulletEv").textContent = isPass ? "建議 PASS" : "位置 EV: " + b.ev;
@@ -1012,7 +1297,7 @@
         RACES[APP.raceIdx].runners[rIdx][fieldIdx] = v;
         runSimForRace(APP.raceIdx);
         renderAll();
-        notify("已更新 #" + RACES[APP.raceIdx].runners[rIdx][0] + " 賠率並完成 20,000 次重新模擬！");
+        notify("🤖 已更新 #" + RACES[APP.raceIdx].runners[rIdx][0] + " 賠率並同步更新 AI 解盤！");
       }
     }
 
@@ -1021,7 +1306,7 @@
       r.runners[0][10] = 1.45; // Make #1 a 1.45x overbet place trap
       runSimForRace(APP.raceIdx);
       renderAll();
-      notify("已模擬臨場落飛：自動攔截 #" + r.runners[0][0] + " (1.45倍位置過熱陷阱)！");
+      notify("⚡ 已模擬臨場落飛：AI 自動攔截 #" + r.runners[0][0] + " (1.45倍位置過熱陷阱)！");
     }
 
     function recordResult(isWin) {
@@ -1037,7 +1322,7 @@
     }
 
     function switchView(viewName, btn) {
-      ["single", "overview", "sectional"].forEach(function(v) {
+      ["single", "ai", "overview", "sectional"].forEach(function(v) {
         document.getElementById("view-" + v).classList.add("hidden");
       });
       document.getElementById("view-" + viewName).classList.remove("hidden");
@@ -1047,6 +1332,7 @@
 
     runAllSims();
     renderAll();
+    runAiCommand("patrol_all");
   </script>
 </body>
 </html>
