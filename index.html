@@ -622,31 +622,32 @@
                   <option value="4">剛跑完 R4 ➔ 推演 R5</option>
                   <option value="5">剛跑完 R5 ➔ 推演 R6</option>
                   <option value="6">剛跑完 R6 ➔ 推演 R7</option>
-                  <option value="7" selected>剛跑完 R7 ➔ 推演 R8 (G2)</option>
+                  <option value="7">剛跑完 R7 ➔ 推演 R8 (G2)</option>
                   <option value="8">剛跑完 R8 ➔ 推演 R9</option>
-                  <option value="9">剛跑完 R9 ➔ 推演 R10</option>
+                  <option value="9" selected>剛跑完 R9 ➔ 推演 R10</option>
                   <option value="10">剛跑完 R10 ➔ 推演 R11</option>
+                  <option value="11">剛跑完 R11 ➔ 全日尾場總結</option>
                 </select>
               </div>
               <div>
                 <label style="font-size:11px; color:#94A3B8;">頭馬入直路守位 & 檔位</label>
-                <select id="secWinPos">
+                <select id="secWinPos" onchange="applyCustomSectional()">
                   <option value="front_in">貼欄前領贏 (1–4檔 守1–3位)</option>
-                  <option value="mid_in">內欄好位贏 (1–5檔 守4–6位)</option>
-                  <option value="back_out" selected>外疊大後上贏 (8–14檔 守7–14位)</option>
+                  <option value="mid_in" selected>內欄好位贏 (1–5檔 守4–6位)</option>
+                  <option value="back_out">外疊大後上贏 (8–14檔 守7–14位)</option>
                 </select>
               </div>
               <div>
                 <label style="font-size:11px; color:#94A3B8;">前段 400m (秒)</label>
-                <input id="secSplit1" type="number" step="0.01" value="23.43">
+                <input id="secSplit1" type="number" step="0.01" value="23.55" onchange="applyCustomSectional()">
               </div>
               <div>
                 <label style="font-size:11px; color:#94A3B8;">中段 400m (秒)</label>
-                <input id="secSplit2" type="number" step="0.01" value="22.75">
+                <input id="secSplit2" type="number" step="0.01" value="22.38" onchange="applyCustomSectional()">
               </div>
               <div>
                 <label style="font-size:11px; color:#94A3B8;">末段 400m (秒)</label>
-                <input id="secSplit3" type="number" step="0.01" value="23.66">
+                <input id="secSplit3" type="number" step="0.01" value="22.82" onchange="applyCustomSectional()">
               </div>
               <div style="display:flex; align-items:end;">
                 <button class="btn btn-slate" style="width:100%; justify-content:center;" onclick="applyCustomSectional()">套用微調</button>
@@ -3443,15 +3444,19 @@
     var POSTMORTEM_20261019 = {
       1: {
         officialSplits: [23.69, 21.66, 23.73, 24.34, 24.21],
+        split3: [21.66, 23.73, 24.21],
+        winPos: "front_in",
         rawSplitsStr: "13.69s - 21.66s - 23.73s - 24.34s - 24.21s (總時間 1:47.63)",
-        top4: "#6 我最好 ($51.0 冠) ➔ #11 君智盛 (亞) ➔ #13 幸運同行 (季) ➔ #4 竣誠駒 (第4死穴)",
+        top4: "#6 我最好 ($51.0 冠·2檔) ➔ #11 君智盛 (亞·6檔) ➔ #13 幸運同行 (季·9檔) ➔ #4 竣誠駒 (第4死穴)",
         oldPaceErr: "舊版僅數表面放頭馬 (N_lead=1) 誤判為「慢步速控制局」；忽略咗 #4 竣誠駒 (袁幸堯-7磅) 出閘搶放與 #6 我最好 喺第 2 段狂飆出 21.66s 超快中段！",
-        v25Fix: "ESPI 四維步速指數 = 78/100 (第2段變速激增)：21.66s 快中段燒乾 #4 竣誠駒 跌入第4名死穴，造就 #6 我最好 (2檔貼欄省位險勝) 同埋輕磅後上馬 #11 君智盛 (123磅)、#13 幸運同行 (117磅，末段全場最快 23.61s) 殺入連贏 $1,376.5 及位置！",
+        v25Fix: "ESPI 四維步速指數 = 78/100 (第2段變速激增)：21.66s 快中段燒乾 #4 竣誠駒 跌入第4名死穴，造就 #6 我最好 (2檔貼欄省位險勝) 同埋輕磅後上馬 #11 君智盛 (123磅)、#13 幸運同行 (115磅，末段全場最快 23.61s) 殺入連贏 $1,376.5！",
         espi: 78,
         v25PaceTag: "🔥 中段變速超快 (第2段 21.66s · ESPI=78)"
       },
       2: {
         officialSplits: [23.16, 22.09, 23.09, 23.70],
+        split3: [22.09, 23.09, 23.70],
+        winPos: "back_out",
         rawSplitsStr: "13.16s - 22.09s - 23.09s - 23.70s (總時間 1:22.04 · 前600m 35.25s)",
         top4: "#7 紫荊飛躍 ($346.5 冠·12檔) ➔ #2 超拍檔 (亞·5檔) ➔ #5 精益大將 (季·8檔) ➔ #6 飛馬精英 (殿)",
         oldPaceErr: "舊版誤判為「正常步速 (N_lead=2)」利 1–4 檔 (#8 確好勁、#10 將傲)；實戰 #11 盛勢威楓 與 #2 超拍檔 前 600m 搶出 35.25s、前 1000m 58.34s 高壓步速！",
@@ -3461,6 +3466,8 @@
       },
       3: {
         officialSplits: [23.78, 22.30, 23.23, 23.40, 24.15],
+        split3: [22.30, 23.23, 24.15],
+        winPos: "front_in",
         rawSplitsStr: "13.78s - 22.30s - 23.23s - 23.40s - 24.15s (總時間 1:46.86)",
         top4: "#13 小飛俠 ($1,028.0 冠·116磅) ➔ #2 捷威 (亞·135磅) ➔ #5 凝妙星 (季·潘頓) ➔ #12 揀馬之皇 (殿)",
         oldPaceErr: "舊版以為只有 #14 齊歡最樂 (2檔減7磅) 會慢放；豈料 #14 留後跑第6，反而 #13 小飛俠 (鍾易禮 116磅超輕磅) 主動改變跑法搶放，中段連開 22.30s - 23.23s - 23.40s 高速巡航！",
@@ -3470,8 +3477,10 @@
       },
       4: {
         officialSplits: [23.56, 21.72, 24.02, 22.91],
+        split3: [21.72, 24.02, 22.91],
+        winPos: "mid_in",
         rawSplitsStr: "13.56s - 21.72s - 24.02s - 22.91s (總時間 1:22.21)",
-        top4: "#14 久久為軍 ($93.0 冠·116磅) ➔ #11 熱氣球 (亞·11檔) ➔ #4 加州熱浪 (季·5檔) ➔ #6 醒先生 (殿)",
+        top4: "#14 久久為軍 ($93.0 冠·6檔116磅) ➔ #11 熱氣球 (亞·11檔) ➔ #4 加州熱浪 (季·5檔) ➔ #6 醒先生 (殿)",
         oldPaceErr: "舊版標記「混戰步速 (N_lead=2)」，未預料外檔馬 #9 奧林比安 同 #2 表廠傳奇 喺第 2 段狂搶出 21.72s，跟住第 3 段急剎車至 24.02s 嘅「風琴式步速 (Accordion Pace)」！",
         v25Fix: "ESPI 四維步速指數 = 81/100 (第2段 21.72s 急促搶放 + 第3段 24.02s 急收)：早段搶放馬全部燒乾，10檔大熱 #7 成就非凡 (潘頓) 如系統預警走外疊僅跑第5！輕磅 #14 久久為軍 (鍾易禮 116磅) 末段飆 22.39s 贏馬！",
         espi: 81,
@@ -3479,6 +3488,8 @@
       },
       5: {
         officialSplits: [24.26, 23.04, 22.63],
+        split3: [24.26, 23.04, 22.63],
+        winPos: "back_out",
         rawSplitsStr: "24.26s - 23.04s - 22.63s (總時間 1:09.93 · 前800m 47.30s 偏慢)",
         top4: "#8 彪形勇將 ($52.5 冠·11檔) ➔ #10 星光大道 (亞·3檔配腳命中) ➔ #12 萬里雲 (季·1檔) ➔ #9 機不可失 (殿)",
         oldPaceErr: "【今日最典型步速反轉】舊版見 N_lead=3 預判「快步速對決」；但實戰 #5 銳行星 (8檔) 出閘慢留後，全場互相觀望導致首段僅 24.26s、前 800m 47.30s 變成慢步速塞車局！",
@@ -3488,6 +3499,8 @@
       },
       6: {
         officialSplits: [22.95, 20.85, 22.81],
+        split3: [22.95, 20.85, 22.81],
+        winPos: "mid_in",
         rawSplitsStr: "12.95s - 20.85s - 22.81s (總時間 0:56.61 · 前600m 33.80s 極快)",
         top4: "#12 杭至尊 ($95.0 冠·8檔119磅) ➔ #5 晨曦鳳凰 (亞·10檔) ➔ #10 新力驍 (季·6檔) ➔ #3 紅海旺 (第4死穴)",
         oldPaceErr: "舊版過度放大 14 檔霸王欄，忽略咗 #8 飛來霸 (-7磅) 與 #14 精算奕然 喺前 600m 飆出 33.80s (中段 20.85s)，令負 132 磅緊跟快步速嘅 #3 紅海旺 最後 100 米力弱跌入第 4 名死穴！",
@@ -3497,8 +3510,10 @@
       },
       7: {
         officialSplits: [24.08, 22.11, 22.87],
+        split3: [24.08, 22.11, 22.87],
+        winPos: "front_in",
         rawSplitsStr: "24.08s - 22.11s - 22.87s (總時間 1:09.06 · 前800m 46.19s)",
-        top4: "#4 祥勝鷹駒 ($22.0 冠·單注膽命中!) ➔ #7 非凡時刻 (亞·袁幸堯-7磅) ➔ #3 實力加 (季) ➔ #1 鼓浪好友 (殿)",
+        top4: "#4 祥勝鷹駒 ($22.0 冠·3檔單注膽命中!) ➔ #7 非凡時刻 (亞·袁幸堯-7磅) ➔ #3 實力加 (季) ➔ #1 鼓浪好友 (殿)",
         oldPaceErr: "舊版預判「正常步速 (N_lead=2)」，實戰 #7 非凡時刻 (袁幸堯-7磅由10檔切入) 喺第 2 段推快至 22.11s (前800m 46.19s 高速局)！",
         v25Fix: "ESPI 四維步速指數 = 79/100 (外檔減7磅切入推快中段)：我哋鎖定嘅 3檔黃金包廂膽 #4 祥勝鷹駒 (潘頓) 完美貼欄順走勝出，配搭減 7 磅切入嘅 #7 非凡時刻 構成 $269.5 連贏！頂磅 #1 鼓浪好友 (135磅) 快步速下力弱跑第4！",
         espi: 79,
@@ -3506,6 +3521,8 @@
       },
       8: {
         officialSplits: [24.35, 22.33, 22.64, 23.10],
+        split3: [22.33, 22.64, 23.10],
+        winPos: "front_in",
         rawSplitsStr: "24.35s - 22.33s - 22.64s - 23.10s (總時間 1:32.42 超快 · 前1200m 1:09.32)",
         top4: "#7 光年魅力 ($88.5 冠·2檔115磅) ➔ #6 手機錶霸 (亞·1檔116磅配腳命中!) ➔ #2 祝願 (季·3檔單注膽命中!) ➔ #10 首飾天空 (殿·4檔)",
         oldPaceErr: "【G2 最關鍵步速覆盤】舊版見 N_lead=1 以為係「慢至中步速」；實戰 1檔 116磅 #6 手機錶霸 與 9檔 115磅 #11 睿盛人生 喺第 2、3 段狂飆 22.33s - 22.64s，跑出 1:32.42 超級快時間！",
@@ -3515,12 +3532,36 @@
       },
       9: {
         officialSplits: [23.55, 22.38, 22.82],
-        rawSplitsStr: "三班1200m 中快步速 (頭馬 #6 神鵬 2檔周俊樂-2磅實負121磅省位突襲勝出)",
-        top4: "#6 神鵬 (冠·2檔121磅 精確配腳#1直接贏馬!) ➔ #8 神衝萬里 / #2 醒目高球 內欄群",
-        oldPaceErr: "賽前步速定性「中快步速」方向正確，惟低估咗 2 檔減 2 磅 #6 神鵬 (實負121磅) 貼欄省位對 4 檔熱門 #8 神衝萬里 嘅逆轉幅度。",
-        v25Fix: "ESPI 四維步速指數 = 72/100：系統推薦嘅第 1 配腳 #6 神鵬 (2檔周俊樂-2磅，甘敏斯馬房開齋馬) 憑 C+3 內欄黃金包廂直接贏出頭馬！",
+        split3: [23.55, 22.38, 22.82],
+        winPos: "mid_in",
+        rawSplitsStr: "23.55s - 22.38s - 22.82s (總時間 1:08.75 · 前800m 45.93s 中快省位局)",
+        top4: "#6 神鵬 (冠·2檔121磅 精確配腳#1直接贏馬!) ➔ #8 神衝萬里 (4檔單注膽) ➔ #2 醒目高球 (3檔配腳#2)",
+        oldPaceErr: "舊版賽前手動微調格仔停留喺舊預設值 (23.43s/22.75s/23.66s 外疊大後上贏)，未有自動載入 R9 實測 23.55s - 22.38s - 22.82s 內欄好位贏馬數據！",
+        v25Fix: "ESPI 四維步速指數 = 72/100 (標準中快內欄局)：已修復自動聯動！系統推薦嘅第 1 配腳 #6 神鵬 (2檔周俊樂-2磅實負121磅，甘敏斯馬房在港開齋馬) 憑 C+3 內欄黃金包廂守好位直接贏出頭馬！",
         espi: 72,
-        v25PaceTag: "⚡ 標準中快步速 (2檔配腳 #6 神鵬勝出 · ESPI=72)"
+        v25PaceTag: "⚡ 標準中快內欄局 (2檔配腳 #6 神鵬勝出 · ESPI=72)"
+      },
+      10: {
+        officialSplits: [24.20, 22.38, 23.34, 23.76],
+        split3: [22.38, 23.34, 23.76],
+        winPos: "mid_in",
+        rawSplitsStr: "24.20s - 22.38s - 23.34s - 23.76s (總時間 1:33.68 · 前800m 46.58s)",
+        top4: "#1 包裝戰仕 ($19.0 冠·潘頓) ➔ 內欄輕磅跟前群 (#7 喜悅歡欣 3檔 / #14 八仟好運 2檔)",
+        oldPaceErr: "舊版僅以 N_lead=2 標記靜態正常步速；實戰首段 24.20s 偏慢後，第 2 段加快至 22.38s，潘頓策 #1 包裝戰仕 早段積極切入守好位克服 135 磅頂磅！",
+        v25Fix: "ESPI 四維步速指數 = 76/100 (首段24.20s緩➔次段22.38s快)：前段節省腳程切入二疊好位之賽駒佔優，後追馬喺 23.34s - 23.76s 順走段難以反先！",
+        espi: 76,
+        v25PaceTag: "⚡ 首段緩次段22.38s變速局 (#1 包裝戰仕勝出 · ESPI=76)"
+      },
+      11: {
+        officialSplits: [23.22, 21.82, 22.66, 23.25],
+        split3: [21.82, 22.66, 23.25],
+        winPos: "mid_in",
+        rawSplitsStr: "13.22s - 21.82s - 22.66s - 23.25s (總時間 1:20.95 · 前600m 35.04s / 前1000m 57.70s)",
+        top4: "#8 櫻花酒杯 ($55.0 冠·2檔何澤堯 精確配腳命中!) ➔ #13 嵐臣 (亞·11檔潘頓) ➔ #7 加利斯 (季·8檔)",
+        oldPaceErr: "舊版標記「正常偏快步速 (N_lead=2)」，低估咗 #1 美麗星晨 (1檔減7磅) 出閘後喺第 2、3 段狂飆 21.82s - 22.66s (前1000m 57.70s 高壓快步速)！",
+        v25Fix: "ESPI 四維步速指數 = 82/100 (中段 21.82s-22.66s 高速貼欄局)：2檔貼欄守黃金包廂位嘅 #8 櫻花酒杯 (何澤堯·我哋鎖定嘅頭號配腳) 完美借快步速穿刺險勝 11檔外疊大熱 #13 嵐臣 (潘頓屈居亞軍)！",
+        espi: 82,
+        v25PaceTag: "🔥 中段 21.82s 高速貼欄局 (2檔 #8 櫻花酒杯勝出 · ESPI=82)"
       }
     };
 
@@ -3532,12 +3573,6 @@
         r.pace = pm.v25PaceTag;
         r.postMortem = pm;
         r.desc = "【賽後覆盤：" + pm.top4 + "】分段：" + pm.rawSplitsStr + "。步速修正：" + pm.v25Fix;
-      } else {
-        // Compute dynamic 4D ESPI for R10 & R11
-        var wideStalkers = r.runners.filter(function(x){ return x[3] >= 8 && (x[7] === 'L' || x[7] === 'S'); }).length;
-        var lightSpeed = r.runners.filter(function(x){ return (x[5] - x[6]) <= 118 && (x[7] === 'L' || x[7] === 'S'); }).length;
-        r.espi = Math.min(92, 48 + r.nLead * 11 + wideStalkers * 6 + lightSpeed * 7);
-        r.pace = "V25.5 四維步速 ESPI=" + r.espi + " (" + (r.espi >= 75 ? "提防第2段變速快放" : "中均速內欄省位") + ")";
       }
     });
 
@@ -4266,14 +4301,10 @@
     }
 
     function runFullAutoRaceDayDemo() {
-      var scenarios = [
-        { fin: 5, splits: [23.38, 22.72, 23.68], pos: "back_out", label: "模擬 R5 快步速跑完 ➔ 自動跳去 R6 直路賽" },
-        { fin: 7, splits: [23.85, 23.42, 23.18], pos: "front_in", label: "模擬 R7 慢步速內欄跑完 ➔ 自動跳去 R8 沙田錦標 G2" },
-        { fin: 8, splits: [23.32, 22.68, 23.75], pos: "back_out", label: "模擬 R8 超快步速跑完 ➔ 自動跳去 R9 三班1200m" }
-      ];
-      APP.demoCursor = (APP.demoCursor + 1) % scenarios.length;
-      var sc = scenarios[APP.demoCursor];
-      ingestAutoDetectedResult(sc.fin, sc.splits, sc.pos, sc.label);
+      var finNo = ((APP.demoCursor || 0) % 10) + 1;
+      APP.demoCursor = finNo;
+      var pm = POSTMORTEM_20261019[finNo] || POSTMORTEM_20261019[9];
+      ingestAutoDetectedResult(finNo, pm.split3, pm.winPos, "2026-10-19 官方實測分段 R" + finNo + " 完場 ➔ 自動推演 R" + Math.min(11, finNo + 1));
     }
 
     function startAutoPilotTicker() {
@@ -4395,32 +4426,39 @@
     }
 
     function renderNextRacePredictorCard() {
-      var finRaceNo = parseInt(document.getElementById("secFinishedRace").value, 10) || 7;
+      var finRaceNo = parseInt(document.getElementById("secFinishedRace").value, 10) || 9;
       var nextIdx = Math.min(RACES.length - 1, finRaceNo);
-      var s1 = parseFloat(document.getElementById("secSplit1").value) || 23.43;
-      var s2 = parseFloat(document.getElementById("secSplit2").value) || 22.75;
-      var s3 = parseFloat(document.getElementById("secSplit3").value) || 23.66;
+      var pm = POSTMORTEM_20261019[finRaceNo] || POSTMORTEM_20261019[9];
+      var s1 = parseFloat(document.getElementById("secSplit1").value) || pm.split3[0];
+      var s2 = parseFloat(document.getElementById("secSplit2").value) || pm.split3[1];
+      var s3 = parseFloat(document.getElementById("secSplit3").value) || pm.split3[2];
       var f800 = +(s1 + s2).toFixed(2);
 
       var analysis = getNextRaceFavorAnalysis(nextIdx);
       document.getElementById("nextRaceCardTitle").textContent =
-        "🔮 2. 下一場 (第 " + analysis.nextRaceNo + " 場 " + analysis.nextRaceName + " " + analysis.nextRaceDist + "m) 即時利弊診斷";
+        finRaceNo >= 11
+          ? "🔮 2. 尾場 (第 11 場 " + analysis.nextRaceName + " " + analysis.nextRaceDist + "m) 賽後步速與受惠馬總結"
+          : "🔮 2. 下一場 (第 " + analysis.nextRaceNo + " 場 " + analysis.nextRaceName + " " + analysis.nextRaceDist + "m) 即時利弊診斷";
 
       var badge = document.getElementById("nextRaceRegimeBadge");
       if (APP.paceBias === "fast_closer") {
-        badge.textContent = "🔥 早段超快 ➔ 利後上輕磅";
+        badge.textContent = "🔥 早中段快 (" + f800 + "s) ➔ 利後上輕磅";
         badge.className = "badge b-gold mono";
       } else if (APP.paceBias === "slow_leader") {
-        badge.textContent = "🛡️ 步速偏慢 ➔ 利內欄前置";
+        badge.textContent = "🛡️ 步速偏慢 (" + f800 + "s) ➔ 利內欄前置";
         badge.className = "badge b-green mono";
       } else {
-        badge.textContent = "⚖️ 標準均速 ➔ 利黃金包廂";
+        badge.textContent = "⚖️ 內欄好位 (" + f800 + "s) ➔ 利黃金包廂";
         badge.className = "badge b-blue mono";
       }
 
       document.getElementById("secDiagOutput").innerHTML =
-        "<div>• <strong>剛跑完 R" + finRaceNo + " 步速定性</strong>：前 800m 合共 <strong class='mono' style='color:#FBBF24;'>" + f800 + "s</strong> (" + s1 + "s + " + s2 + "s)，末段 " + s3 + "s。</div>" +
-        "<div style='margin-top:6px;'>• <strong style='color:#34D399;'>✅ 下一場 (R" + analysis.nextRaceNo + ") 最利好類型</strong>：" + analysis.favorWhat + "</div>" +
+        "<div style='padding-bottom:8px; margin-bottom:8px; border-bottom:1px dashed #334155;'>" +
+          "<div>🏁 <strong>剛跑完 R" + finRaceNo + " (" + RACES[finRaceNo - 1].name + " " + RACES[finRaceNo - 1].dist + "m) 官方賽果</strong>：<strong style='color:#34D399;'>" + pm.top4 + "</strong></div>" +
+          "<div style='margin-top:4px;'>⏱️ <strong>官方實測分段</strong>：<code class='mono' style='color:#FBBF24;'>" + pm.rawSplitsStr + "</code>（核對兩段合共 <strong class='mono' style='color:#38BDF8;'>" + f800 + "s</strong> = " + s1.toFixed(2) + "s + " + s2.toFixed(2) + "s，末段 " + s3.toFixed(2) + "s）</div>" +
+          "<div style='margin-top:4px; color:#A7F3D0;'>🔬 <strong>V25.5 四維步速診斷 (" + pm.v25PaceTag + ")</strong>：" + pm.v25Fix + "</div>" +
+        "</div>" +
+        "<div>• <strong style='color:#34D399;'>✅ 下一場 (R" + analysis.nextRaceNo + " " + analysis.nextRaceName + ") 最利好類型</strong>：" + analysis.favorWhat + "</div>" +
         "<div style='margin-top:4px;'>• <strong style='color:#FB7185;'>❌ 下一場 (R" + analysis.nextRaceNo + ") 最吃虧死穴</strong>：" + analysis.avoidWhat + "</div>";
 
       document.getElementById("nextRaceBeneficiaries").innerHTML = analysis.topBeneficiaries.map(function(m, idx) {
@@ -4437,8 +4475,31 @@
       }).join("");
     }
 
+    function syncSectionalInputsFromRace(finRaceNo, triggerApply) {
+      var pm = POSTMORTEM_20261019[finRaceNo] || POSTMORTEM_20261019[9];
+      var selRace = document.getElementById("secFinishedRace");
+      if (selRace && selRace.value !== String(finRaceNo)) {
+        selRace.value = String(finRaceNo);
+      }
+      var selPos = document.getElementById("secWinPos");
+      var inp1 = document.getElementById("secSplit1");
+      var inp2 = document.getElementById("secSplit2");
+      var inp3 = document.getElementById("secSplit3");
+      if (selPos && pm.winPos) selPos.value = pm.winPos;
+      if (inp1 && pm.split3) inp1.value = pm.split3[0].toFixed(2);
+      if (inp2 && pm.split3) inp2.value = pm.split3[1].toFixed(2);
+      if (inp3 && pm.split3) inp3.value = pm.split3[2].toFixed(2);
+      if (triggerApply) {
+        applyCustomSectional();
+      } else {
+        renderNextRacePredictorCard();
+      }
+    }
+
     function updateNextRaceTargetLabel() {
-      renderNextRacePredictorCard();
+      var finRaceNo = parseInt(document.getElementById("secFinishedRace").value, 10) || 9;
+      syncSectionalInputsFromRace(finRaceNo, true);
+      notify("✅ 已自動載入 R" + finRaceNo + " 官方實測分段秒數與頭馬守位，並完成 R" + Math.min(11, finRaceNo + 1) + " 步速利弊重算！");
     }
 
     function jumpToNextRace() {
@@ -4447,24 +4508,23 @@
       } else {
         APP.raceIdx = 0;
       }
+      var prevFinished = Math.max(1, APP.raceIdx);
+      syncSectionalInputsFromRace(prevFinished, false);
       renderAll();
-      notify("👉 已切換至第 " + RACES[APP.raceIdx].no + " 場！");
+      notify("👉 已切換至第 " + RACES[APP.raceIdx].no + " 場（同步載入上一場 R" + prevFinished + " 步速）！");
     }
 
     function jumpToNextRaceFromSolver() {
-      var finRaceNo = parseInt(document.getElementById("secFinishedRace").value, 10) || 7;
+      var finRaceNo = parseInt(document.getElementById("secFinishedRace").value, 10) || 9;
       APP.raceIdx = Math.min(RACES.length - 1, finRaceNo);
       switchView("single", document.querySelectorAll(".tab-btn")[0]);
       renderAll();
     }
 
     function resetSectional() {
-      document.getElementById("secSplit1").value = "23.65";
-      document.getElementById("secSplit2").value = "23.15";
-      document.getElementById("secSplit3").value = "23.45";
-      document.getElementById("secWinPos").value = "mid_in";
-      document.getElementById("selPaceBias").value = "normal";
-      applyTrackSettings();
+      var finRaceNo = parseInt(document.getElementById("secFinishedRace").value, 10) || 9;
+      syncSectionalInputsFromRace(finRaceNo, true);
+      notify("↺ 已還原為 R" + finRaceNo + " 官方實測分段數據！");
     }
 
     // ============================================================================
@@ -4621,7 +4681,7 @@
       document.getElementById("raceStrip").innerHTML = RACES.map(function(r, i) {
         var cls = "r-pill " + (r.score >= 75 ? "tier1" : r.score < 60 ? "pass" : "") + (i === APP.raceIdx ? " selected" : "");
         var tag = r.score >= 75 ? "🔥主攻 (" + r.score + ")" : r.score < 60 ? "⛔PASS (" + r.score + ")" : "觀望 (" + r.score + ")";
-        return '<button class="' + cls + '" onclick="APP.raceIdx=' + i + ';renderAll()">' +
+        return '<button class="' + cls + '" onclick="APP.raceIdx=' + i + ';syncSectionalInputsFromRace(Math.max(1, i), false);renderAll()">' +
                  '<div class="r-no"><span>R' + r.no + '</span><span class="mono" style="font-size:11px;">' + r.dist + 'm</span></div>' +
                  '<span class="r-tag">' + tag + ' · ' + r.runners.length + '駒</span>' +
                '</button>';
@@ -4835,7 +4895,10 @@
       document.getElementById("view-" + viewName).classList.remove("hidden");
       document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
       if (btn) btn.classList.add("active");
-      if (viewName === "sectional") renderNextRacePredictorCard();
+      if (viewName === "sectional") {
+        var finNo = parseInt(document.getElementById("secFinishedRace").value, 10) || 9;
+        syncSectionalInputsFromRace(finNo, true);
+      }
     }
 
     // Boot up 100% automatically on load!
@@ -4847,8 +4910,8 @@
     } catch (e) {}
 
     runAllSims();
+    syncSectionalInputsFromRace(9, true);
     renderAll();
-    renderNextRacePredictorCard();
     updateAiConnBadge();
     runAiCommand("pace_postmortem");
     startAutoPilotTicker();
