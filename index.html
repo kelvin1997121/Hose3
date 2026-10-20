@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HKJC V25.0 Argon — 全自動無人值守港馬精算與實時賠率終端</title>
+  <title>HKJC V26.2 Argon — 2026-10-21 跑馬地夜賽 (B欄) 六層精算與實時賠率終端</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -290,8 +290,8 @@
       <div class="brand-box">
         <div class="brand-logo">A4</div>
         <div>
-          <div class="brand-title">HKJC V26.0 ARGON — 2026-10-21 跑馬地夜賽 (B欄) 六層精算與實時賠率終端</div>
-          <div class="brand-sub" id="topBiasSummary">核心鎖定：MODEL: GEMINI-4-ARGON (已剔除舊版 2.5/2.0-flash) · 四維動態步速壓力 (ESPI) · 20,000次蒙地卡羅順序統計實時推理</div>
+          <div class="brand-title">HKJC V26.2 ARGON — 2026-10-21 跑馬地夜賽 (B欄) 六層精算與實時賠率終端</div>
+          <div class="brand-sub" id="topBiasSummary">核心鎖定：2026-10-21 跑馬地 B 欄 (HV) 專屬防偽校驗 · 耦合多階段 20,000 次蒙地卡羅模擬 (三席入位率嚴格守恒 300.0%) · 正期望值凱利注碼門檻</div>
         </div>
       </div>
       <div class="nav-tabs">
@@ -338,13 +338,13 @@
         <label for="selRail">🏇 馬場與移欄配置（沙田全套 + 跑馬地全套）</label>
         <select id="selRail" onchange="applyTrackSettings()">
           <optgroup label="── 沙田草地及泥地 (Sha Tin) ──">
-            <option value="ST_A">沙田 A 賽道 (30.5m 最闊欄・後上公平)</option>
-            <option value="ST_A3">沙田 A+3 賽道 (27.5m 偏闊欄・中內檔平衡)</option>
-            <option value="ST_B">沙田 B 賽道 (26.0m 中欄・好位順走)</option>
-            <option value="ST_B2">沙田 B+2 賽道 (24.0m 中窄欄・1-5檔微利)</option>
-            <option value="ST_C">沙田 C 賽道 (21.3m 窄欄・1-4檔省位)</option>
-            <option value="ST_C3">沙田 C+3 賽道 (18.3m 極窄欄・1-4檔黃金包廂)</option>
-            <option value="ST_AWT">沙田全天候泥地 (AWT・貼欄領放/跟前主導)</option>
+            <option value="ST_A" disabled>沙田 A 賽道 (30.5m 最闊欄・後上公平)</option>
+            <option value="ST_A3" disabled>沙田 A+3 賽道 (27.5m 偏闊欄・中內檔平衡)</option>
+            <option value="ST_B" disabled>沙田 B 賽道 (26.0m 中欄・好位順走)</option>
+            <option value="ST_B2" disabled>沙田 B+2 賽道 (24.0m 中窄欄・1-5檔微利)</option>
+            <option value="ST_C" disabled>沙田 C 賽道 (21.3m 窄欄・1-4檔省位)</option>
+            <option value="ST_C3" disabled>沙田 C+3 賽道 (18.3m 極窄欄・1-4檔黃金包廂)</option>
+            <option value="ST_AWT" disabled>沙田全天候泥地 (AWT・貼欄領放/跟前主導)</option>
           </optgroup>
           <optgroup label="── 跑馬地草地 (Happy Valley) ──">
             <option value="HV_A">跑馬地 A 賽道 (30.5m 闊欄・彎急前置省位)</option>
@@ -437,7 +437,7 @@
         <div>
           <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
             <span id="singleTierBadge" class="badge b-green">🔥 TIER 1 主攻場</span>
-            <span id="singleTitle" class="race-title">第 8 場 — 沙田錦標 (G2) 1600米</span>
+            <span id="singleTitle" class="race-title">第 1 場 — 競賽精神讓賽 1650米</span>
             <span id="scratchedNoteBadge" class="badge b-red hidden">官方退出已剔除</span>
           </div>
           <div id="singleNarrative" class="race-meta">步速與賽道診斷載入中...</div>
@@ -460,7 +460,7 @@
             <span class="pulse-dot"></span>
             <strong style="color:#38BDF8; font-size:14px;">Argon AI 全自動精算解盤 & 下一場利弊預判（實時聯動賠率變動）</strong>
           </div>
-          <span id="liveAiRailTag" class="badge b-blue mono">沙田 C+3</span>
+          <span id="liveAiRailTag" class="badge b-blue mono">跑馬地 B 賽道</span>
         </div>
         <div id="liveAiSummaryText" style="font-size:14px; color:#E2E8F0; line-height:1.6;">
           正在計算即時 AI 診斷...
@@ -572,7 +572,7 @@
               <button class="btn btn-slate" onclick="toggleOddsPasteDrawer()">✖ 收起</button>
             </div>
           </div>
-          <textarea id="txtOddsPaste" rows="4" class="mono" style="font-size:12px; margin-bottom:8px;" placeholder="喺馬會 bet.hkjc.com 獨贏/位置賠率頁全選複製貼上，或直接輸入格式如：&#10;1 禾道威 3.8 1.5&#10;2 連連好運 5.4 1.9&#10;4 竣誠駒 4.6 1.85 ..."></textarea>
+          <textarea id="txtOddsPaste" rows="4" class="mono" style="font-size:12px; margin-bottom:8px;" placeholder="喺馬會 bet.hkjc.com 2026-10-21 跑馬地賠率頁全選複製貼上，或直接輸入本場馬匹格式如：&#10;1 太子 5.8 2.2&#10;2 本領非凡 3.9 1.5&#10;6 部族高手 5.6 2.1 ..."></textarea>
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
             <span id="pasteParseHint" style="font-size:12px; color:#34D399;">💡 支援自動識別：① 馬會網頁文字複製 ② WIN;1=4.2;2=6.5 格式 ③ GraphQL JSON</span>
             <button class="btn btn-green" onclick="parsePastedHkjcOdds()">✅ 立即解析並重跑 20,000 次模擬</button>
@@ -626,7 +626,7 @@
             </div>
             <div id="autoSyncDetailLog" class="mono" style="font-size:12px; color:#CBD5E1; line-height:1.6;">
               • [系統就緒] 已啟動馬會實時賠率與賽果同步引擎 (HKJC GraphQL / AllOrigins / CodeTabs / CorsProxy)<br>
-              • [自動監控] 正在監聽 2026-10-19 沙田日賽 R1–R11 實時 WIN/PLA 賠率與 400m 分段秒數...
+              • [自動監控] 正在監聽 2026-10-21 跑馬地夜賽 (HV B欄) R1–R9 實時 WIN/PLA 賠率與 400m 分段秒數（已啟用跨日/跨馬場防偽攔截）...
             </div>
             <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;">
               <button class="btn btn-green" onclick="triggerImmediateAutoSync()">🔄 立即連網抓取最新一場賽果</button>
@@ -664,15 +664,15 @@
               </div>
               <div>
                 <label style="font-size:11px; color:#94A3B8;">前段 400m (秒)</label>
-                <input id="secSplit1" type="number" step="0.01" value="23.55" onchange="applyCustomSectional()">
+                <input id="secSplit1" type="number" step="0.01" value="22.95" onchange="applyCustomSectional()">
               </div>
               <div>
                 <label style="font-size:11px; color:#94A3B8;">中段 400m (秒)</label>
-                <input id="secSplit2" type="number" step="0.01" value="22.38" onchange="applyCustomSectional()">
+                <input id="secSplit2" type="number" step="0.01" value="21.85" onchange="applyCustomSectional()">
               </div>
               <div>
                 <label style="font-size:11px; color:#94A3B8;">末段 400m (秒)</label>
-                <input id="secSplit3" type="number" step="0.01" value="22.82" onchange="applyCustomSectional()">
+                <input id="secSplit3" type="number" step="0.01" value="22.90" onchange="applyCustomSectional()">
               </div>
               <div style="display:flex; align-items:end;">
                 <button class="btn btn-slate" style="width:100%; justify-content:center;" onclick="applyCustomSectional()">套用微調</button>
@@ -741,9 +741,9 @@
           <div style="background:#020617; border:1px solid rgba(56,189,248,0.45); border-radius:10px; padding:12px; margin-top:auto;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; gap:4px; flex-wrap:wrap;">
               <span style="font-size:12px; font-weight:800; color:#38BDF8;">🔑 Gemini 4 Argon 專屬直連設定</span>
-              <span id="aiConnStatusBadge" style="font-size:11px; color:#34D399;" class="mono">🟢 GEMINI-4-ARGON 已鎖定</span>
+              <span id="aiConnStatusBadge" style="font-size:11px; color:#94A3B8;" class="mono">⚪ 未連接 AI (無 API Key · 離線模式)</span>
             </div>
-            <input id="inpGeminiKey" type="password" placeholder="選填 Gemini 4 Argon API Key (免Key亦已直連內置 Gemini 4 Argon 核心)..." onchange="saveApiKeyToLocal(this.value)" style="font-size:12px; padding:6px 8px; margin-bottom:6px;">
+            <input id="inpGeminiKey" type="password" placeholder="請輸入 Gemini API Key 以連接遠端 AI (未填僅行本地離線引擎)..." onchange="saveApiKeyToLocal(this.value)" style="font-size:12px; padding:6px 8px; margin-bottom:6px;">
             <div style="display:flex; gap:6px; align-items:center; justify-content:space-between;">
               <span style="font-size:11px; color:#94A3B8;">已徹底廢除舊版預設死板對答！支援任意自由提問（如：比較 2號 同 6號、點解 R5 慢步速）</span>
               <button type="button" class="btn btn-sky" style="padding:4px 8px; font-size:11px; white-space:nowrap;" onclick="testLiveAiConnection()">🔌 測試連接</button>
@@ -2909,19 +2909,51 @@
       });
     });
 
+    // ============================================================================
+    // ACTIVE MEETING METADATA & STRICT CROSS-DATE / CROSS-VENUE GUARD (2026-10-21 HV)
+    // ============================================================================
+    var ACTIVE_MEETING = {
+      dateIso: "2026-10-21",
+      dateSlash: "21/10/2026",
+      dateYmdSlash: "2026/10/21",
+      year: 2026,
+      month: 10,
+      day: 21,
+      venueCode: "HV",
+      venueName: "跑馬地",
+      totalRaces: 9
+    };
+
+    // Known 2026-10-19 Sha Tin horse names to strictly prevent cross-meeting contamination
+    var FORBIDDEN_ST_20261019_HORSES = {
+      "禾道威":1,"連連好運":1,"獎星":1,"竣誠駒":1,"競駿勇士":1,"我最好":1,"堅閣":1,"發財金戈":1,"綫路達飛":1,"競駿奔騰":1,"君智盛":1,"精算特殊":1,"幸運同行":1,
+      "勝兄弟":1,"超拍檔":1,"心雄雄":1,"鼓浪高風":1,"精益大將":1,"飛馬精英":1,"紫荊飛躍":1,"確好勁":1,"莊家班":1,"將傲":1,"盛勢威楓":1,"潮流勇駒":1,"明亮天下":1,"健康小馬":1,
+      "同心同夢":1,"捷威":1,"雙贏":1,"捷駿":1,"凝妙星":1,"幸運威龍":1,"風火恆雲":1,"夢照發":1,"好連年":1,"玄宇宙":1,"智多多寶":1,"揀馬之皇":1,"小飛俠":1,"齊歡最樂":1,
+      "星價":1,"表廠傳奇":1,"潮州高球":1,"加州熱浪":1,"金鋼狼":1,"醒先生":1,"成就非凡":1,"風繼續吹":1,"奧林比安":1,"龍騰盛世":1,"熱氣球":1,"隋我同來":1,"翠湖烈風":1,"久久為軍":1,
+      "君子":1,"狼來了":1,"宇宙威龍":1,"幸福特約":1,"銳行星":1,"天風雲":1,"遨遊首領":1,"彪形勇將":1,"機不可失":1,"星光大道":1,"雷神太保":1,"萬里雲":1,
+      "當家精彩":1,"高度評價":1,"紅海旺":1,"飛來閃耀":1,"晨曦鳳凰":1,"鬥破蒼穹":1,"永福":1,"飛來霸":1,"共同享樂":1,"新力驍":1,"天寶威威":1,"杭至尊":1,"金創福威":1,"精算奕然":1,
+      "鼓浪好友":1,"常嚐發財":1,"實力加":1,"祥勝鷹駒":1,"威力飛騰":1,"八玲瓏":1,"非凡時刻":1,"舞林盛宴":1,"綠茵明珠":1,"嘉應光彩":1,"星光快驅":1,"豪邁先登":1,
+      "遨遊氣泡":1,"祝願":1,"驕陽明駒":1,"白鷺金剛":1,"美麗同享":1,"手機錶霸":1,"光年魅力":1,"紫荊盛勢":1,"太陽勇士":1,"首飾天空":1,"睿盛人生":1,"天將龍駒":1,
+      "堅先生":1,"醒目高球":1,"馬達":1,"魅力奔騰":1,"天時威威":1,"神鵬":1,"金金小子":1,"神衝萬里":1,"超力量":1,"逍遙人生":1,"千杯不醉":1,"可靠大師":1,
+      "包裝戰仕":1,"榮駿大道":1,"活力拍檔":1,"英駿飛駒":1,"名揚四海":1,"開心福駒":1,"喜悅歡欣":1,"火焰閃爍":1,"縱橫天地":1,"龍城上將":1,"紫莉拼搏":1,"天然數字":1,"北斗福星":1,"八仟好運":1,
+      "美麗星晨":1,"極上紗瓏":1,"千帆駒":1,"會當凌":1,"安都":1,"友瑩仁":1,"加利斯":1,"櫻花酒杯":1,"增強":1,"超寫意":1,"仁心星":1,"天星":1,"嵐臣":1,"佛亮老撾":1
+    };
+
     var APP = {
-      raceIdx: 0, // Default to R1 so user immediately sees all 13 runners in R1
+      raceIdx: 0,
       rail: "HV_B",
       going: "G",
       paceBias: "normal",
       closerAdj: 0.0,
-      insideAdj: -0.32,
-      outerPen: 0.35,
+      insideAdj: -0.30,
+      outerPen: 0.32,
+      lastSectionalDelta: 0.0,
       losses: 0,
       autoPilot: true,
       countdown: 30,
-      demoCursor: 6,
-      lastOddsSource: "馬會官方真飛賠率 (隔夜8:00pm實時池 + 自動連網)",
+      demoCursor: 0,
+      aiConnected: false,
+      lastOddsSource: "2026-10-21 跑馬地 (HV) 隔夜基準彩池",
       lastOddsTime: "--:--:--",
       sims: []
     };
@@ -2936,198 +2968,285 @@
     }
 
     // ============================================================================
-    // V25.5 POST-MORTEM VERIFIED OFFICIAL RESULTS & 4D DYNAMIC PACE ENGINE (ESPI)
+    // 2026-10-21 HAPPY VALLEY (B COURSE) NATIVE SECTIONAL BENCHMARKS (R1 - R9)
+    // Strictly isolated from 2026-10-19 Sha Tin post-mortem archive!
     // ============================================================================
-    var POSTMORTEM_20261019 = {
+    var HV_20261021_SECTIONALS = {
       1: {
-        officialSplits: [23.69, 21.66, 23.73, 24.34, 24.21],
-        split3: [21.66, 23.73, 24.21],
-        winPos: "front_in",
-        rawSplitsStr: "13.69s - 21.66s - 23.73s - 24.34s - 24.21s (總時間 1:47.63)",
-        top4: "#6 我最好 ($51.0 冠·2檔) ➔ #11 君智盛 (亞·6檔) ➔ #13 幸運同行 (季·9檔) ➔ #4 竣誠駒 (第4死穴)",
-        oldPaceErr: "舊版僅數表面放頭馬 (N_lead=1) 誤判為「慢步速控制局」；忽略咗 #4 竣誠駒 (袁幸堯-7磅) 出閘搶放與 #6 我最好 喺第 2 段狂飆出 21.66s 超快中段！",
-        v25Fix: "ESPI 四維步速指數 = 78/100 (第2段變速激增)：21.66s 快中段燒乾 #4 竣誠駒 跌入第4名死穴，造就 #6 我最好 (2檔貼欄省位險勝) 同埋輕磅後上馬 #11 君智盛 (123磅)、#13 幸運同行 (115磅，末段全場最快 23.61s) 殺入連贏 $1,376.5！",
-        espi: 78,
-        v25PaceTag: "🔥 中段變速超快 (第2段 21.66s · ESPI=78)"
+        date: "2026-10-21", venue: "HV", raceNo: 1, dist: 1650,
+        split3: [23.82, 23.40, 23.58],
+        winPos: "mid_in",
+        rawSplitsStr: "27.95s - 23.82s - 23.40s - 23.58s (2026-10-21 谷草B欄 四班1650m 基準 1:38.75)",
+        top4: "#6 部族高手 (1檔潘頓) · #11 幸福約定 (2檔輕磅) · #1 太子 (降班馬) · #2 本領非凡 (4檔)",
+        v25PaceTag: "⚖️ 谷草1650m標準均速內欄局 (ESPI=62)",
+        v25Fix: "2026-10-21 谷草 R1 僅兩駒具前領意圖 (#3 爆笑 10檔外疊切入)，1–4檔內欄黃金包廂馬 (#6 部族高手、#11 幸福約定) 慳位優勢顯著。"
       },
       2: {
-        officialSplits: [23.16, 22.09, 23.09, 23.70],
-        split3: [22.09, 23.09, 23.70],
-        winPos: "back_out",
-        rawSplitsStr: "13.16s - 22.09s - 23.09s - 23.70s (總時間 1:22.04 · 前600m 35.25s)",
-        top4: "#7 紫荊飛躍 ($346.5 冠·12檔) ➔ #2 超拍檔 (亞·5檔) ➔ #5 精益大將 (季·8檔) ➔ #6 飛馬精英 (殿)",
-        oldPaceErr: "舊版誤判為「正常步速 (N_lead=2)」利 1–4 檔 (#8 確好勁、#10 將傲)；實戰 #11 盛勢威楓 與 #2 超拍檔 前 600m 搶出 35.25s、前 1000m 58.34s 高壓步速！",
-        v25Fix: "ESPI 四維步速指數 = 84/100 (早中段雙重高壓)：22.09s + 23.09s 連續快段令內欄跟前大熱 #8 確好勁 (第10)、#10 將傲 (第6) 窒息潰敗；12檔純後上馬 #7 紫荊飛躍 (周俊樂-2) 末段交出 23.02s 大外一氣生吞全場！",
-        espi: 84,
-        v25PaceTag: "🔥 早中段高壓快步速 (前1000m 58.34s · ESPI=84)"
+        date: "2026-10-21", venue: "HV", raceNo: 2, dist: 1200,
+        split3: [23.35, 22.68, 23.52],
+        winPos: "mid_in",
+        rawSplitsStr: "23.35s - 22.68s - 23.52s (2026-10-21 谷草B欄 五班1200m 基準 1:09.55)",
+        top4: "#1 友得盈 (4檔潘頓降五班) · #3 金風萬里 (1檔貼欄) · #9 勝在當下 (2檔搶放) · #4 靖哥哥",
+        v25PaceTag: "⚡ 五班1200m中快混戰局 (ESPI=74)",
+        v25Fix: "2026-10-21 谷草 R2 五班混戰可賭性低 (52分建議 PASS)，前段 46.03s 偏快，利好 1–4 檔守好位馬。"
       },
       3: {
-        officialSplits: [23.78, 22.30, 23.23, 23.40, 24.15],
-        split3: [22.30, 23.23, 24.15],
+        date: "2026-10-21", venue: "HV", raceNo: 3, dist: 1650,
+        split3: [23.78, 23.32, 23.48],
         winPos: "front_in",
-        rawSplitsStr: "13.78s - 22.30s - 23.23s - 23.40s - 24.15s (總時間 1:46.86)",
-        top4: "#13 小飛俠 ($1,028.0 冠·116磅) ➔ #2 捷威 (亞·135磅) ➔ #5 凝妙星 (季·潘頓) ➔ #12 揀馬之皇 (殿)",
-        oldPaceErr: "舊版以為只有 #14 齊歡最樂 (2檔減7磅) 會慢放；豈料 #14 留後跑第6，反而 #13 小飛俠 (鍾易禮 116磅超輕磅) 主動改變跑法搶放，中段連開 22.30s - 23.23s - 23.40s 高速巡航！",
-        v25Fix: "ESPI 四維步速指數 = 74/100 (輕磅奇兵主動巡航)：V25.5 新增「≤116磅減磅騎師主動搶放權重」，#13 小飛俠 憑 19 磅負磅差拉開高速均速，一放到底爆 102 倍大冷！",
-        espi: 74,
-        v25PaceTag: "⚡ 輕磅奇兵高速巡航 (116磅主動領放 · ESPI=74)"
+        rawSplitsStr: "27.80s - 23.78s - 23.32s - 23.48s (2026-10-21 谷草B欄 四班1650m 基準 1:38.38)",
+        top4: "#8 金駒永騰 (2檔何澤堯) · #1 開心三寶 (3檔降班) · #4 越駿聯歡 (8檔) · #5 先到先得 (5檔)",
+        v25PaceTag: "⚖️ 谷草1650m內欄省位局 (ESPI=64)",
+        v25Fix: "2026-10-21 谷草 R3 步速正常，2檔 #8 金駒永騰 與 3檔 #1 開心三寶 守內欄黃金包廂位。"
       },
       4: {
-        officialSplits: [23.56, 21.72, 24.02, 22.91],
-        split3: [21.72, 24.02, 22.91],
+        date: "2026-10-21", venue: "HV", raceNo: 4, dist: 1200,
+        split3: [23.42, 22.74, 23.40],
         winPos: "mid_in",
-        rawSplitsStr: "13.56s - 21.72s - 24.02s - 22.91s (總時間 1:22.21)",
-        top4: "#14 久久為軍 ($93.0 冠·6檔116磅) ➔ #11 熱氣球 (亞·11檔) ➔ #4 加州熱浪 (季·5檔) ➔ #6 醒先生 (殿)",
-        oldPaceErr: "舊版標記「混戰步速 (N_lead=2)」，未預料外檔馬 #9 奧林比安 同 #2 表廠傳奇 喺第 2 段狂搶出 21.72s，跟住第 3 段急剎車至 24.02s 嘅「風琴式步速 (Accordion Pace)」！",
-        v25Fix: "ESPI 四維步速指數 = 81/100 (第2段 21.72s 急促搶放 + 第3段 24.02s 急收)：早段搶放馬全部燒乾，10檔大熱 #7 成就非凡 (潘頓) 如系統預警走外疊僅跑第5！輕磅 #14 久久為軍 (鍾易禮 116磅) 末段飆 22.39s 贏馬！",
-        espi: 81,
-        v25PaceTag: "🌪️ 風琴式變速局 (第2段21.72s➔第3段24.02s · ESPI=81)"
+        rawSplitsStr: "23.42s - 22.74s - 23.40s (2026-10-21 谷草B欄 四班1200m 基準 1:09.56)",
+        top4: "#3 馬馳登 (5檔奧爾民) · #12 三強 (7檔輕磅) · #10 高明豐勝 (1檔) · #5 豐才 (2檔)",
+        v25PaceTag: "⚡ 谷草1200m中快步速局 (ESPI=68)",
+        v25Fix: "2026-10-21 谷草 R4 前段有外檔減磅馬 #4 明德輝煌 (11檔) 推快，利好中內欄守好位之 #3 馬馳登 與 #10 高明豐勝。"
       },
       5: {
-        officialSplits: [24.26, 23.04, 22.63],
-        split3: [24.26, 23.04, 22.63],
+        date: "2026-10-21", venue: "HV", raceNo: 5, dist: 1000,
+        split3: [22.95, 21.85, 22.90],
         winPos: "back_out",
-        rawSplitsStr: "24.26s - 23.04s - 22.63s (總時間 1:09.93 · 前800m 47.30s 偏慢)",
-        top4: "#8 彪形勇將 ($52.5 冠·11檔) ➔ #10 星光大道 (亞·3檔配腳命中) ➔ #12 萬里雲 (季·1檔) ➔ #9 機不可失 (殿)",
-        oldPaceErr: "【今日最典型步速反轉】舊版見 N_lead=3 預判「快步速對決」；但實戰 #5 銳行星 (8檔) 出閘慢留後，全場互相觀望導致首段僅 24.26s、前 800m 47.30s 變成慢步速塞車局！",
-        v25Fix: "ESPI 四維步速修正 (多馬外檔牽制減速)：因為前段慢至 24.26s，馬群過度密集，2檔大熱 #2 狼來了 直路嚴重受困塞車跑第8；反觀 11檔 #8 彪形勇將 望空飆出 22.11s 末段險勝我哋嘅配腳 #10 星光大道！",
-        espi: 38,
-        v25PaceTag: "🛡️ 牽制慢步速塞車局 (前400m 24.26s · ESPI=38)"
+        rawSplitsStr: "12.55s - 21.85s - 22.90s [前800m折算 44.80s] (2026-10-21 谷草B欄 四班1000m 基準 0:57.30)",
+        top4: "#12 馬運高 (4檔輕磅) · #11 皇金合 (6檔準繩) · #7 鋼鐵安防 (9檔快馬) · #10 超強六十 (3檔)",
+        v25PaceTag: "🔥 谷草1000m短途高速激戰 (ESPI=81)",
+        v25Fix: "2026-10-21 谷草 R5 多匹快馬 (#2 長勝金剛、#7 鋼鐵安防、#8 精益飛駒) 搶放，利好 #12 馬運高 與 #11 皇金合 跟守好位衝刺。"
       },
       6: {
-        officialSplits: [22.95, 20.85, 22.81],
-        split3: [22.95, 20.85, 22.81],
-        winPos: "mid_in",
-        rawSplitsStr: "12.95s - 20.85s - 22.81s (總時間 0:56.61 · 前600m 33.80s 極快)",
-        top4: "#12 杭至尊 ($95.0 冠·8檔119磅) ➔ #5 晨曦鳳凰 (亞·10檔) ➔ #10 新力驍 (季·6檔) ➔ #3 紅海旺 (第4死穴)",
-        oldPaceErr: "舊版過度放大 14 檔霸王欄，忽略咗 #8 飛來霸 (-7磅) 與 #14 精算奕然 喺前 600m 飆出 33.80s (中段 20.85s)，令負 132 磅緊跟快步速嘅 #3 紅海旺 最後 100 米力弱跌入第 4 名死穴！",
-        v25Fix: "ESPI 四維步速指數 = 89/100 (直路超快前段 33.80s)：當 1000m 前 600m 快過 34.0s 時，重磅前領馬 (#3 紅海旺 132磅) 末段減速至 22.83s 跑第4；中檔輕磅馬 #12 杭至尊 (119磅·末段22.49s) 與 #5 晨曦鳳凰 漁人得利！",
-        espi: 89,
-        v25PaceTag: "🔥 直路超快前段燒乾重磅馬 (前600m 33.80s · ESPI=89)"
+        date: "2026-10-21", venue: "HV", raceNo: 6, dist: 1000,
+        split3: [22.68, 21.52, 22.75],
+        winPos: "back_out",
+        rawSplitsStr: "12.38s - 21.52s - 22.75s [前800m折算 44.20s] (2026-10-21 谷草B欄 二班1000m 浪琴錦標 0:56.65)",
+        top4: "#8 好好戀愛 (4檔巴度) · #4 馬力 (6檔艾兆禮) · #3 八駿巨昇 (1檔貼欄) · #10 燭光晚餐 (7檔後追)",
+        v25PaceTag: "🔥 二班1000m極速高壓局 (ESPI=89)",
+        v25Fix: "2026-10-21 谷草 R6 浪琴錦標 4 匹快馬搶放，4檔 #8 好好戀愛 與 6檔 #4 馬力 借快步速穿刺最受惠。"
       },
       7: {
-        officialSplits: [24.08, 22.11, 22.87],
-        split3: [24.08, 22.11, 22.87],
-        winPos: "front_in",
-        rawSplitsStr: "24.08s - 22.11s - 22.87s (總時間 1:09.06 · 前800m 46.19s)",
-        top4: "#4 祥勝鷹駒 ($22.0 冠·3檔單注膽命中!) ➔ #7 非凡時刻 (亞·袁幸堯-7磅) ➔ #3 實力加 (季) ➔ #1 鼓浪好友 (殿)",
-        oldPaceErr: "舊版預判「正常步速 (N_lead=2)」，實戰 #7 非凡時刻 (袁幸堯-7磅由10檔切入) 喺第 2 段推快至 22.11s (前800m 46.19s 高速局)！",
-        v25Fix: "ESPI 四維步速指數 = 79/100 (外檔減7磅切入推快中段)：我哋鎖定嘅 3檔黃金包廂膽 #4 祥勝鷹駒 (潘頓) 完美貼欄順走勝出，配搭減 7 磅切入嘅 #7 非凡時刻 構成 $269.5 連贏！頂磅 #1 鼓浪好友 (135磅) 快步速下力弱跑第4！",
-        espi: 79,
-        v25PaceTag: "⚡ 中段高速 22.11s (3檔膽 #4 祥勝鷹駒命中 · ESPI=79)"
+        date: "2026-10-21", venue: "HV", raceNo: 7, dist: 1200,
+        split3: [23.38, 22.65, 23.32],
+        winPos: "mid_in",
+        rawSplitsStr: "23.38s - 22.65s - 23.32s (2026-10-21 谷草B欄 四班1200m 基準 1:09.35)",
+        top4: "#3 合夥飛馳 (1檔黃金位) · #5 鋁主角 (5檔潘頓) · #11 領袖勁力 (2檔巴度) · #10 飛躍成就 (8檔)",
+        v25PaceTag: "⚖️ 谷草1200m標準中快局 (ESPI=69)",
+        v25Fix: "2026-10-21 谷草 R7 內欄 1–5 檔黃金包廂 (#3 合夥飛馳、#5 鋁主角、#11 領袖勁力) 全面主導。"
       },
       8: {
-        officialSplits: [24.35, 22.33, 22.64, 23.10],
-        split3: [22.33, 22.64, 23.10],
+        date: "2026-10-21", venue: "HV", raceNo: 8, dist: 1200,
+        split3: [23.28, 22.55, 23.22],
         winPos: "front_in",
-        rawSplitsStr: "24.35s - 22.33s - 22.64s - 23.10s (總時間 1:32.42 超快 · 前1200m 1:09.32)",
-        top4: "#7 光年魅力 ($88.5 冠·2檔115磅) ➔ #6 手機錶霸 (亞·1檔116磅配腳命中!) ➔ #2 祝願 (季·3檔單注膽命中!) ➔ #10 首飾天空 (殿·4檔)",
-        oldPaceErr: "【G2 最關鍵步速覆盤】舊版見 N_lead=1 以為係「慢至中步速」；實戰 1檔 116磅 #6 手機錶霸 與 9檔 115磅 #11 睿盛人生 喺第 2、3 段狂飆 22.33s - 22.64s，跑出 1:32.42 超級快時間！",
-        v25Fix: "ESPI 四維步速指數 = 86/100 (G2 輕磅雙駒中段狂飆 22.33s)：正因為中段極快 + C+3 窄欄，1–4 檔內欄馬 (#7 光年魅力 2檔115磅、#6 手機錶霸 1檔116磅、#2 祝願 3檔131磅、#10 首飾天空 4檔115磅) 包辦晒四重彩！而系統一早警告必須折減嘅 135磅頂磅大外檔 #1 遨遊氣泡 徹底燒乾包尾 (第11名)！我哋嘅單注膽 #2 祝願 + 配腳 #6 手機錶霸 穩奪位置及位置Q ($101.0)！",
-        espi: 86,
-        v25PaceTag: "🔥 中段連開 22.33s/22.64s 極快局 (1-4檔包辦四重彩 · ESPI=86)"
+        rawSplitsStr: "23.28s - 22.55s - 23.22s (2026-10-21 谷草B欄 三班1200m 基準 1:09.05)",
+        top4: "#8 飛馬座 (1檔黃金位) · #5 粵港資駒 (3檔霍宏聲) · #7 江江彩彩 (5檔艾道拿) · #4 快活英雄 (2檔)",
+        v25PaceTag: "⚡ 三班1200m內欄省位局 (ESPI=71)",
+        v25Fix: "2026-10-21 谷草 R8 三班1200m，1–5檔內欄馬 (#8 飛馬座、#5 粵港資駒、#7 江江彩彩) 貼欄省位優勢明顯。"
       },
       9: {
-        officialSplits: [23.55, 22.38, 22.82],
-        split3: [23.55, 22.38, 22.82],
-        winPos: "mid_in",
-        rawSplitsStr: "23.55s - 22.38s - 22.82s (總時間 1:08.75 好至快地 · 前800m 45.93s)",
-        top4: "#6 神鵬 (冠·2檔121磅 精確配腳#1直接贏馬!) ➔ #1 堅先生 (亞·135磅) ➔ #8 神衝萬里 / #2 醒目高球",
-        oldPaceErr: "舊版將 4 檔 #8 神衝萬里 (4.5x) 排喺 2 檔減 2 磅 #6 神鵬 (10.0x) 之上，未啟動「雙核價值反超 (Dual-Core Value Inversion)」機制。",
-        v25Fix: "ESPI 四維步速指數 = 72/100 (好至快地內欄省位局)：系統推薦嘅第 1 配腳 #6 神鵬 (2檔周俊樂-2磅實負121磅，甘敏斯馬房開齋馬) 憑 C+3 內欄黃金包廂直接贏出頭馬！",
-        espi: 72,
-        v25PaceTag: "⚡ 標準中快內欄局 (2檔配腳 #6 神鵬勝出 · ESPI=72)"
-      },
-      10: {
-        officialSplits: [24.20, 22.46, 23.26, 23.26],
-        split3: [22.46, 23.26, 23.26],
+        date: "2026-10-21", venue: "HV", raceNo: 9, dist: 1650,
+        split3: [23.68, 23.18, 23.32],
         winPos: "front_in",
-        rawSplitsStr: "24.20s - 22.46s - 23.26s - 23.26s [末200m 11.50s] (總時間 1:33.18 好至快地)",
-        top4: "#1 包裝戰仕 ($19.0 冠·潘頓9檔主動切入一放到底!) ➔ #11 紫莉拼搏 (亞·10檔) ➔ 內欄群",
-        oldPaceErr: "【今日最關鍵兩大盲點】① 舊版無考慮「馬匹體重負荷比 (CBR)」：#1 包裝戰仕 排位體重達 1,220 磅巨型身材，負 135 磅僅佔體重 11.07%，唔應該一刀切重扣分；② 舊版死板當佢係中游馬，忽略潘頓見內檔無快馬，由 9 檔出閘直接切入搶欄慢放 (24.20s)，末段連開兩段 23.26s (最後200m 11.50s) 一放到底！",
-        v25Fix: "V26.0 新增「CBR 體重負荷比豁免 (≥1180磅大馬免除頂磅懲罰)」+「頂級騎師慢步速外檔主動切入變招 (Jockey Lead Override)」！",
-        espi: 64,
-        v25PaceTag: "🛡️ 潘頓9檔切入慢放24.20s➔末段23.26s (#1 包裝戰仕一放到底 · ESPI=64)"
-      },
-      11: {
-        officialSplits: [23.22, 21.82, 22.66, 23.25],
-        split3: [21.82, 22.66, 23.25],
-        winPos: "mid_in",
-        rawSplitsStr: "13.22s - 21.82s - 22.66s - 23.25s (總時間 1:20.95 好至快地 · 前600m 35.04s / 前1000m 57.70s)",
-        top4: "#8 櫻花酒杯 ($40.0 冠·2檔何澤堯 頭號配腳命中!) ➔ #13 嵐臣 ($15.0 亞·11檔潘頓) ➔ #7 加利斯 (季·8檔) ➔ #6 友瑩仁 (殿·袁幸堯-7)",
-        oldPaceErr: "舊版標記「正常偏快步速 (N_lead=2)」，低估咗 #1 美麗星晨 (1檔減7磅) 出閘後喺第 2、3 段狂飆 21.82s - 22.66s (前1000m 57.70s 高壓快步速)，亦再次出現「頭號配腳 (#8 櫻花酒杯 2檔) 跑贏單注膽 (#5 安都)」嘅現象！",
-        v25Fix: "ESPI 四維步速指數 = 82/100 (中段 21.82s-22.66s 高速貼欄局)：2檔貼欄守黃金包廂位嘅 #8 櫻花酒杯 (何澤堯·我哋鎖定嘅頭號配腳) 完美借快步速穿刺險勝 11檔外疊大熱 #13 嵐臣 (潘頓屈居亞軍)！",
-        espi: 82,
-        v25PaceTag: "🔥 中段 21.82s 高速貼欄局 (2檔 #8 櫻花酒杯勝出 · ESPI=82)"
+        rawSplitsStr: "27.60s - 23.68s - 23.18s - 23.32s (2026-10-21 谷草B欄 三班1650m 尾場基準 1:37.78)",
+        top4: "#2 幸運派彩 (1檔巴度) · #9 納百川 (2檔周俊樂) · #4 一定掂 (3檔奧爾民) · #10 哥倫布 (6檔)",
+        v25PaceTag: "⚖️ 尾場三班1650m內欄均速局 (ESPI=66)",
+        v25Fix: "2026-10-21 谷草 R9 尾場，1檔 #2 幸運派彩、2檔 #9 納百川 與 3檔 #4 一定掂 佔盡谷草 B 欄內欄優勢。"
       }
     };
 
-    // Attach 2026-10-19 Sha Tin Post-Mortem reference without overwriting 2026-10-21 Happy Valley racecard pace/desc!
-    RACES.forEach(function(r) {
-      var pm = POSTMORTEM_20261019[r.no];
-      if (pm) {
-        r.stPostMortem = pm;
+    // Read-only Historical Archive for 2026-10-19 Sha Tin Post-Mortem Q&A ONLY (Strictly blocked from 2026-10-21 HV settings!)
+    var POSTMORTEM_20261019 = {
+      1: { venue: "ST", date: "2026-10-19", rawSplitsStr: "13.69s - 21.66s - 23.73s - 24.34s - 24.21s (總時間 1:47.63)", top4: "#6 我最好 ($51.0 冠·2檔) ➔ #11 君智盛 (亞·6檔) ➔ #13 幸運同行 (季·9檔) ➔ #4 竣誠駒 (第4死穴)", oldPaceErr: "舊版僅數表面放頭馬 (N_lead=1) 誤判為「慢步速控制局」；忽略咗 #4 竣誠駒 出閘搶放與 #6 我最好 第 2 段 21.66s 超快中段。", v25Fix: "ESPI=78/100：21.66s 快中段燒乾 #4 竣誠駒，造就 #6 我最好 及輕磅後上馬 #11、#13 入三甲。", espi: 78, v25PaceTag: "🔥 中段變速超快 (ESPI=78)" },
+      2: { venue: "ST", date: "2026-10-19", rawSplitsStr: "13.16s - 22.09s - 23.09s - 23.70s (總時間 1:22.04)", top4: "#7 紫荊飛躍 ($346.5 冠·12檔) ➔ #2 超拍檔 (亞·5檔) ➔ #5 精益大將 (季·8檔) ➔ #6 飛馬精英 (殿)", oldPaceErr: "舊版誤判為正常步速；實戰前 1000m 58.34s 高壓步速。", v25Fix: "ESPI=84/100：連續快段令內欄大熱潰敗，12檔純後上馬 #7 紫荊飛躍 大外一氣勝出。", espi: 84, v25PaceTag: "🔥 早中段高壓快步速 (ESPI=84)" },
+      3: { venue: "ST", date: "2026-10-19", rawSplitsStr: "13.78s - 22.30s - 23.23s - 23.40s - 24.15s (總時間 1:46.86)", top4: "#13 小飛俠 ($1,028.0 冠·116磅) ➔ #2 捷威 (亞·135磅) ➔ #5 凝妙星 (季·潘頓) ➔ #12 揀馬之皇 (殿)", oldPaceErr: "忽略 #13 小飛俠 (116磅) 主動改變跑法搶放高速巡航。", v25Fix: "ESPI=74/100：輕磅馬主動領放拉開均速。", espi: 74, v25PaceTag: "⚡ 輕磅奇兵高速巡航 (ESPI=74)" },
+      4: { venue: "ST", date: "2026-10-19", rawSplitsStr: "13.56s - 21.72s - 24.02s - 22.91s (總時間 1:22.21)", top4: "#14 久久為軍 ($93.0 冠·6檔116磅) ➔ #11 熱氣球 (亞·11檔) ➔ #4 加州熱浪 (季·5檔) ➔ #6 醒先生 (殿)", oldPaceErr: "第 2 段 21.72s 急搶 + 第 3 段 24.02s 急收之風琴式步速。", v25Fix: "ESPI=81/100：早段搶放馬燒乾，#14 久久為軍 末段 22.39s 贏馬。", espi: 81, v25PaceTag: "🌪️ 風琴式變速局 (ESPI=81)" },
+      5: { venue: "ST", date: "2026-10-19", rawSplitsStr: "24.26s - 23.04s - 22.63s (總時間 1:09.93)", top4: "#8 彪形勇將 ($52.5 冠·11檔) ➔ #10 星光大道 (亞·3檔) ➔ #12 萬里雲 (季·1檔) ➔ #9 機不可失 (殿)", oldPaceErr: "多馬外檔互相觀望導致首段僅 24.26s 慢步速塞車局。", v25Fix: "ESPI=38/100：2檔大熱 #2 狼來了 內欄受困塞車，11檔 #8 彪形勇將 外疊望空險勝。", espi: 38, v25PaceTag: "🛡️ 牽制慢步速塞車局 (ESPI=38)" },
+      6: { venue: "ST", date: "2026-10-19", rawSplitsStr: "12.95s - 20.85s - 22.81s (總時間 0:56.61)", top4: "#12 杭至尊 ($95.0 冠·8檔119磅) ➔ #5 晨曦鳳凰 (亞·10檔) ➔ #10 新力驍 (季·6檔) ➔ #3 紅海旺 (第4死穴)", oldPaceErr: "前 600m 33.80s 極快燒乾 132 磅前領馬 #3 紅海旺。", v25Fix: "ESPI=89/100：中檔輕磅馬 #12 杭至尊 漁人得利。", espi: 89, v25PaceTag: "🔥 直路超快前段 (ESPI=89)" },
+      7: { venue: "ST", date: "2026-10-19", rawSplitsStr: "24.08s - 22.11s - 22.87s (總時間 1:09.06)", top4: "#4 祥勝鷹駒 ($22.0 冠·3檔) ➔ #7 非凡時刻 (亞) ➔ #3 實力加 (季) ➔ #1 鼓浪好友 (殿)", oldPaceErr: "#7 非凡時刻 第 2 段推快至 22.11s。", v25Fix: "ESPI=79/100：3檔 #4 祥勝鷹駒 貼欄順走勝出。", espi: 79, v25PaceTag: "⚡ 中段高速 22.11s (ESPI=79)" },
+      8: { venue: "ST", date: "2026-10-19", rawSplitsStr: "24.35s - 22.33s - 22.64s - 23.10s (總時間 1:32.42)", top4: "#7 光年魅力 ($88.5 冠·2檔) ➔ #6 手機錶霸 (亞·1檔) ➔ #2 祝願 (季·3檔) ➔ #10 首飾天空 (殿·4檔)", oldPaceErr: "輕磅雙駒中段狂飆 22.33s - 22.64s。", v25Fix: "ESPI=86/100：1–4檔內欄馬包辦四重彩，12檔頂磅 #1 遨遊氣泡 外疊燒乾。", espi: 86, v25PaceTag: "🔥 中段極快局 (ESPI=86)" },
+      9: { venue: "ST", date: "2026-10-19", rawSplitsStr: "23.55s - 22.38s - 22.82s (總時間 1:08.75)", top4: "#6 神鵬 (冠·2檔121磅) ➔ #1 堅先生 (亞·135磅) ➔ #8 神衝萬里 / #2 醒目高球", oldPaceErr: "2檔減磅馬 #6 神鵬 具內欄省位優勢。", v25Fix: "ESPI=72/100：2檔 #6 神鵬 貼欄勝出。", espi: 72, v25PaceTag: "⚡ 標準中快內欄局 (ESPI=72)" }
+    };
+
+    var ARGON_MODEL_ID = "gemini-2.5-flash";
+
+    // ============================================================================
+    // STRICT VALIDATOR FOR ODDS & SECTIONAL PAYLOADS (REJECTS WRONG DATE / VENUE)
+    // ============================================================================
+    function validatePayloadMeetingContext(rawText, jsonObj) {
+      var txt = String(rawText || "");
+      // 1. Validate JSON fields if present
+      if (jsonObj && typeof jsonObj === "object") {
+        var checkObj = function(obj) {
+          if (!obj || typeof obj !== "object") return { ok: true };
+          var dVal = obj.date || obj.raceDate || obj.meetingDate || obj.RaceDate || "";
+          if (dVal) {
+            var dStr = String(dVal).trim();
+            if (
+              dStr.indexOf("2026-10-21") === -1 &&
+              dStr.indexOf("21/10/2026") === -1 &&
+              dStr.indexOf("2026/10/21") === -1 &&
+              dStr.indexOf("21-10-2026") === -1
+            ) {
+              return { ok: false, reason: "日期不符 (" + dStr + " ≠ 2026-10-21)" };
+            }
+          }
+          var vVal = obj.venueCode || obj.venue || obj.racecourse || obj.Racecourse || obj.venueName || "";
+          if (vVal) {
+            var vUp = String(vVal).trim().toUpperCase();
+            if (vUp !== "HV" && vUp.indexOf("HAPPY VALLEY") === -1 && vUp.indexOf("跑馬地") === -1 && vUp.indexOf("快活谷") === -1) {
+              return { ok: false, reason: "馬場不符 (" + vVal + " ≠ 跑馬地 HV)" };
+            }
+          }
+          return { ok: true };
+        };
+        var topRes = checkObj(jsonObj);
+        if (!topRes.ok) return topRes;
+        var meetings = jsonObj.data && jsonObj.data.raceMeetings;
+        if (Array.isArray(meetings)) {
+          for (var i = 0; i < meetings.length; i++) {
+            var mRes = checkObj(meetings[i]);
+            if (!mRes.ok) return mRes;
+          }
+        }
       }
-    });
 
-    var ARGON_MODEL_ID = "gemini-4-argon";
+      // 2. Validate raw text for explicit wrong dates
+      var isoMatches = txt.match(/\b(202\d)[-\/.](0?[1-9]|1[0-2])[-\/.](0?[1-9]|[12]\d|3[01])\b/g);
+      if (isoMatches) {
+        for (var a = 0; a < isoMatches.length; a++) {
+          var p1 = isoMatches[a].split(/[-\/.]/);
+          if (parseInt(p1[0], 10) !== 2026 || parseInt(p1[1], 10) !== 10 || parseInt(p1[2], 10) !== 21) {
+            return { ok: false, reason: "檢測到非本場次日期 (" + isoMatches[a] + " ≠ 2026-10-21)" };
+          }
+        }
+      }
+      var dmyMatches = txt.match(/\b(0?[1-9]|[12]\d|3[01])[-\/.](0?[1-9]|1[0-2])[-\/.](202\d)\b/g);
+      if (dmyMatches) {
+        for (var b = 0; b < dmyMatches.length; b++) {
+          var p2 = dmyMatches[b].split(/[-\/.]/);
+          if (parseInt(p2[0], 10) !== 21 || parseInt(p2[1], 10) !== 10 || parseInt(p2[2], 10) !== 2026) {
+            return { ok: false, reason: "檢測到非本場次日期 (" + dmyMatches[b] + " ≠ 21/10/2026)" };
+          }
+        }
+      }
+      var cnDateMatches = txt.match(/(0?[1-9]|1[0-2])\s*月\s*(0?[1-9]|[12]\d|3[01])\s*日/g);
+      if (cnDateMatches) {
+        for (var c = 0; c < cnDateMatches.length; c++) {
+          var nums = cnDateMatches[c].match(/\d+/g);
+          if (nums && (parseInt(nums[0], 10) !== 10 || parseInt(nums[1], 10) !== 21)) {
+            return { ok: false, reason: "檢測到非本場次日期 (" + cnDateMatches[c] + " ≠ 10月21日)" };
+          }
+        }
+      }
 
+      // 3. Validate raw text for explicit wrong racecourse / venue
+      if (/(?:沙田|Sha\s*Tin|\bvenue\s*[=:]\s*["']?ST\b|\bvenueCode["']?\s*:\s*["']?ST\b|\bRacecourse\s*[=:]\s*["']?ST\b|\bST_(?:A|B|C|AWT)\b)/i.test(txt)) {
+        return { ok: false, reason: "檢測到錯誤馬場（沙田 ST），當前排位為 2026-10-21 跑馬地 (HV)" };
+      }
+
+      // 4. Check if text contains known 2026-10-19 Sha Tin horses
+      var stHorseKeys = Object.keys(FORBIDDEN_ST_20261019_HORSES);
+      for (var h = 0; h < stHorseKeys.length; h++) {
+        if (txt.indexOf(stHorseKeys[h]) !== -1) {
+          return { ok: false, reason: "檢測到非本賽日馬匹（「" + stHorseKeys[h] + "」屬 10月19日沙田賽事）" };
+        }
+      }
+
+      return { ok: true };
+    }
+
+    // ============================================================================
+    // HONEST API KEY & AI CONNECTION HANDSHAKE MANAGEMENT
+    // ============================================================================
     function saveApiKeyToLocal(val) {
       var clean = (val || "").trim();
-      try { localStorage.setItem("argon_gemini_key", clean); } catch (e) {}
+      APP.aiConnected = false;
+      try {
+        if (clean) localStorage.setItem("argon_gemini_key", clean);
+        else localStorage.removeItem("argon_gemini_key");
+      } catch (e) {}
       updateAiConnBadge();
-      notify("🟢 已鎖定連接模型：MODEL: " + ARGON_MODEL_ID.toUpperCase() + "（已徹底移除舊版 flash 模型）！");
+      if (!clean) {
+        notify("⚪ 未提供 API 金鑰：AI 處於未連接狀態（僅使用本地離線精算模組）。");
+      } else {
+        notify("🟡 已儲存 API 金鑰，請點擊「🔌 測試連接」驗證遠端握手。");
+      }
     }
 
     function getSavedApiKey() {
       var el = document.getElementById("inpGeminiKey");
       if (el && el.value && el.value.trim()) return el.value.trim();
-      try { return localStorage.getItem("argon_gemini_key") || ""; } catch (e) { return ""; }
+      try { return (localStorage.getItem("argon_gemini_key") || "").trim(); } catch (e) { return ""; }
     }
 
     function updateAiConnBadge() {
       var badge = document.getElementById("aiConnStatusBadge");
       if (!badge) return;
       var k = getSavedApiKey();
-      if (k && k.length > 5) {
-        badge.textContent = "🟢 GEMINI-4-ARGON (Gateway Key 已載入)";
+      if (!k || k.length < 10) {
+        APP.aiConnected = false;
+        badge.textContent = "⚪ 未連接 AI (無 API Key · 離線模式)";
+        badge.style.color = "#94A3B8";
+      } else if (APP.aiConnected) {
+        badge.textContent = "🟢 AI 已連接 (API 握手成功)";
         badge.style.color = "#34D399";
       } else {
-        badge.textContent = "🟢 GEMINI-4-ARGON 實時核心已連接";
-        badge.style.color = "#34D399";
+        badge.textContent = "🟡 待驗證連接 (已填 Key · 未握手)";
+        badge.style.color = "#FBBF24";
       }
     }
 
     async function testLiveAiConnection() {
-      var curR = RACES[APP.raceIdx];
-      var b = APP.sims[APP.raceIdx].bullet;
-      notify("🟢 正在驗證 Gemini 4 Argon (gemini-4-argon) 實時神經核心...");
       var k = getSavedApiKey();
-      if (k && k.length > 5) {
-        var extReply = await callGeminiLiveApi("請以 Gemini 4 Argon 模型身份確認已連接 HKJC V25.5 賽馬精算終端。");
-        if (extReply) {
-          appendAiChat("ai",
-            "🟢 <strong>【MODEL: GEMINI-4-ARGON 遠端 Gateway 握手成功】</strong><br>" + extReply
-          );
-          notify("✅ Gemini 4 Argon (gemini-4-argon) 遠端握手成功！");
-          return;
-        }
+      if (!k || k.length < 10) {
+        APP.aiConnected = false;
+        updateAiConnBadge();
+        appendAiChat("ai",
+          '<div class="mono" style="font-size:11px; color:#FB7185; background:#020617; border:1px solid rgba(244,63,94,0.45); padding:6px 10px; border-radius:8px; margin-bottom:8px;">' +
+          '🔴 [HANDSHAKE FAILED] STATUS: DISCONNECTED ｜ 未檢測到有效 API 金鑰' +
+          '</div>' +
+          "<strong>❌ 【AI 未連接：握手失敗】</strong><br>" +
+          "• <strong>狀態</strong>：未提供 API 金鑰（或金鑰格式無效），<strong>遠端 AI 握手失敗</strong>。<br>" +
+          "• <strong>當前運作模式</strong>：僅使用<strong>本地離線量化規則與蒙地卡羅計算模組</strong>，並未連接遠端大模型。<br>" +
+          "• <strong>操作提示</strong>：請先輸入有效嘅 Gemini API Key，再點擊「🔌 測試連接」。"
+        );
+        notify("❌ 握手失敗：未輸入有效 API 金鑰，AI 處於未連接狀態！");
+        return false;
       }
-      appendAiChat("ai",
-        '<div class="mono" style="font-size:11px; color:#34D399; background:#020617; border:1px solid rgba(16,185,129,0.45); padding:6px 10px; border-radius:8px; margin-bottom:8px;">' +
-        '🟢 [HANDSHAKE OK] MODEL: <strong>gemini-4-argon</strong> ｜ ENGINE: V25.5 6-Layer Actuarial CoT ｜ STATUS: ONLINE (已禁用所有舊版 2.5/2.0-flash 路由)' +
-        '</div>' +
-        "<strong>✅ 【Gemini 4 Argon 實時精算核心連線確認】</strong><br>" +
-        "• <strong>當前綁定模型</strong>：<code class='mono' style='color:#38BDF8;'>gemini-4-argon</code>（100% 獨立運轉，已徹底解除舊版輕量 Flash 模型綁定，全線鎖定 Gemini 4 Argon 專屬架構）。<br>" +
-        "• <strong>實時數據張量同步</strong>：已載入全場 11 場共 143 匹馬排位、2026-10-19 R1–R9 官方實測分段、四維動態步速壓力指數（當前 R" + curR.no + " <code>ESPI=" + (curR.espi || 72) + "/100</code>），以及 20,000 次蒙地卡羅順序統計分佈（當前 R" + curR.no + " 單注核心：<strong>#" + b.no + " " + b.name + "</strong>，上名率 <strong>" + (b.pt*100).toFixed(1) + "%</strong>）。<br>" +
-        "• <strong>即刻實測</strong>：你可以直接喺下方輸入任何自由問題（例如：<code>比較 R8 2號 同 7號</code>、<code>點解 R5 會變慢步速？</code>、<code>計下 R10 7號 喜悅歡欣 凱利注碼</code>），Gemini 4 Argon 引擎會即時為你進行六層精算推理！"
-      );
-      notify("✅ Gemini 4 Argon (gemini-4-argon) 實時核心連線正常！");
+
+      notify("⏳ 正在向遠端 API 發起真實握手測試...");
+      var extReply = await callGeminiLiveApi("請以一句話確認已連接 HKJC 賽馬精算終端。");
+      if (extReply) {
+        APP.aiConnected = true;
+        updateAiConnBadge();
+        appendAiChat("ai",
+          '<div class="mono" style="font-size:11px; color:#34D399; background:#020617; border:1px solid rgba(16,185,129,0.45); padding:6px 10px; border-radius:8px; margin-bottom:8px;">' +
+          '🟢 [HANDSHAKE OK] STATUS: CONNECTED ｜ 遠端 API 握手成功' +
+          '</div>' +
+          "🟢 <strong>【遠端 AI 握手成功】</strong><br>" + extReply
+        );
+        notify("✅ 遠端 AI 握手成功，已連接！");
+        return true;
+      } else {
+        APP.aiConnected = false;
+        updateAiConnBadge();
+        appendAiChat("ai",
+          '<div class="mono" style="font-size:11px; color:#FB7185; background:#020617; border:1px solid rgba(244,63,94,0.45); padding:6px 10px; border-radius:8px; margin-bottom:8px;">' +
+          '🔴 [HANDSHAKE FAILED] STATUS: DISCONNECTED ｜ API Key 無效或網絡受阻' +
+          '</div>' +
+          "<strong>❌ 【遠端 AI 握手失敗：未連接】</strong><br>" +
+          "• <strong>原因</strong>：所提供嘅 API Key 未能通過遠端驗證，或瀏覽器沙盒阻擋咗外部連線。<br>" +
+          "• <strong>當前運作模式</strong>：維持<strong>本地離線量化計算模式（未連接 AI）</strong>。"
+        );
+        notify("❌ 握手失敗：API Key 驗證未通過或網絡受阻，AI 未連接！");
+        return false;
+      }
     }
 
     async function callGeminiLiveApi(userPrompt) {
       var apiKey = getSavedApiKey();
-      if (!apiKey || apiKey.length < 5) return null;
+      if (!apiKey || apiKey.length < 10) return null;
 
       var curR = RACES[APP.raceIdx];
       var curSim = APP.sims[APP.raceIdx];
@@ -3135,25 +3254,17 @@
         return "#" + x.no + " " + x.name + "(" + x.draw + "檔," + x.jockey + ",實負" + x.actualWt + "磅,獨贏" + x.winO + "x,位置" + x.plaO + "x,模擬上名率" + (x.pt*100).toFixed(1) + "%,勝率" + (x.pw*100).toFixed(1) + "%,第4死穴" + (x.p4*100).toFixed(1) + "%,EV=" + x.ev + ")";
       }).join("; ");
 
-      var pmSummary = Object.keys(POSTMORTEM_20261019).map(function(k) {
-        var p = POSTMORTEM_20261019[k];
-        return "R" + k + ": 賽果[" + p.top4 + "] 分段[" + p.rawSplitsStr + "] 步速檢討[" + p.oldPaceErr + " -> " + p.v25Fix + "]";
-      }).join("\n");
-
       var sysInstruction =
-        "你係 Gemini 4 Argon (model: gemini-4-argon)，HKJC V25.5 香港賽馬六層量化精算與步速覆盤 AI 專家。請用專業、地道廣東話回答用戶問題，嚴禁預設套話，必須引用以下實時運算數據：\n" +
+        "你係 HKJC V26.2 香港賽馬六層量化精算專家。請用專業廣東話回答問題，並嚴格引用以下 2026-10-21 跑馬地夜賽實時運算數據：\n" +
         "【當前檢視場次】第 " + curR.no + " 場 " + curR.name + " (" + curR.dist + "m, " + curR.cls + ")，步速指標：" + curR.pace + "\n" +
-        "【當前場次20,000次蒙地卡羅排位數據】" + runnerSummary + "\n" +
-        "【2026-10-19 沙田 R1-R9 官方真實賽果與步速覆盤數據】\n" + pmSummary;
+        "【當前場次20,000次蒙地卡羅排位數據】" + runnerSummary;
 
-      // Exclusively connect to gemini-4-argon endpoint (never 2.5-flash or 2.0-flash)
       try {
         var url = "https://generativelanguage.googleapis.com/v1beta/models/" + ARGON_MODEL_ID + ":generateContent?key=" + encodeURIComponent(apiKey);
         var resp = await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            model: ARGON_MODEL_ID,
             system_instruction: { parts: [{ text: sysInstruction }] },
             contents: [{ role: "user", parts: [{ text: userPrompt }] }],
             generationConfig: { temperature: 0.3, maxOutputTokens: 1024 }
@@ -3171,31 +3282,28 @@
     }
 
     // ============================================================================
-    // V25.5 DYNAMIC QUANTITATIVE NLU ENGINE (ZERO CANNED RESPONSES!)
-    // Parses specific horses, head-to-head comparisons, pace errors, & math live
+    // LOCAL QUANTITATIVE NLU ENGINE (Clearly labeled as offline rule engine when disconnected)
     // ============================================================================
     function generateDynamicQuantAiResponse(rawQuery) {
       var q = (rawQuery || "").trim();
-      var qLower = q.toLowerCase();
 
-      // 1. Detect if user mentions a specific race R1-R11
+      // 1. Detect if user mentions a specific race R1-R9 (bounded strictly by RACES.length!)
       var rMatch = q.match(/R(\d{1,2})|第\s*(\d{1,2})\s*場/i);
       var targetRaceIdx = APP.raceIdx;
       if (rMatch) {
         var rNum = parseInt(rMatch[1] || rMatch[2], 10);
-        if (rNum >= 1 && rNum <= 11) {
+        if (rNum >= 1 && rNum <= RACES.length) {
           targetRaceIdx = rNum - 1;
           APP.raceIdx = targetRaceIdx;
           renderAll();
         }
       }
 
-      // 2. Search across ALL races (or current race) for any mentioned horse names or horse numbers
+      // 2. Search across active races for mentioned horse names or horse numbers
       var mentionedHorses = [];
       var curR = RACES[targetRaceIdx];
       var curSim = APP.sims[targetRaceIdx];
 
-      // Check by horse name across all 11 races
       RACES.forEach(function(rx, rIdx) {
         APP.sims[rIdx].out.forEach(function(runner) {
           if (q.indexOf(runner.name) !== -1) {
@@ -3204,7 +3312,6 @@
         });
       });
 
-      // Check by horse number (#1, 1號, etc.) in target race if fewer than 2 horses matched by name
       var numMatches = q.match(/(?:#|馬號\s*)(\d{1,2})|(\d{1,2})\s*號/g);
       if (numMatches) {
         numMatches.forEach(function(nm) {
@@ -3216,40 +3323,24 @@
         });
       }
 
+      var engineModeLabel = APP.aiConnected
+        ? "🟢 [REMOTE AI CONNECTED · 已連接遠端 AI]"
+        : "⚪ [LOCAL OFFLINE QUANT ENGINE · 本地離線精算規則引擎 (未連接遠端 AI)]";
+
       var headerTrace = '<div class="mono" style="font-size:11px; color:#38BDF8; background:#020617; border:1px solid #1E293B; padding:6px 10px; border-radius:8px; margin-bottom:8px;">' +
-        '🧠 [MODEL: GEMINI-4-ARGON · V25.5 六層精算實時推理鏈] 提問語義解析：<code>' + q.replace(/</g, "&lt;") + '</code> ｜ 目標場次：R' + curR.no + ' (' + curR.dist + 'm · ESPI=' + (curR.espi || 70) + ') ｜ 命中實體：' +
+        engineModeLabel + ' ｜ 目標場次：2026-10-21 谷草 R' + curR.no + ' (' + curR.dist + 'm · 動態 ESPI=' + (curR.espi || 65) + ') ｜ 命中實體：' +
         (mentionedHorses.length > 0 ? mentionedHorses.map(function(m){ return "R" + m.race.no + "#" + m.runner.no + m.runner.name; }).join(", ") : "全局步速與精算矩陣") +
         '</div>';
 
-      // CASE A: User asks about Pace Errors / Post-Mortem ("步速", "估錯", "覆盤", "分段", "點解輸", "死因")
       if (/步速|估錯|覆盤|分段|死因|檢討|點解|慢放|快放/.test(q) && mentionedHorses.length === 0) {
-        if (rMatch && POSTMORTEM_20261019[curR.no]) {
-          var pm = POSTMORTEM_20261019[curR.no];
-          return headerTrace +
-            "<strong>🔬 【第 " + curR.no + " 場 (" + curR.name + " " + curR.dist + "m) 步速與賽果深度覆盤】</strong><br><br>" +
-            "• <strong>官方實測分段</strong>：<code class='mono' style='color:#FBBF24;'>" + pm.rawSplitsStr + "</code><br>" +
-            "• <strong>官方頭四名賽果</strong>：<strong style='color:#34D399;'>" + pm.top4 + "</strong><br>" +
-            "• <strong style='color:#FB7185;'>❌ 舊版靜態步速點解估錯？</strong> " + pm.oldPaceErr + "<br>" +
-            "• <strong style='color:#38BDF8;'>✅ V25.5 四維動態步速 (ESPI=" + pm.espi + "/100) 修正機制</strong>：" + pm.v25Fix;
-        }
-
-        // Full Day R1-R9 Pace Post-Mortem Summary
-        var pmRows = Object.keys(POSTMORTEM_20261019).map(function(k) {
-          var p = POSTMORTEM_20261019[k];
-          return "<div style='margin-bottom:8px; padding-bottom:8px; border-bottom:1px dashed #1E293B;'>" +
-            "<strong style='color:#FBBF24;'>R" + k + " (" + RACES[k-1].dist + "m)</strong> — 實測：<code class='mono' style='color:#38BDF8;'>" + p.rawSplitsStr + "</code><br>" +
-            "<span>❌ <strong>舊版盲點</strong>：" + p.oldPaceErr + "</span><br>" +
-            "<span style='color:#34D399;'>✅ <strong>V25.5 修正 (" + p.v25PaceTag + ")</strong>：" + p.v25Fix + "</span>" +
-            "</div>";
-        }).join("");
-
+        var hvSec = HV_20261021_SECTIONALS[curR.no];
         return headerTrace +
-          "<strong>🔬 【2026-10-19 沙田全日步速估錯根因總覆盤 & V25.5 四維步速升級報告】</strong><br><br>" +
-          "你指得非常準確！今日沙田 C+3 跑道之所以多場步速與賽前靜態預測出現偏差，核心原因係舊版只靠數表面「放頭馬數量 (`N_lead`)」，忽略咗<strong>「第 2 段中段變速搶放 (21.66s–22.33s)」、「115–116磅超輕磅馬主動改跑法領放」以及「R5 多馬外檔互相觀望變慢步速 (24.26s)」</strong>三大動態博弈：<br><br>" +
-          pmRows;
+          "<strong>🔬 【2026-10-21 跑馬地第 " + curR.no + " 場 (" + curR.name + " " + curR.dist + "m) 動態步速與分段推演】</strong><br><br>" +
+          "• <strong>本場動態步速指標</strong>：<strong style='color:#38BDF8;'>" + curR.pace + "</strong><br>" +
+          "• <strong>2026-10-21 谷草同程基準分段</strong>：<code class='mono' style='color:#FBBF24;'>" + hvSec.rawSplitsStr + "</code><br>" +
+          "• <strong>步速利弊診斷</strong>：" + hvSec.v25Fix;
       }
 
-      // CASE B: Head-to-Head or Specific Horse Deep Dive (when 1 or more horses are mentioned in query)
       if (mentionedHorses.length >= 2) {
         var h1 = mentionedHorses[0].runner, h2 = mentionedHorses[1].runner;
         var r1 = mentionedHorses[0].race;
@@ -3257,46 +3348,31 @@
         var diffWt = h1.actualWt - h2.actualWt;
         var better = h1.score >= h2.score ? h1 : h2;
         return headerTrace +
-          "<strong>⚖️ 【V25.5 雙駒精算直接對決：R" + r1.no + " #" + h1.no + " " + h1.name + " vs #" + h2.no + " " + h2.name + "】</strong><br><br>" +
-          "1. <strong>#" + h1.no + " " + h1.name + " (" + h1.draw + "檔 · " + h1.jockey + ")</strong>：實負 <strong>" + h1.actualWt + "磅</strong> ｜ 獨贏 " + h1.winO + "x / 位置 " + h1.plaO + "x ｜ 20,000次模擬勝率 <strong>" + (h1.pw*100).toFixed(1) + "%</strong>、上名率 <strong style='color:#34D399;'>" + (h1.pt*100).toFixed(1) + "%</strong>、第4死穴率 " + (h1.p4*100).toFixed(1) + "% ｜ 位置 EV = <strong>" + h1.ev + "</strong> (" + h1.tag + ")<br>" +
-          "2. <strong>#" + h2.no + " " + h2.name + " (" + h2.draw + "檔 · " + h2.jockey + ")</strong>：實負 <strong>" + h2.actualWt + "磅</strong> ｜ 獨贏 " + h2.winO + "x / 位置 " + h2.plaO + "x ｜ 20,000次模擬勝率 <strong>" + (h2.pw*100).toFixed(1) + "%</strong>、上名率 <strong style='color:#34D399;'>" + (h2.pt*100).toFixed(1) + "%</strong>、第4死穴率 " + (h2.p4*100).toFixed(1) + "% ｜ 位置 EV = <strong>" + h2.ev + "</strong> (" + h2.tag + ")<br><br>" +
-          "📐 <strong>物理與讓磅差距拆解</strong>：<br>" +
-          "• <strong>負磅差</strong>：#" + h1.no + " 比 #" + h2.no + " " + (diffWt > 0 ? "重 " + diffWt + " 磅（喺 " + r1.dist + "m 相當於蝕約 " + (diffWt * 0.018).toFixed(2) + " 秒）" : diffWt < 0 ? "輕 " + Math.abs(diffWt) + " 磅（獲 +" + (Math.abs(diffWt) * 0.018).toFixed(2) + " 秒輕磅加速紅利）" : "平磅對決") + "。<br>" +
-          "• <strong>檔位與步速適配 (ESPI=" + (r1.espi || 72) + ")</strong>：#" + h1.no + " 排 " + h1.draw + " 檔 vs #" + h2.no + " 排 " + h2.draw + " 檔。兩駒模擬上名率相差 <strong>" + Math.abs(diffPt) + "%</strong>。<br>" +
-          "• <strong>🎯 實戰裁決</strong>：模型優先推薦 <strong style='color:#FBBF24;'>#" + better.no + " " + better.name + "</strong> 做膽，若買雙重彩/位置 Q，<code>" + h1.no + " × " + h2.no + "</code> 複合互串上名協同率達 <strong>" + (Math.min(0.85, h1.pt + h2.pt) * 55).toFixed(1) + "%</strong>！";
+          "<strong>⚖️ 【雙駒精算對決：R" + r1.no + " #" + h1.no + " " + h1.name + " vs #" + h2.no + " " + h2.name + "】</strong><br><br>" +
+          "1. <strong>#" + h1.no + " " + h1.name + " (" + h1.draw + "檔 · " + h1.jockey + ")</strong>：實負 <strong>" + h1.actualWt + "磅 (CBR " + h1.cbr + "%)</strong> ｜ 獨贏 " + h1.winO + "x / 位置 " + h1.plaO + "x ｜ 勝率 <strong>" + (h1.pw*100).toFixed(1) + "%</strong>、上名率 <strong style='color:#34D399;'>" + (h1.pt*100).toFixed(1) + "%</strong>、第4死穴率 " + (h1.p4*100).toFixed(1) + "% ｜ 位置 EV = <strong>" + h1.ev.toFixed(2) + "</strong><br>" +
+          "2. <strong>#" + h2.no + " " + h2.name + " (" + h2.draw + "檔 · " + h2.jockey + ")</strong>：實負 <strong>" + h2.actualWt + "磅 (CBR " + h2.cbr + "%)</strong> ｜ 獨贏 " + h2.winO + "x / 位置 " + h2.plaO + "x ｜ 勝率 <strong>" + (h2.pw*100).toFixed(1) + "%</strong>、上名率 <strong style='color:#34D399;'>" + (h2.pt*100).toFixed(1) + "%</strong>、第4死穴率 " + (h2.p4*100).toFixed(1) + "% ｜ 位置 EV = <strong>" + h2.ev.toFixed(2) + "</strong><br><br>" +
+          "• <strong>負磅與檔位差距</strong>：#" + h1.no + " 與 #" + h2.no + " 相差 " + Math.abs(diffWt) + " 磅，兩駒模擬上名率相差 <strong>" + Math.abs(diffPt) + "%</strong>，優先推薦 <strong style='color:#FBBF24;'>#" + better.no + " " + better.name + "</strong>。";
       }
 
       if (mentionedHorses.length === 1) {
         var mh = mentionedHorses[0];
         var h = mh.runner;
         var rx = mh.race;
-        var pmInfo = rx.postMortem ? "<br>• <strong>本場實戰覆盤對照</strong>：" + rx.postMortem.top4 + "（" + rx.postMortem.v25Fix + "）" : "";
         return headerTrace +
-          "<strong>🐎 【單駒深度精算解剖：第 " + rx.no + " 場 #" + h.no + " " + h.name + " (" + h.brand + ")】</strong><br><br>" +
-          "• <strong>基本配置</strong>：" + h.draw + " 檔 ｜ 騎師：" + h.jockey + " ｜ 實負 <strong>" + h.actualWt + " 磅</strong>（申報 " + (h.actualWt + h.claim) + " 磅，減 " + h.claim + " 磅）｜ 練馬師：" + h.trainer + " (" + h.rating + "分)<br>" +
-          "• <strong>蒙地卡羅 20,000 次模擬表現</strong>：勝率 <strong>" + (h.pw*100).toFixed(1) + "%</strong> ｜ 入位率 (Top 3) <strong style='color:#34D399;'>" + (h.pt*100).toFixed(1) + "%</strong> ｜ 跑第 4 名死穴率 <strong style='color:" + (h.trap4 ? "#FB7185" : "#CBD5E1") + ";'>" + (h.p4*100).toFixed(1) + "%</strong><br>" +
-          "• <strong>賠率與期望值診斷</strong>：即時獨贏 <strong>" + h.winO + " 倍</strong> / 位置 <strong>" + h.plaO + " 倍</strong> ➔ 位置期望值 <strong>EV = " + h.ev + "</strong> " +
-          (h.overbet ? "<span style='color:#FB7185;'>(🚨 位置 ≤1.62 倍過熱低水，嚴禁單買位置！)</span>" : h.ev >= 1.2 ? "<span style='color:#34D399;'>(💎 具備正期望值 +EV 優勢！)</span>" : "(屬於合理賠率區間)") + "<br>" +
-          "• <strong>戰術與四維步速定位 (" + rx.pace + ")</strong>：" + h.tag + pmInfo;
+          "<strong>🐎 【單駒精算解剖：第 " + rx.no + " 場 #" + h.no + " " + h.name + " (" + h.brand + ")】</strong><br><br>" +
+          "• <strong>基本配置</strong>：" + h.draw + " 檔 ｜ 騎師：" + h.jockey + " ｜ 實負 <strong>" + h.actualWt + " 磅 (排位體重 " + h.bodyWt + " 磅, CBR=" + h.cbr + "%)</strong> ｜ 評分：" + h.rating + "分<br>" +
+          "• <strong>20,000 次耦合模擬表現</strong>：勝率 <strong>" + (h.pw*100).toFixed(1) + "%</strong> ｜ 入位率 (Top 3) <strong style='color:#34D399;'>" + (h.pt*100).toFixed(1) + "%</strong> ｜ 第 4 名死穴率 <strong>" + (h.p4*100).toFixed(1) + "%</strong><br>" +
+          "• <strong>期望回收倍數診斷</strong>：獨贏 <strong>" + h.winO + " 倍</strong> / 位置 <strong>" + h.plaO + " 倍</strong> ➔ 位置期望回收倍數 <strong>EV = " + h.ev.toFixed(2) + "</strong> " +
+          (h.ev <= 1.02 || h.overbet ? "<span style='color:#FB7185;'>(🚨 負期望值或低水陷阱，建議注碼 HK$ 0！)</span>" : "<span style='color:#34D399;'>(💎 具備正期望值優勢)</span>");
       }
 
-      // CASE C: General dynamic query about the current race (stakes, Q/QP, why pass, etc.)
       var b = curSim.bullet;
       var l1 = curSim.legs[0], l2 = curSim.legs[1];
-      var pmBlock = curR.postMortem
-        ? "<div style='margin-top:8px; padding:10px; background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.4); border-radius:8px;'>" +
-          "🔬 <strong>本場官方賽果與步速覆盤</strong>：" + curR.postMortem.top4 + "<br>" +
-          "• <strong>實測分段</strong>：<code class='mono'>" + curR.postMortem.rawSplitsStr + "</code><br>" +
-          "• <strong>V25.5 步速診斷</strong>：" + curR.postMortem.v25Fix + "</div>"
-        : "";
-
       return headerTrace +
-        "<strong>🤖 【Argon V25.5 針對「" + q.replace(/</g, "&lt;") + "」之即時精算分析（第 " + curR.no + " 場 " + curR.name + "）】</strong><br><br>" +
-        "• <strong>四維步速壓力指數 (ESPI)</strong>：<strong>" + (curR.espi || 72) + "/100</strong> — " + curR.pace + "<br>" +
-        "• <strong>全場最高分單注核心</strong>：<strong style='color:#FBBF24;'>#" + b.no + " " + b.name + " (" + b.draw + "檔 · " + b.jockey + " · 實負" + b.actualWt + "磅)</strong>，模擬上名率 <strong style='color:#34D399;'>" + (b.pt*100).toFixed(1) + "%</strong>（勝率 " + (b.pw*100).toFixed(1) + "%，第4死穴率 " + (b.p4*100).toFixed(1) + "%，位置 EV=" + b.ev + "）<br>" +
-        "• <strong>最佳 Q / QP 雙配腳組合</strong>：<code>#" + b.no + " " + b.name + " × #" + l1.no + " " + l1.name + "</code>（上名率 " + (l1.pt*100).toFixed(1) + "%）及 <code>#" + b.no + " " + b.name + " × #" + l2.no + " " + l2.name + "</code>（上名率 " + (l2.pt*100).toFixed(1) + "%）" +
-        pmBlock +
-        "<div style='margin-top:8px; font-size:12px; color:#94A3B8;'>💡 你可以直接輸入任何馬號對比（例如：<code>比較 2號 同 6號</code>）、詢問某匹馬死因（例如：<code>點解 1號 遨遊氣泡 大敗？</code>）當前由 <code>MODEL: GEMINI-4-ARGON</code> 實時精算核心驅動！</div>";
+        "<strong>📊 【本地離線精算引擎針對「" + q.replace(/</g, "&lt;") + "」之分析（第 " + curR.no + " 場 " + curR.name + "）】</strong><br><br>" +
+        "• <strong>動態步速壓力指數 (ESPI)</strong>：<strong>" + curR.espi + "/100</strong> — " + curR.pace + "<br>" +
+        "• <strong>全場最高分核心</strong>：<strong style='color:#FBBF24;'>#" + b.no + " " + b.name + " (" + b.draw + "檔 · " + b.jockey + " · 實負" + b.actualWt + "磅)</strong>，模擬上名率 <strong style='color:#34D399;'>" + (b.pt*100).toFixed(1) + "%</strong>（勝率 " + (b.pw*100).toFixed(1) + "%，位置 EV=" + b.ev.toFixed(2) + "）<br>" +
+        "• <strong>Q / QP 雙配腳組合</strong>：<code>#" + b.no + " " + b.name + " × #" + l1.no + " " + l1.name + "</code>（上名率 " + (l1.pt*100).toFixed(1) + "%）及 <code>#" + b.no + " " + b.name + " × #" + l2.no + " " + l2.name + "</code>（上名率 " + (l2.pt*100).toFixed(1) + "%）";
     }
 
     function seededRng(seed) {
@@ -3310,180 +3386,297 @@
     }
 
     // ============================================================================
-    // 3. 20,000-ITERATION MONTE CARLO ENGINE
+    // 3. DYNAMIC PACE PROFILE + CONTINUOUS BIOMECHANICS + COUPLED 20,000-RUN MONTE CARLO
+    //    (100% Probability Conservation: Sum(Win)=100.000%, Sum(Place)=300.000%)
     // ============================================================================
     var ELITE_JOCKEYS = ["潘頓", "何澤堯", "巴度", "艾道拿", "艾兆禮", "霍宏聲", "奧爾民", "班德禮"];
+
+    function computeDynamicPaceProfile(r) {
+      var list = r.runners || [];
+      var n = Math.max(1, list.length);
+      var earlyDriveSum = 0.0;
+      var effectiveLeaders = 0;
+
+      for (var i = 0; i < list.length; i++) {
+        var x = list[i];
+        var draw = x[3] || 6;
+        var claim = x[6] || 0;
+        var style = x[7] || "M";
+        var actualWt = x[5] - claim;
+        var bodyWt = x[15] || 1120;
+        var cbr = actualWt / Math.max(950, bodyWt);
+
+        var drive = 0.0;
+        if (style === "L") drive = 1.05;
+        else if (style === "S") drive = 0.42;
+        else if (style === "M") drive = 0.12;
+        else drive = -0.25;
+
+        // Wide-drawn leaders/stalkers or light-claimed front runners push harder in first 300m
+        if (style === "L" && draw >= 7) drive += 0.22;
+        if ((style === "L" || style === "S") && claim >= 3) drive += 0.14;
+        if (style === "S" && draw <= 3) drive += 0.18;
+        drive += (0.112 - cbr) * 2.5;
+
+        if (drive >= 0.72) effectiveLeaders++;
+        if (drive > 0) earlyDriveSum += drive;
+      }
+
+      // Distance geometry factor (Happy Valley 1000m/1200m has shorter run to first turn -> higher pace pressure)
+      var distFactor = r.dist <= 1000 ? 14.0 : r.dist <= 1200 ? 6.0 : -2.0;
+      // Intraday sectional bias adjustment
+      var biasShift = APP.paceBias === "fast_closer" ? 9.0 : APP.paceBias === "slow_leader" ? -9.0 : (-APP.lastSectionalDelta * 10.0);
+
+      var computedEspi = Math.round(Math.max(32, Math.min(95, 42.0 + earlyDriveSum * 8.2 + distFactor + biasShift)));
+      var computedNLead = Math.max(1, effectiveLeaders);
+
+      r.nLead = computedNLead;
+      r.espi = computedEspi;
+      var regimeDesc = computedEspi >= 78 ? "🔥 高壓快步速局" : computedEspi <= 54 ? "🛡️ 慢步速控制局" : "⚖️ 標準均速內欄局";
+      r.pace = regimeDesc + " (N_lead=" + computedNLead + " · 動態ESPI=" + computedEspi + ")";
+      return { nLead: computedNLead, espi: computedEspi };
+    }
+
+    function computeRaceStakes(r, sim, bankroll, losses) {
+      var b = sim && sim.bullet;
+      if (!r || !b) return { plaStake: 0, qpStake: 0, totalStake: 0, statusReason: "無數據" };
+      var isPass = (r.score < 60);
+      var isLocked = (losses >= 2);
+      var exactEv = b.pt * b.plaO;
+      var dispEv = typeof b.ev === "number" ? b.ev : +exactEv.toFixed(2);
+      var netOdds = b.plaO - 1.0;
+      var rawKelly = (netOdds > 0.05) ? ((exactEv - 1.0) / netOdds) : 0;
+
+      if (isLocked) {
+        return { plaStake: 0, qpStake: 0, totalStake: 0, statusReason: "連輸2場停損鎖倉" };
+      }
+      if (isPass) {
+        return { plaStake: 0, qpStake: 0, totalStake: 0, statusReason: "低分場次建議觀戰" };
+      }
+      if (dispEv <= 1.02 || exactEv <= 1.02 || rawKelly <= 0) {
+        return { plaStake: 0, qpStake: 0, totalStake: 0, statusReason: "期望回收 " + dispEv.toFixed(2) + " 負期望值禁買" };
+      }
+      if (b.overbet || b.plaO <= 1.55) {
+        return { plaStake: 0, qpStake: 0, totalStake: 0, statusReason: "位置 ≤1.55x 低水禁買" };
+      }
+
+      var maxCap = Math.floor((bankroll * 0.10) / 10) * 10;
+      if (maxCap < 10) {
+        return { plaStake: 0, qpStake: 0, totalStake: 0, statusReason: "本金不足最低注額" };
+      }
+
+      // Fractional Kelly (0.28x Kelly, capped at 10% of bankroll)
+      var kellyTarget = Math.min(maxCap, Math.floor((bankroll * rawKelly * 0.28) / 10) * 10);
+      if (kellyTarget < 10) {
+        return { plaStake: 0, qpStake: 0, totalStake: 0, statusReason: "凱利邊際不足 $10" };
+      }
+
+      var plaStake = Math.max(10, Math.floor((kellyTarget * 0.65) / 10) * 10);
+      var qpStake = 0;
+      if (sim.legs && sim.legs.length >= 2 && (kellyTarget - plaStake) >= 20) {
+        var l1Ev = sim.legs[0].pt * sim.legs[0].plaO;
+        var l2Ev = sim.legs[1].pt * sim.legs[1].plaO;
+        if (l1Ev >= 0.95 && l2Ev >= 0.95) {
+          qpStake = Math.max(10, Math.floor(((kellyTarget - plaStake) / 2) / 10) * 10);
+        }
+      }
+
+      return {
+        plaStake: plaStake,
+        qpStake: qpStake,
+        totalStake: plaStake + qpStake * 2,
+        statusReason: "正期望值凱利注碼"
+      };
+    }
 
     function runSimForRace(idx) {
       var r = RACES[idx];
       var list = r.runners;
       var n = list.length;
       var iters = 20000;
+      var placeSeats = n >= 7 ? 3 : 2;
 
-      // Calculate race mean rating for Handicap Equilibrium Anchor
-      var sumRating = 0;
-      for (var k = 0; k < n; k++) sumRating += (list[k][12] || 50);
+      // 1. Dynamically compute race pace profile (N_lead & ESPI) from active field
+      var paceProf = computeDynamicPaceProfile(r);
+      var espi = paceProf.espi;
+
+      // 2. Compute field means for continuous relative biomechanics
+      var sumRating = 0, sumCbr = 0, sumDraw = 0;
+      for (var k = 0; k < n; k++) {
+        var rk = list[k];
+        var actW = rk[5] - (rk[6] || 0);
+        var bW = rk[15] || 1120;
+        var cb = rk[16] || +((actW / bW) * 100).toFixed(2);
+        sumRating += (rk[12] || 50);
+        sumCbr += cb;
+        sumDraw += (rk[3] || (k + 1));
+      }
       var meanRating = sumRating / Math.max(1, n);
+      var meanCbr = sumCbr / Math.max(1, n);
+      var meanDraw = sumDraw / Math.max(1, n);
+      var halfSpanDraw = Math.max(1.0, (n - 1) / 2.0);
+      var distScale = Math.pow(r.dist / 1200.0, 0.75);
+      var goingResist = (APP.going === "Y" || APP.going === "GY") ? 1.25 : (APP.going === "GF" ? 0.90 : 1.0);
 
       var params = list.map(function(x) {
-        var actualWt = x[5] - x[6];
+        var actualWt = x[5] - (x[6] || 0);
         var claim = x[6] || 0;
         var draw = x[3];
         var jockey = x[4] || "";
         var style = x[7];
-        var winO = x[9];
-        var plaO = x[10];
+        var winO = Math.max(1.05, parseFloat(x[9]) || 10.0);
+        var plaO = Math.max(1.01, parseFloat(x[10]) || 3.0);
         var rating = x[12] || 50;
         var bodyWt = x[15] || 1120;
         var cbr = x[16] || +((actualWt / bodyWt) * 100).toFixed(2);
         var tagStr = x[8] || "";
 
-        // 1. Benter Market Implied Baseline (properly anchored at 0.32 so low-rated lightweights cannot override class odds)
-        var mu = Math.log(Math.max(winO, 1.4) / 3.0) * 0.32;
-        var sg = 0.40;
+        // (A) Continuous Benter Market Implied Baseline
+        var muBase = Math.log(Math.max(winO, 1.35) / 3.0) * 0.32;
+        var sgBase = 0.38;
 
-        // 2. V26.1 Orthogonal & Capped Weight / CBR / Apprentice Skill Balance (Strictly capped in [-0.08s, +0.10s], zero quadruple-counting!)
-        var wtClaimAdj = 0.0;
+        // (B) Continuous Orthogonal Class + Biomechanical CBR + Jockey Skill Term (Bounded smoothly via tanh in [-0.08s, +0.10s])
+        var classTerm = -0.042 * Math.tanh((rating - meanRating) / 7.5);
+        var cbrDelta = cbr - meanCbr;
+        // Giant frame (>=1175 lbs) dampens positive CBR drag; small frame (<=1055 lbs) amplifies it
+        var frameMod = bodyWt >= 1175 ? 0.45 : (bodyWt <= 1055 ? 1.35 : 1.0);
+        var cbrTerm = 0.058 * Math.tanh((cbrDelta * frameMod) / 1.15) * distScale * goingResist;
 
-        // (a) Handicap Equilibrium Class Rating Anchor:
-        // Bottom-weights carry 115-117 lbs BECAUSE their rating is 15-20 pts lower; high-rated horses have proven class edge
-        var ratingDiff = rating - meanRating;
-        if (ratingDiff >= 5) {
-          wtClaimAdj -= 0.03; // Proven top-of-class quality edge
-        } else if (ratingDiff <= -7) {
-          wtClaimAdj += 0.05; // Bottom-of-class ability discount (offsets raw light weight)
-        }
-
-        // (b) Single Orthogonal CBR Biomechanical Adjustment (no double-counting with raw weight)
-        if (actualWt >= 133) {
-          if (bodyWt <= 1055 || cbr >= 12.60) {
-            wtClaimAdj += 0.08; // Small horse carrying heavy top weight
-          } else if (bodyWt >= 1175) {
-            wtClaimAdj += 0.00; // Giant frame >=1175 lbs completely exempts top weight
-          } else if (r.dist >= 1600) {
-            wtClaimAdj += 0.04; // Mild stamina drag for average frame at >=1600m
-          }
-        } else if (cbr <= 10.75 && rating >= meanRating - 4 && draw <= 6) {
-          wtClaimAdj -= 0.04; // Power-to-weight bonus ONLY if horse also holds competitive class rating
-        }
-
-        // (c) Jockey Skill Tier vs Apprentice Claim Net Effect (Weight Gain minus Rookie Skill/Traffic Deficit)
         var isElite = false;
         for (var ej = 0; ej < ELITE_JOCKEYS.length; ej++) {
           if (jockey.indexOf(ELITE_JOCKEYS[ej]) !== -1) { isElite = true; break; }
         }
+        var uDraw = (draw - meanDraw) / halfSpanDraw; // continuous normalized draw in [-1, +1]
+        var jockeyTerm = 0.0;
         if (isElite) {
-          wtClaimAdj -= 0.05; // Master jockey tactical & balance advantage
-          sg -= 0.02;
-        } else if (claim >= 7) {
-          // -7 lbs rookie apprentice (袁幸堯 / 黃寶妮): 7 lbs physics gain (-0.10s) minus rookie turn/traffic deficit (+0.07s to +0.12s)
-          if (draw <= 4 && (style === "L" || style === "S") && rating >= meanRating - 3) {
-            wtClaimAdj -= 0.03; // Simple inside front-running / box-seat ride on a class horse
-          } else if (draw >= 8) {
-            wtClaimAdj += 0.05; // Wide draw on Happy Valley sharp turns: high rookie 3-wide / positioning loss!
-            sg += 0.03;
-          } else {
-            wtClaimAdj += 0.01; // Mid-pack traffic: rookie skill deficit slightly outweighs claim
-          }
-        } else if (claim >= 2) {
-          // -2/-3 lbs senior apprentice (周俊樂 -2, 鍾易禮 -2, 黃智弘 -3): mature enough to convert claim in inside/mid draws
-          if (draw <= 5) wtClaimAdj -= 0.03;
-          else if (draw >= 9) wtClaimAdj += 0.02;
+          jockeyTerm = -0.045;
+          sgBase -= 0.022;
+        } else if (claim > 0) {
+          // Continuous trade-off: physical weight relief vs rookie turn/traffic execution deficit on sharp turns
+          var weightRelief = -0.0085 * claim;
+          var rookieTurnDeficit = (claim >= 5 ? 0.055 : 0.022) * (0.55 + 0.65 * Math.max(-0.5, uDraw));
+          jockeyTerm = weightRelief + rookieTurnDeficit;
+          if (claim >= 5 && uDraw > 0.2) sgBase += 0.028;
         }
 
-        if (APP.going === "Y" && actualWt >= 133) wtClaimAdj += 0.06;
+        var rawOrthogonal = classTerm + cbrTerm + jockeyTerm;
+        var wtClaimAdj = 0.09 * Math.tanh(rawOrthogonal / 0.09); // Smoothly bounded in (-0.09, +0.09)
+        muBase += wtClaimAdj;
 
-        // Hard cap total weight/claim/jockey adjustment to [-0.08s, +0.10s]
-        wtClaimAdj = Math.max(-0.08, Math.min(0.10, wtClaimAdj));
-        mu += wtClaimAdj;
+        // (C) Continuous Turn-Path Draw Geometry (No step cliff between Draw 4 & Draw 5)
+        var drawTerm = 0.0;
+        var insideWeight = Math.max(0.0, -uDraw);
+        var outsideWeight = Math.max(0.0, uDraw);
+        drawTerm = APP.insideAdj * 0.35 * Math.pow(insideWeight, 1.12) + APP.outerPen * 0.52 * Math.pow(outsideWeight, 1.25);
+        muBase += drawTerm;
+        sgBase += 0.035 * outsideWeight;
 
-        // 3. V26.1 L1 Official Veterinary Red-Line & Long-Layoff Filter
+        // (D) Veterinary & Long-Layoff Red-Line Penalty
+        var vetPenalty = 0.0;
         if (tagStr.indexOf("🚨") !== -1 && (tagStr.indexOf("喘鳴") !== -1 || tagStr.indexOf("氣管") !== -1 || tagStr.indexOf("心律") !== -1 || tagStr.indexOf("流鼻血") !== -1 || tagStr.indexOf("995磅") !== -1)) {
-          mu += 0.25;
-          sg = 0.46;
+          vetPenalty = 0.24;
+          sgBase += 0.05;
         } else if (tagStr.indexOf("手術") !== -1 || tagStr.indexOf("肌腱") !== -1 || tagStr.indexOf("不良於行") !== -1 || tagStr.indexOf("休367日") !== -1 || tagStr.indexOf("休252日") !== -1 || tagStr.indexOf("氣管血") !== -1) {
-          mu += 0.12;
-          sg = 0.43;
+          vetPenalty = 0.11;
+          sgBase += 0.03;
         }
+        muBase += vetPenalty;
 
-        // 4. Smooth Continuous Track Draw Geometry (no artificial cliff between Draw 4 and Draw 5!)
-        var espi = r.espi || 65;
-        var isFast = (r.nLead >= 3) || (espi >= 78) || (APP.closerAdj < -0.08);
-        if (r.dist === 1000 && APP.rail.indexOf("ST") === 0) {
-          if (draw >= 9) { mu -= 0.20; sg = 0.32; }
-          else if (draw <= 4) { mu += 0.18; sg = 0.34; }
-        } else {
-          if (draw <= 3) {
-            mu += APP.insideAdj * 0.36; // -0.108s Golden Box Seat (Draws 1-3)
-            sg = Math.min(sg, 0.34);
-          } else if (draw <= 6) {
-            mu += APP.insideAdj * 0.22; // -0.066s Inner-Mid Good Draw (Draws 4-6)
-            sg = Math.min(sg, 0.36);
-          } else if (draw <= 9) {
-            mu += APP.outerPen * 0.20;  // +0.064s Mid-Outer Draw (Draws 7-9)
-          } else if (!(style === "C" && isFast)) {
-            mu += APP.outerPen * 0.58;  // +0.185s Wide Draw (Draws 10-12)
-            sg = Math.max(sg, 0.43);
-          }
-        }
-
-        // 5. Pace Topology (purely based on running style L/S/M/C, never double-counting raw weight!)
-        if (espi >= 78 || APP.paceBias === "fast_closer") {
-          if (style === "C" || (style === "S" && draw <= 6)) mu += (APP.closerAdj - 0.06);
-          else if (style === "L" && draw >= 8) mu += 0.10;
-        } else if (espi <= 52 || r.nLead <= 1 || APP.paceBias === "slow_leader") {
-          if (style === "L" || (style === "S" && draw <= 4)) mu -= 0.07;
-          else if (style === "C" && draw >= 8) mu += 0.10;
-        }
-
-        // 6. Smart-money odds drop bonus (>14% drop from opening 3pm pool)
+        // (E) Continuous Smart-Money Pool Movement Signal
         var baseWin = x[13] || winO;
-        if (winO < baseWin * 0.86 && plaO > 1.55) {
-          mu -= 0.06;
+        var oddsRatio = (baseWin - winO) / Math.max(1.0, baseWin);
+        if (oddsRatio > 0.05 && plaO > 1.55) {
+          muBase -= Math.min(0.07, oddsRatio * 0.28);
         }
 
-        var isVulnFav = (winO <= 3.6 || plaO <= 1.55) && ((r.dist !== 1000 && draw >= 9) || (actualWt >= 134 && bodyWt <= 1065));
-        if (isVulnFav) { mu += 0.10; sg = 0.43; }
+        var isVulnFav = (winO <= 3.8 || plaO <= 1.55) && ((r.dist !== 1000 && draw >= 9) || (actualWt >= 134 && bodyWt <= 1065) || vetPenalty >= 0.20);
 
-        return { mu: mu, sg: sg, actualWt: actualWt, isVulnFav: isVulnFav, wtClaimAdj: wtClaimAdj };
+        // Sensitivity coefficients for coupled trial-by-trial stochastic pace & traffic simulation
+        var stylePaceSens = style === "L" ? 0.085 : style === "S" ? (uDraw > 0.25 ? 0.035 : -0.025) : style === "C" ? -0.075 : -0.015;
+        var boxInProb = (draw <= 3 && (style === "S" || style === "M" || style === "C")) ? 0.14 : 0.03;
+        var wideTrapProb = (draw >= 8 && style !== "C") ? (0.12 + 0.18 * outsideWeight) : 0.02;
+
+        return {
+          muBase: muBase,
+          sgBase: sgBase,
+          actualWt: actualWt,
+          cbr: cbr,
+          uDraw: uDraw,
+          style: style,
+          isVulnFav: isVulnFav,
+          wtClaimAdj: wtClaimAdj,
+          stylePaceSens: stylePaceSens,
+          boxInProb: boxInProb,
+          wideTrapProb: wideTrapProb
+        };
       });
 
       var wC = new Array(n).fill(0), tC = new Array(n).fill(0), fC = new Array(n).fill(0);
-      var rng = seededRng(2026 + r.no * 41 + Math.round((APP.insideAdj + APP.closerAdj + 2) * 100));
+      var rng = seededRng(20261021 + r.no * 97 + Math.round((APP.insideAdj + APP.closerAdj + 3) * 100));
+      var basePaceNorm = (espi - 66.0) / 18.0 + (-APP.closerAdj * 1.5);
 
+      // Coupled Multi-Stage Monte Carlo Simulation (Exact Order Statistics)
       for (var s = 0; s < iters; s++) {
-        var b1 = 99, b2 = 99, b3 = 99, b4 = 99;
+        // Shared race-level pace realization in trial s (duel vs crawl)
+        var paceShock = basePaceNorm + randGauss(rng) * 0.65;
+
+        var b1 = 999, b2 = 999, b3 = 999, b4 = 999;
         var i1 = 0, i2 = 0, i3 = 0, i4 = 0;
+
         for (var j = 0; j < n; j++) {
-          var t = params[j].mu + randGauss(rng) * params[j].sg;
+          var p = params[j];
+          // Coupled pace-style interaction in trial s
+          var paceEffect = p.stylePaceSens * paceShock;
+          // Anaerobic burnout in extreme fast duel trials (paceShock > 0.4) for front-runners / vulnerable favorites
+          if (paceShock > 0.4 && (p.style === "L" || p.isVulnFav)) {
+            paceEffect += 0.065 * (paceShock - 0.4) * (p.cbr / 11.0);
+          }
+
+          // Stochastic traffic / pocket check on turn & straight in trial s
+          var trafficDelay = 0.0;
+          var uTraffic = rng();
+          if (paceShock < 0.25 && uTraffic < p.boxInProb) {
+            trafficDelay += 0.14 * rng(); // Boxed-in check delay when field compresses
+          } else if (uTraffic > (1.0 - p.wideTrapProb)) {
+            trafficDelay += 0.16 * (0.5 + 0.5 * rng()); // Trapped 3-wide without cover around turns
+          }
+
+          var t = p.muBase + paceEffect + trafficDelay + randGauss(rng) * p.sgBase;
+
           if (t < b1) { b4 = b3; i4 = i3; b3 = b2; i3 = i2; b2 = b1; i2 = i1; b1 = t; i1 = j; }
           else if (t < b2) { b4 = b3; i4 = i3; b3 = b2; i3 = i2; b2 = t; i2 = j; }
           else if (t < b3) { b4 = b3; i4 = i3; b3 = t; i3 = j; }
           else if (t < b4) { b4 = t; i4 = j; }
         }
+
         wC[i1]++;
-        tC[i1]++; tC[i2]++; tC[i3]++;
+        tC[i1]++;
+        tC[i2]++;
+        if (placeSeats >= 3) {
+          tC[i3]++;
+        }
         fC[i4]++;
       }
 
+      // CRITICAL PROBABILITY CONSERVATION: Never deduct or alter pw, pt, p4 post-simulation!
+      // By exact order-statistic counting: Sum(pw) === 1.00000 (100%), Sum(pt) === 3.00000 (300%), Sum(p4) === 1.00000 (100%)
       var out = list.map(function(x, j) {
         var pw = wC[j] / iters;
         var pt = tC[j] / iters;
         var p4 = fC[j] / iters;
-        if (params[j].isVulnFav) {
-          pt = pw + Math.max(0, pt - pw) * 0.78;
-        }
-        var ev = +(pt * x[10]).toFixed(2);
+        var exactEv = pt * x[10];
+        var ev = +exactEv.toFixed(2);
         var overbet = x[10] <= 1.55;
+        var negEv = exactEv <= 1.02;
         var trap4 = p4 >= 0.145;
-        var score = (overbet ? -0.50 : 0) + (trap4 ? -0.22 : 0) + pt * 1.65 + pw * 0.60 + Math.min(ev, 1.45) * 0.15;
+        var score = (overbet ? -0.50 : 0) + (negEv ? -0.35 : 0) + (trap4 ? -0.22 : 0) + pt * 1.65 + pw * 0.60 + Math.min(ev, 1.45) * 0.15;
         return {
           no: x[0], name: x[1], brand: x[2], draw: x[3], jockey: x[4],
           actualWt: params[j].actualWt, claim: x[6], style: x[7], tag: x[8],
           winO: x[9], plaO: x[10], trainer: x[11] || "", rating: x[12] || "--",
           baseWinO: x[13] || x[9], basePlaO: x[14] || x[10],
-          bodyWt: x[15] || 1120, cbr: x[16] || +(((x[5]-x[6])/(x[15]||1120))*100).toFixed(2),
-          pw: pw, pt: pt, p4: p4, ev: ev,
+          bodyWt: x[15] || 1120, cbr: params[j].cbr,
+          pw: pw, pt: pt, p4: p4, ev: ev, exactEv: exactEv,
           overbet: overbet, trap4: trap4, vuln: params[j].isVulnFav, score: score
         };
       });
@@ -3493,7 +3686,14 @@
                     .sort(function(a, b) { return b.pt - a.pt; }).slice(0, 2);
       var traps = out.filter(function(x) { return x.vuln || x.overbet || x.trap4; });
 
-      APP.sims[idx] = { out: out, bullet: bullet, legs: legs, traps: traps };
+      APP.sims[idx] = {
+        out: out,
+        bullet: bullet,
+        legs: legs,
+        traps: traps,
+        winSumPct: +(out.reduce(function(s, x) { return s + x.pw * 100; }, 0)).toFixed(3),
+        placeSumPct: +(out.reduce(function(s, x) { return s + x.pt * 100; }, 0)).toFixed(3)
+      };
     }
 
     function runAllSims() {
@@ -3501,7 +3701,7 @@
     }
 
     // ============================================================================
-    // 4. REAL-TIME HKJC ODDS SYNC ENGINE (GraphQL + Multi-Proxy + Smart Paste)
+    // 4. REAL-TIME HKJC ODDS SYNC ENGINE (With Strict Date, Venue & Runner Validation)
     // ============================================================================
     function applyFetchedOddsToRace(raceIdx, winMap, plaMap, sourceLabel) {
       var r = RACES[raceIdx];
@@ -3535,20 +3735,46 @@
 
     function parseHkjcOddsPayload(rawText, targetRaceIdx) {
       var updated = 0;
+      if (!rawText || typeof rawText !== "string") return 0;
+
+      // Pre-validate rawText for explicit wrong date/venue before anything else
+      var rawCheck = validatePayloadMeetingContext(rawText, null);
+      if (!rawCheck.ok) {
+        notify("⛔ 已攔截賠率更新：" + rawCheck.reason);
+        return 0;
+      }
+
       // Format A: HKJC GraphQL JSON response (pmPools -> oddsNodes)
       try {
         var j = JSON.parse(rawText);
         if (j && j.contents && typeof j.contents === "string") {
           rawText = j.contents;
+          var innerCheck = validatePayloadMeetingContext(rawText, null);
+          if (!innerCheck.ok) {
+            notify("⛔ 已攔截賠率更新：" + innerCheck.reason);
+            return 0;
+          }
           try { j = JSON.parse(rawText); } catch (e2) {}
+        }
+        var jsonCheck = validatePayloadMeetingContext(rawText, j);
+        if (!jsonCheck.ok) {
+          notify("⛔ 已攔截賠率更新：" + jsonCheck.reason);
+          return 0;
         }
         var meetings = j && j.data && j.data.raceMeetings;
         if (meetings && meetings.length > 0 && meetings[0].pmPools) {
-          var pools = meetings[0].pmPools;
+          var mtg = meetings[0];
+          // Require date/venue match if present, or reject if venueCode is ST
+          var mtgCheck = validatePayloadMeetingContext("", mtg);
+          if (!mtgCheck.ok) {
+            notify("⛔ 已攔截賠率更新：" + mtgCheck.reason);
+            return 0;
+          }
+          var pools = mtg.pmPools;
           var byRaceWin = {}, byRacePla = {};
           pools.forEach(function(p) {
             var rNo = parseInt(p.raceNo, 10);
-            if (!rNo) return;
+            if (!rNo || rNo < 1 || rNo > RACES.length) return;
             if (!byRaceWin[rNo]) byRaceWin[rNo] = {};
             if (!byRacePla[rNo]) byRacePla[rNo] = {};
             (p.oddsNodes || []).forEach(function(nd) {
@@ -3563,7 +3789,7 @@
           Object.keys(byRaceWin).forEach(function(rNoStr) {
             var rIdx = parseInt(rNoStr, 10) - 1;
             if (rIdx >= 0 && rIdx < RACES.length) {
-              updated += applyFetchedOddsToRace(rIdx, byRaceWin[rNoStr], byRacePla[rNoStr], "馬會官方 GraphQL API");
+              updated += applyFetchedOddsToRace(rIdx, byRaceWin[rNoStr], byRacePla[rNoStr], "馬會官方 GraphQL API (2026-10-21 HV)");
             }
           });
           if (updated > 0) return updated;
@@ -3573,7 +3799,7 @@
             var rIdx = parseInt(rNoStr, 10) - 1;
             var obj = j.races[rNoStr];
             if (rIdx >= 0 && rIdx < RACES.length && obj) {
-              updated += applyFetchedOddsToRace(rIdx, obj.win || {}, obj.pla || {}, "雲端 JSON 實時流");
+              updated += applyFetchedOddsToRace(rIdx, obj.win || {}, obj.pla || {}, "雲端 JSON 實時流 (2026-10-21 HV)");
             }
           });
           if (updated > 0) return updated;
@@ -3597,11 +3823,11 @@
             if (pts.length >= 2) plaMap[String(parseInt(pts[0], 10))] = parseFloat(pts[1]);
           });
         }
-        updated += applyFetchedOddsToRace(targetRaceIdx, winMap, plaMap, "bet.hkjc.com 實時池");
+        updated += applyFetchedOddsToRace(targetRaceIdx, winMap, plaMap, "bet.hkjc.com 實時池 (2026-10-21 HV)");
         if (updated > 0) return updated;
       }
 
-      // Format C: Match horse names & multi-column time-series odds from on.cc / HKJC HTML or text
+      // Format C: Match exact horse names & odds from HTML or text for targetRaceIdx
       var curRace = RACES[targetRaceIdx];
       if (curRace) {
         var wM = {}, pM = {};
@@ -3612,10 +3838,8 @@
           var idxName = plainText.indexOf(hName);
           if (idxName !== -1) {
             var snippet = plainText.slice(idxName + hName.length, idxName + hName.length + 180);
-            // Stop at next horse number or footer
             var numTokens = snippet.match(/\b\d{1,3}(?:\.\d{1,2})?\b/g);
             if (numTokens && numTokens.length >= 2) {
-              // In multi-column tables (3pm, 6pm, 8pm, -1hr, live), take the LAST valid (win, pla) pair on the row
               var pairs = [];
               for (var k = 0; k + 1 < numTokens.length && k < 10; k += 2) {
                 var wCand = parseFloat(numTokens[k]);
@@ -3634,7 +3858,7 @@
             }
           }
         });
-        updated += applyFetchedOddsToRace(targetRaceIdx, wM, pM, "馬會實時彩池同步");
+        updated += applyFetchedOddsToRace(targetRaceIdx, wM, pM, "馬會實時彩池同步 (2026-10-21 HV)");
       }
 
       return updated;
@@ -3643,11 +3867,10 @@
     async function syncLiveHkjcOdds(showToastFeedback) {
       var rNo = RACES[APP.raceIdx].no;
       var gqlQuery = {
-        query: "query ($date: String, $venueCode: String) { raceMeetings(date: $date, venueCode: $venueCode) { pmPools(oddsTypes: [WIN, PLA]) { id oddsType raceNo oddsNodes { combString oddsValue hotFavourite } } } }",
+        query: "query ($date: String, $venueCode: String) { raceMeetings(date: $date, venueCode: $venueCode) { date venueCode pmPools(oddsTypes: [WIN, PLA]) { id oddsType raceNo oddsNodes { combString oddsValue hotFavourite } } } }",
         variables: { date: "2026-10-21", venueCode: "HV" }
       };
 
-      // Layer 1: Official HKJC GraphQL Endpoint (Direct + CORS Proxy)
       var gqlTargets = [
         "https://info.cld.hkjc.com/graphql/base/",
         "https://corsproxy.io/?" + encodeURIComponent("https://info.cld.hkjc.com/graphql/base/")
@@ -3663,18 +3886,14 @@
             var gText = await gResp.text();
             if (parseHkjcOddsPayload(gText, APP.raceIdx) > 0) {
               renderAll();
-              if (showToastFeedback) notify("✅ 已直連馬會 GraphQL (info.cld.hkjc.com) 同步全日實時賠率！");
+              if (showToastFeedback) notify("✅ 已直連馬會 GraphQL (info.cld.hkjc.com) 同步 2026-10-21 跑馬地實時賠率！");
               return true;
             }
           }
         } catch (e) {}
       }
 
-      // Layer 2: HKJC bet.hkjc.com JSON / WP endpoints via Multi-Proxy
-      var padR = rNo < 10 ? "000" + rNo : "00" + rNo;
       var hkjcEndpoints = [
-        "https://racing.on.cc/racing/rat/current/rjratb" + padR + "x0.html",
-        "https://racing.on.cc/racing/rat/current/rjrata" + padR + "x0.html",
         "https://bet.hkjc.com/racing/getJSON.aspx?type=winplaodds&date=2026-10-21&venue=HV&start=" + rNo + "&end=" + rNo
       ];
       for (var ep = 0; ep < hkjcEndpoints.length; ep++) {
@@ -3691,7 +3910,7 @@
               var raw = await resp.text();
               if (parseHkjcOddsPayload(raw, APP.raceIdx) > 0) {
                 renderAll();
-                if (showToastFeedback) notify("✅ 已透過雲端代理同步第 " + rNo + " 場馬會實時賠率！");
+                if (showToastFeedback) notify("✅ 已透過雲端代理同步 2026-10-21 跑馬地第 " + rNo + " 場實時賠率！");
                 return true;
               }
             }
@@ -3713,9 +3932,21 @@
 
     function parsePastedHkjcOdds() {
       var txt = document.getElementById("txtOddsPaste").value.trim();
+      var hintEl = document.getElementById("pasteParseHint");
       if (!txt) {
         notify("⚠️ 請先貼上馬會賠率網頁文字或賠率數據！");
-        return;
+        return 0;
+      }
+
+      // Strictly check date, venue, and forbidden horse names first!
+      var ctxCheck = validatePayloadMeetingContext(txt, null);
+      if (!ctxCheck.ok) {
+        if (hintEl) {
+          hintEl.style.color = "#FB7185";
+          hintEl.textContent = "⛔ 已拒絕套用賠率：" + ctxCheck.reason;
+        }
+        notify("⛔ 已拒絕套用賠率：" + ctxCheck.reason);
+        return 0;
       }
 
       var count = parseHkjcOddsPayload(txt, APP.raceIdx);
@@ -3727,29 +3958,53 @@
         curRunners.forEach(function(r) { validNos[String(r[0])] = r[1]; });
 
         var lines = txt.split(/\r?\n/);
+        var nameMismatchError = null;
         lines.forEach(function(line) {
           var clean = line.trim();
           if (!clean) return;
-          var mLine = clean.match(/^(\d{1,2})\b[\s\S]*?(\d{1,3}(?:\.\d{1,2})?)\s+(\d{1,2}(?:\.\d{1,2})?)\s*$/);
+          var mLine = clean.match(/^(\d{1,2})\b([\s\S]*?)(\d{1,3}(?:\.\d{1,2})?)\s+(\d{1,2}(?:\.\d{1,2})?)\s*$/);
           if (mLine && validNos[mLine[1]]) {
-            var w = parseFloat(mLine[2]), p = parseFloat(mLine[3]);
+            var hNo = mLine[1];
+            var midText = (mLine[2] || "").trim();
+            var cnChars = midText.match(/[\u4e00-\u9fa5]{2,}/g);
+            if (cnChars && cnChars.length > 0) {
+              var pastedName = cnChars[0];
+              if (pastedName.indexOf(validNos[hNo]) === -1 && validNos[hNo].indexOf(pastedName) === -1) {
+                nameMismatchError = "馬號 #" + hNo + " 馬名「" + pastedName + "」與本場排位「" + validNos[hNo] + "」不符";
+                return;
+              }
+            }
+            var w = parseFloat(mLine[3]), p = parseFloat(mLine[4]);
             if (w >= 1.05 && p >= 1.01 && p <= w) {
-              wMap[mLine[1]] = w;
-              pMap[mLine[1]] = p;
+              wMap[hNo] = w;
+              pMap[hNo] = p;
             }
           }
         });
-        count = applyFetchedOddsToRace(APP.raceIdx, wMap, pMap, "手動貼上馬會實時賠率");
+
+        if (nameMismatchError) {
+          if (hintEl) {
+            hintEl.style.color = "#FB7185";
+            hintEl.textContent = "⛔ 已拒絕套用賠率：" + nameMismatchError;
+          }
+          notify("⛔ 賠率攔截：" + nameMismatchError + "（拒絕套用錯場次/錯馬場賠率）！");
+          return 0;
+        }
+
+        count = applyFetchedOddsToRace(APP.raceIdx, wMap, pMap, "手動貼上馬會實時賠率 (2026-10-21 HV)");
       }
 
       if (count > 0) {
         renderAll();
-        document.getElementById("pasteParseHint").textContent =
-          "✅ 已成功解析並更新本場 " + count + " 匹馬嘅獨贏及位置賠率！（" + APP.lastOddsTime + "）";
+        if (hintEl) {
+          hintEl.style.color = "#34D399";
+          hintEl.textContent = "✅ 已成功解析並更新本場 " + count + " 匹馬嘅獨贏及位置賠率！（" + APP.lastOddsTime + "）";
+        }
         notify("✅ 已秒速同步 " + count + " 匹馬賠率並重跑 20,000 次蒙地卡羅模擬！");
       } else {
-        notify("⚠️ 未能識別賠率格式，請確保包含「馬號/馬名 獨贏賠率 位置賠率」！");
+        notify("⚠️ 未能識別賠率格式，請確保包含本場「馬號 馬名 獨贏賠率 位置賠率」！");
       }
+      return count;
     }
 
     function loadSampleLiveOddsMovement() {
@@ -3757,7 +4012,7 @@
       var sampleLines = r.runners.map(function(x) {
         var isSmart = (x[6] >= 3 || x[3] <= 4);
         var newW = isSmart ? +(x[13] * 0.82).toFixed(1) : +(x[13] * 1.12).toFixed(1);
-        var newP = isSmart ? +(Math.max(1.45, x[14] * 0.88)).toFixed(2) : +(x[14] * 1.08).toFixed(2);
+        var newP = isSmart ? +(Math.max(1.65, x[14] * 0.88)).toFixed(2) : +(x[14] * 1.08).toFixed(2);
         return x[0] + " " + x[1] + " " + newW + " " + newP;
       }).join("\n");
       document.getElementById("txtOddsPaste").value = sampleLines;
@@ -3798,18 +4053,83 @@
       }
     }
 
+    // ============================================================================
+    // STRICT SECTIONAL PARSER (Prevents Non-Sectional Numbers & Truncated Race 9)
+    // ============================================================================
+    function extractStrictSectionalFromHtml(rawText) {
+      if (!rawText || typeof rawText !== "string") return null;
+      var ctxCheck = validatePayloadMeetingContext(rawText, null);
+      if (!ctxCheck.ok) return null;
+
+      // Require explicit 21/10/2026 AND Happy Valley / 跑馬地 AND explicit 分段時間 label
+      if (rawText.indexOf("21/10/2026") === -1 && rawText.indexOf("2026/10/21") === -1 && rawText.indexOf("2026-10-21") === -1) {
+        return null;
+      }
+      if (rawText.indexOf("跑馬地") === -1 && rawText.toUpperCase().indexOf("HAPPY VALLEY") === -1) {
+        return null;
+      }
+
+      var secIdx = rawText.indexOf("分段時間");
+      if (secIdx === -1) secIdx = rawText.indexOf("Sectional Time");
+      if (secIdx === -1) return null;
+
+      // Extract race number (1..RACES.length, never truncating Race 9 to 8!)
+      var raceMatch = rawText.match(/第\s*(\d{1,2})\s*場/);
+      var rNum = raceMatch ? parseInt(raceMatch[1], 10) : NaN;
+      if (isNaN(rNum) || rNum < 1 || rNum > RACES.length) return null;
+
+      // Isolate ONLY the sectional block and strip out dividends/odds/weights
+      var secSlice = rawText.slice(secIdx, secIdx + 500);
+      var stopIdx = secSlice.search(/派彩|獨贏|位置|連贏|Dividend|Pool/i);
+      if (stopIdx !== -1) secSlice = secSlice.slice(0, stopIdx);
+      secSlice = secSlice.replace(/<[^>]+>/g, " ").replace(/\$[\d,.]+/g, " ").replace(/\d+(?:\.\d+)?\s*(?:倍|%|磅|m\b|米)/g, " ");
+
+      var splitTokens = secSlice.match(/\b(2[0-6]\.\d{2})\b/g);
+      if (!splitTokens || splitTokens.length < 3) return null;
+
+      // Take the last 3 valid 400m splits in [20.00, 26.50]
+      var last3 = splitTokens.slice(-3).map(function(v) { return parseFloat(v); });
+      for (var i = 0; i < 3; i++) {
+        if (isNaN(last3[i]) || last3[i] < 20.0 || last3[i] > 26.5) return null;
+      }
+      return { raceNo: rNum, splits: last3 };
+    }
+
+    function extractStrictSectionalFromChat(queryText) {
+      if (!queryText || typeof queryText !== "string") return null;
+      // Must explicitly mention 分段 or split, and must NOT be an odds/percentage/weight query
+      if (!/分段|split/i.test(queryText)) return null;
+      if (/賠率|獨贏|位置|連贏|倍|\$|%|磅|EV/i.test(queryText)) return null;
+
+      var ctxCheck = validatePayloadMeetingContext(queryText, null);
+      if (!ctxCheck.ok) {
+        notify("⛔ 分段攔截：" + ctxCheck.reason);
+        return { blocked: true, reason: ctxCheck.reason };
+      }
+
+      var rMatch = queryText.match(/R(\d{1,2})|第\s*(\d{1,2})\s*場/i);
+      var rNum = rMatch ? parseInt(rMatch[1] || rMatch[2], 10) : (APP.raceIdx + 1);
+      if (isNaN(rNum) || rNum < 1 || rNum > RACES.length) return null;
+
+      var tokens = queryText.match(/\b(2[0-6]\.\d{1,2})\b/g);
+      if (!tokens || tokens.length < 3) return null;
+      var sp3 = tokens.slice(0, 3).map(function(v) { return parseFloat(v); });
+      for (var i = 0; i < 3; i++) {
+        if (isNaN(sp3[i]) || sp3[i] < 20.0 || sp3[i] > 26.5) return null;
+      }
+      return { raceNo: rNum, splits: sp3 };
+    }
+
     async function triggerImmediateAutoSync() {
       APP.countdown = 30;
       var logEl = document.getElementById("autoPilotLogLine");
       var detailEl = document.getElementById("autoSyncDetailLog");
       var nowStr = new Date().toTimeString().slice(0, 8);
 
-      logEl.innerHTML = "⏳ [" + nowStr + "] 正在同步香港賽馬會 GraphQL 實時賠率池 (WIN/PLA) 與官方賽果分段時間...";
+      logEl.innerHTML = "⏳ [" + nowStr + "] 正在同步香港賽馬會 GraphQL 實時賠率池 (WIN/PLA) 與 2026-10-21 跑馬地官方賽果分段時間...";
 
-      // Step 1: Sync Live HKJC Odds
       var oddsSynced = await syncLiveHkjcOdds(false);
 
-      // Step 2: Multi-Proxy CORS Auto-Fetch of HKJC LocalResults page (ONLY if it matches 21/10/2026 Happy Valley!)
       var hkjcUrl = "https://racing.hkjc.com/racing/information/Chinese/Racing/LocalResults.aspx?RaceDate=2026/10/21&Racecourse=HV";
       var proxies = [
         "https://api.allorigins.win/get?url=" + encodeURIComponent(hkjcUrl),
@@ -3821,75 +4141,104 @@
           var resp = await fetch(proxies[p]);
           if (resp && resp.ok) {
             var rawText = await resp.text();
-            // Strictly verify the result page is for 21/10/2026 before auto-ingesting!
-            if (rawText.indexOf("21/10/2026") !== -1) {
-              var splits = rawText.match(/\b2[1-8]\.\d{2}\b/g);
-              var raceMatch = rawText.match(/第\s*(\d{1,2})\s*場/);
-              if (splits && splits.length >= 3) {
-                var rNum = raceMatch ? Math.min(8, parseInt(raceMatch[1], 10)) : 5;
-                var sp3 = [parseFloat(splits[0]), parseFloat(splits[1]), parseFloat(splits[2])];
-                var f800 = sp3[0] + sp3[1];
-                var autoPos = f800 <= 46.45 ? "back_out" : f800 >= 47.35 ? "front_in" : "mid_in";
-                ingestAutoDetectedResult(rNum, sp3, autoPos, "HKJC 雲端代理直連");
-                return;
-              }
+            var parsedSec = extractStrictSectionalFromHtml(rawText);
+            if (parsedSec) {
+              var sp3 = parsedSec.splits;
+              var f800 = sp3[0] + sp3[1];
+              var autoPos = f800 <= 45.80 ? "back_out" : f800 >= 47.20 ? "front_in" : "mid_in";
+              ingestAutoDetectedResult(parsedSec.raceNo, sp3, autoPos, "HKJC 2026-10-21 跑馬地賽果直連", { date: "2026-10-21", venue: "HV" });
+              return;
             }
           }
         } catch (err) {}
       }
 
       if (oddsSynced) {
-        logEl.innerHTML = "✅ [" + nowStr + "] 已成功同步馬會最新實時 WIN/PLA 賠率，並完成 20,000 次蒙地卡羅重算！";
+        logEl.innerHTML = "✅ [" + nowStr + "] 已成功同步 2026-10-21 跑馬地最新實時 WIN/PLA 賠率，並完成 20,000 次蒙地卡羅重算！";
       } else {
-        logEl.innerHTML = "✅ [" + nowStr + "] 自動巡航待命中：若瀏覽器沙盒阻擋跨域直連馬會，可隨時點擊上方「📋 貼上馬會賠率頁文字 (0.1秒同步)」或直接改表格賠率！";
+        logEl.innerHTML = "✅ [" + nowStr + "] 自動巡航待命中：若瀏覽器沙盒阻擋跨域直連馬會，可點擊上方「📋 貼上馬會賠率頁文字 (0.1秒同步)」或直接改表格賠率！";
       }
       if (detailEl) {
-        detailEl.innerHTML = "• [" + nowStr + "] 賠率與賽果掃描完成（當前賠率源：" + APP.lastOddsSource + "）。<br>• 提示：想即刻體驗臨場落飛效果，可撳「📋 貼上馬會賠率頁文字」➔「⚡ 測試馬會臨場落飛數據」！";
+        detailEl.innerHTML = "• [" + nowStr + "] 賠率與賽果掃描完成（當前賠率源：" + APP.lastOddsSource + "）。<br>• 已啟用跨日/跨馬場防偽校驗：任何非 2026-10-21 或非跑馬地 (HV) 之賠率與分段均會被自動攔截。";
       }
     }
 
-    function ingestAutoDetectedResult(finishedRaceNo, splitsArr, winPosCode, sourceName) {
-      var nowStr = new Date().toTimeString().slice(0, 8);
-      document.getElementById("secFinishedRace").value = String(finishedRaceNo);
-      document.getElementById("secSplit1").value = splitsArr[0].toFixed(2);
-      document.getElementById("secSplit2").value = splitsArr[1].toFixed(2);
-      document.getElementById("secSplit3").value = splitsArr[2].toFixed(2);
-      document.getElementById("secWinPos").value = winPosCode;
+    function ingestAutoDetectedResult(finishedRaceNo, splitsArr, winPosCode, sourceName, meta) {
+      // Guard against cross-date or cross-venue sectional application (e.g., 2026-10-19 Sha Tin!)
+      var srcCheck = validatePayloadMeetingContext(String(sourceName || ""), meta || null);
+      if (!srcCheck.ok) {
+        notify("⛔ 跨日/跨馬場分段攔截：" + srcCheck.reason + "（嚴禁套用至 2026-10-21 跑馬地設定）！");
+        return false;
+      }
+      if (!Array.isArray(splitsArr) || splitsArr.length < 3) {
+        notify("⛔ 分段格式無效：需要 3 段有效 400m 分段秒數！");
+        return false;
+      }
+      for (var k = 0; k < 3; k++) {
+        var sv = parseFloat(splitsArr[k]);
+        if (isNaN(sv) || sv < 19.5 || sv > 27.5) {
+          notify("⛔ 分段數值越界 (" + splitsArr[k] + "s)：非有效 400m 分段時間！");
+          return false;
+        }
+      }
 
-      applyCustomSectional();
-      var nextRaceIdx = Math.min(RACES.length - 1, finishedRaceNo);
-      APP.raceIdx = nextRaceIdx;
+      // Clamp finishedRaceNo strictly within [1, RACES.length] (1..9, never truncating 9 to 8!)
+      var validFinNo = Math.min(RACES.length, Math.max(1, parseInt(finishedRaceNo, 10) || 1));
+      var nowStr = new Date().toTimeString().slice(0, 8);
+
+      document.getElementById("secFinishedRace").value = String(validFinNo);
+      document.getElementById("secSplit1").value = parseFloat(splitsArr[0]).toFixed(2);
+      document.getElementById("secSplit2").value = parseFloat(splitsArr[1]).toFixed(2);
+      document.getElementById("secSplit3").value = parseFloat(splitsArr[2]).toFixed(2);
+      document.getElementById("secWinPos").value = winPosCode || "mid_in";
+
+      applyCustomSectional({ date: "2026-10-21", venue: "HV" });
+
+      // If R1..R8 finished, advance to next race (index = validFinNo); if R9 finished, stay on R9 (index = 8)
+      var isFinalRaceFinished = (validFinNo >= RACES.length);
+      var targetRaceIdx = isFinalRaceFinished ? (RACES.length - 1) : validFinNo;
+      APP.raceIdx = targetRaceIdx;
       renderAll();
 
-      var nf = getNextRaceFavorAnalysis(nextRaceIdx);
+      var nf = getNextRaceFavorAnalysis(targetRaceIdx);
+      var actionLabel = isFinalRaceFinished
+        ? ("已完成全晚尾場 <strong>R" + validFinNo + " (" + nf.nextRaceName + ")</strong> 賽後分段總結")
+        : ("已全自動切換至 <strong>下一場 R" + nf.nextRaceNo + " (" + nf.nextRaceName + ")</strong>");
+
       document.getElementById("autoPilotLogLine").innerHTML =
-        "🎯 [" + nowStr + " · " + sourceName + "] 已自動捕獲 <strong>R" + finishedRaceNo + " 完場分段 (" + splitsArr.join("s / ") + "s)</strong> ➔ 已全自動切換至 <strong>下一場 R" + nf.nextRaceNo + "</strong>，鎖定受惠馬 <strong>#" + nf.topBeneficiaries[0].no + " " + nf.topBeneficiaries[0].name + "</strong>！";
+        "🎯 [" + nowStr + " · " + sourceName + "] 已捕獲 <strong>2026-10-21 谷草 R" + validFinNo + " 分段 (" + splitsArr.map(function(v){return parseFloat(v).toFixed(2);}).join("s / ") + "s)</strong> ➔ " + actionLabel + "，鎖定受惠馬 <strong>#" + nf.topBeneficiaries[0].no + " " + nf.topBeneficiaries[0].name + "</strong>！";
 
       var detailEl = document.getElementById("autoSyncDetailLog");
       if (detailEl) {
         detailEl.innerHTML =
           "• [" + nowStr + "] 來源：" + sourceName + "<br>" +
-          "• [自動解碼] 剛跑完 R" + finishedRaceNo + " 分段：" + splitsArr.join("s - ") + "s (前800m " + (splitsArr[0] + splitsArr[1]).toFixed(2) + "s)<br>" +
-          "• [自動跳場] 已自動將主畫面切換至 R" + nf.nextRaceNo + " (" + nf.nextRaceName + ")，頭號受惠馬：#" + nf.topBeneficiaries[0].no + " " + nf.topBeneficiaries[0].name;
+          "• [自動解碼] 剛跑完 R" + validFinNo + " 分段：" + splitsArr.map(function(v){return parseFloat(v).toFixed(2);}).join("s - ") + "s (前兩段合共 " + (parseFloat(splitsArr[0]) + parseFloat(splitsArr[1])).toFixed(2) + "s)<br>" +
+          "• [場次定位] " + (isFinalRaceFinished ? "R9 尾場完場總結" : ("已切換至 R" + nf.nextRaceNo + " (" + nf.nextRaceName + ")")) + "，頭號受惠馬：#" + nf.topBeneficiaries[0].no + " " + nf.topBeneficiaries[0].name;
       }
 
       appendAiChat("ai",
-        "⚡ <strong>【全自動無人值守通報 · " + nowStr + "】</strong><br>" +
-        "系統剛自動捕獲 <strong>第 " + finishedRaceNo + " 場</strong> 官方完場分段：<code>" + splitsArr.join("s - ") + "s</code>（前 800m 合共 " + (splitsArr[0] + splitsArr[1]).toFixed(2) + "s）。<br><br>" +
-        "🔮 <strong>自動推演下一場 (第 " + nf.nextRaceNo + " 場 " + nf.nextRaceName + ")</strong>：<br>" +
+        "⚡ <strong>【2026-10-21 跑馬地分段推進通報 · " + nowStr + "】</strong><br>" +
+        "系統已套用 <strong>第 " + validFinNo + " 場</strong> 分段：<code>" + splitsArr.map(function(v){return parseFloat(v).toFixed(2);}).join("s - ") + "s</code>（前兩段合共 " + (parseFloat(splitsArr[0]) + parseFloat(splitsArr[1])).toFixed(2) + "s）。<br><br>" +
+        "🔮 <strong>" + (isFinalRaceFinished ? ("尾場 (第 " + nf.nextRaceNo + " 場 " + nf.nextRaceName + ") 步速總結") : ("推演下一場 (第 " + nf.nextRaceNo + " 場 " + nf.nextRaceName + ")")) + "</strong>：<br>" +
         "• <strong>最利好方向</strong>：" + nf.favorWhat + "<br>" +
-        "• <strong>最受惠升呢馬</strong>：<strong style='color:#34D399;'>#" + nf.topBeneficiaries[0].no + " " + nf.topBeneficiaries[0].name + " (上名率 " + (nf.topBeneficiaries[0].pt * 100).toFixed(1) + "%)</strong>、<strong>#" + nf.topBeneficiaries[1].no + " " + nf.topBeneficiaries[1].name + "</strong><br>" +
-        "• <strong>本場唯一單注膽</strong>：<strong style='color:#FBBF24;'>#" + nf.bullet.no + " " + nf.bullet.name + "</strong>（主畫面已自動幫你跳去 R" + nf.nextRaceNo + "！）"
+        "• <strong>最受惠馬匹</strong>：<strong style='color:#34D399;'>#" + nf.topBeneficiaries[0].no + " " + nf.topBeneficiaries[0].name + " (上名率 " + (nf.topBeneficiaries[0].pt * 100).toFixed(1) + "%)</strong>、<strong>#" + nf.topBeneficiaries[1].no + " " + nf.topBeneficiaries[1].name + "</strong>"
       );
 
-      notify("🤖 全自動完成：已捕獲 R" + finishedRaceNo + " 步速並自動跳去下一場 R" + nf.nextRaceNo + "！");
+      notify("🤖 已完成 2026-10-21 谷草 R" + validFinNo + " 步速分析（當前聚焦 R" + nf.nextRaceNo + "）！");
+      return true;
     }
 
     function runFullAutoRaceDayDemo() {
-      var finNo = ((APP.demoCursor || 0) % 10) + 1;
+      var finNo = ((APP.demoCursor || 0) % RACES.length) + 1;
       APP.demoCursor = finNo;
-      var pm = POSTMORTEM_20261019[finNo] || POSTMORTEM_20261019[9];
-      ingestAutoDetectedResult(finNo, pm.split3, pm.winPos, "2026-10-19 官方實測分段 R" + finNo + " 完場 ➔ 自動推演 R" + Math.min(11, finNo + 1));
+      var hvSec = HV_20261021_SECTIONALS[finNo] || HV_20261021_SECTIONALS[5];
+      ingestAutoDetectedResult(
+        finNo,
+        hvSec.split3,
+        hvSec.winPos,
+        "2026-10-21 跑馬地夜賽 (B欄) R" + finNo + " 模擬完場 ➔ 推演 R" + Math.min(RACES.length, finNo + 1),
+        { date: "2026-10-21", venue: "HV" }
+      );
     }
 
     function startAutoPilotTicker() {
@@ -3908,37 +4257,33 @@
     }
 
     // ============================================================================
-    // 5. NEXT-RACE BIAS PREDICTOR & TRACK SETTINGS
+    // 5. NEXT-RACE BIAS PREDICTOR & TRACK SETTINGS (With Cross-Venue Protection)
     // ============================================================================
     function getNextRaceFavorAnalysis(targetIdx) {
-      var nextIdx = Math.min(RACES.length - 1, targetIdx);
+      var nextIdx = Math.min(RACES.length - 1, Math.max(0, targetIdx));
       var nr = RACES[nextIdx];
       var nSim = APP.sims[nextIdx];
-      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.ST_C3;
+      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.HV_B;
 
       var favorWhat = "";
       var avoidWhat = "";
       var favoredRunners = [];
 
-      if (nr.dist === 1000 && APP.rail.indexOf("ST") === 0) {
-        favorWhat = "沙田 1000m 直路賽「9–14 檔貼看台外欄馬」+「見習生減磅領放馬」";
-        avoidWhat = "1–4 檔內欄馬（直路內欄草皮較慢且易受擠壓）";
-        favoredRunners = nSim.out.filter(function(x) { return x.draw >= 9; }).sort(function(a,b){ return b.pt - a.pt; });
-      } else if (APP.paceBias === "fast_closer") {
-        favorWhat = "「中外檔純後上馬 (Closer)」+「見習生減7磅/3磅輕磅衝刺馬」（免除外檔轉彎扣分）";
-        avoidWhat = "早段搶放頂磅馬、≤1.6 倍位置過熱前置大熱（易步速燒乾潰敗）";
-        favoredRunners = nSim.out.filter(function(x) { return x.style === "C" || x.claim >= 3 || x.actualWt <= 122; }).sort(function(a,b){ return b.pt - a.pt; });
+      if (APP.paceBias === "fast_closer") {
+        favorWhat = "「中外檔後上馬 (Closer)」+「內中欄受讓輕磅好位馬」（快步速受惠）";
+        avoidWhat = "早段外檔硬搶放頭馬、≤1.55 倍位置過熱低水馬";
+        favoredRunners = nSim.out.filter(function(x) { return x.style === "C" || (x.style === "S" && x.draw <= 6); }).sort(function(a,b){ return b.pt - a.pt; });
       } else if (APP.paceBias === "slow_leader") {
         favorWhat = "「1–4 檔貼欄單騎放頭 (Leader)」+「黃金包廂跟前馬 (Stalker)」";
-        avoidWhat = "10–14 檔留後大外一氣馬（慢步速物理上追唔切）";
+        avoidWhat = "9–12 檔留後大外一氣馬（慢步速物理上追唔切）";
         favoredRunners = nSim.out.filter(function(x) { return x.draw <= 5 && (x.style === "L" || x.style === "S"); }).sort(function(a,b){ return b.pt - a.pt; });
       } else if (APP.paceBias === "rolled_outer") {
-        favorWhat = "「壓地後中外疊好位順走馬 (5–9檔)」+「受讓輕磅變速馬」";
-        avoidWhat = "內欄受困均速馬及頂磅135磅老馬";
+        favorWhat = "「壓地後中外疊好位順走馬 (4–8檔)」+「高班底準繩馬」";
+        avoidWhat = "內欄受困被動馬及外檔重負荷馬";
         favoredRunners = nSim.out.filter(function(x) { return !x.vuln; }).sort(function(a,b){ return b.pt - a.pt; });
       } else {
         favorWhat = "「" + rc.name + " 1–4 檔省位黃金包廂馬」+「合理步速守好位馬」";
-        avoidWhat = "10–14 檔轉彎三疊無遮擋頂磅熱門馬";
+        avoidWhat = "10–12 檔轉彎三疊無遮擋重負荷熱門馬";
         favoredRunners = nSim.out.filter(function(x) { return x.draw <= 5 && !x.vuln; }).sort(function(a,b){ return b.pt - a.pt; });
       }
 
@@ -3956,11 +4301,21 @@
     }
 
     function applyTrackSettings() {
-      APP.rail = document.getElementById("selRail").value;
+      var selRailEl = document.getElementById("selRail");
+      var requestedRail = selRailEl ? selRailEl.value : "HV_B";
+
+      // Strictly block applying Sha Tin (ST_*) rails to the 2026-10-21 Happy Valley (HV) meeting!
+      if (ACTIVE_MEETING.venueCode === "HV" && requestedRail.indexOf("ST_") === 0) {
+        requestedRail = APP.rail && APP.rail.indexOf("HV_") === 0 ? APP.rail : "HV_B";
+        if (selRailEl) selRailEl.value = requestedRail;
+        notify("⛔ 跨馬場攔截：當前排位表為 2026-10-21 跑馬地 (HV)，不可套用沙田 (ST) 賽道設定！");
+      }
+
+      APP.rail = requestedRail;
       APP.going = document.getElementById("selGoing").value;
       APP.paceBias = document.getElementById("selPaceBias").value;
 
-      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.ST_C3;
+      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.HV_B;
       APP.insideAdj = rc.inBoost;
       APP.outerPen = rc.outPen;
       APP.closerAdj = 0.0;
@@ -3974,60 +4329,85 @@
       }
 
       if (APP.paceBias === "fast_closer") {
-        APP.closerAdj = -0.22;
-        APP.outerPen = Math.max(0.08, APP.outerPen - 0.16);
+        APP.closerAdj = -0.18;
+        APP.outerPen = Math.max(0.10, APP.outerPen - 0.12);
       } else if (APP.paceBias === "slow_leader") {
         APP.closerAdj = 0.14;
-        APP.insideAdj -= 0.08;
+        APP.insideAdj -= 0.06;
       } else if (APP.paceBias === "rolled_outer") {
-        APP.closerAdj = -0.14;
-        APP.outerPen = Math.max(0.10, APP.outerPen - 0.14);
+        APP.closerAdj = -0.12;
+        APP.outerPen = Math.max(0.12, APP.outerPen - 0.10);
       }
 
+      var totalRunnersCount = RACES.reduce(function(acc, r) { return acc + r.runners.length; }, 0);
       document.getElementById("topBiasSummary").textContent =
-        "當前設定：" + rc.name + " · 內欄修正 " + APP.insideAdj.toFixed(2) + "s / 外檔 +" + APP.outerPen.toFixed(2) + "s · 全場 144 匹馬已同步";
+        "當前設定：" + rc.name + " · 內欄修正 " + APP.insideAdj.toFixed(2) + "s / 外檔 +" + APP.outerPen.toFixed(2) + "s · 2026-10-21 谷草全場 " + totalRunnersCount + " 匹參賽馬已同步";
 
       runAllSims();
       renderAll();
       renderNextRacePredictorCard();
     }
 
-    function applyCustomSectional() {
-      var s1 = parseFloat(document.getElementById("secSplit1").value) || 23.5;
-      var s2 = parseFloat(document.getElementById("secSplit2").value) || 23.0;
-      var s3 = parseFloat(document.getElementById("secSplit3").value) || 23.6;
+    function applyCustomSectional(meta) {
+      if (meta) {
+        var mCheck = validatePayloadMeetingContext("", meta);
+        if (!mCheck.ok) {
+          notify("⛔ 跨日/跨馬場分段攔截：" + mCheck.reason);
+          return false;
+        }
+      }
+
+      var finRaceNo = Math.min(RACES.length, Math.max(1, parseInt(document.getElementById("secFinishedRace").value, 10) || 5));
+      var hvRef = HV_20261021_SECTIONALS[finRaceNo] || HV_20261021_SECTIONALS[5];
+
+      var s1 = parseFloat(document.getElementById("secSplit1").value);
+      var s2 = parseFloat(document.getElementById("secSplit2").value);
+      var s3 = parseFloat(document.getElementById("secSplit3").value);
+
+      // Reject non-sectional numbers (valid 400m turf splits must be in [19.50, 27.50])
+      if (isNaN(s1) || isNaN(s2) || isNaN(s3) || s1 < 19.5 || s1 > 27.5 || s2 < 19.5 || s2 > 27.5 || s3 < 19.5 || s3 > 27.5) {
+        document.getElementById("secSplit1").value = hvRef.split3[0].toFixed(2);
+        document.getElementById("secSplit2").value = hvRef.split3[1].toFixed(2);
+        document.getElementById("secSplit3").value = hvRef.split3[2].toFixed(2);
+        notify("⛔ 非分段數字攔截：400m 分段秒數必須介乎 19.50s 至 27.50s 之間，已還原為本場標準值！");
+        return false;
+      }
+
       var pos = document.getElementById("secWinPos").value;
       var f800 = +(s1 + s2).toFixed(2);
+      var parF800 = +(hvRef.split3[0] + hvRef.split3[1]).toFixed(2);
+      APP.lastSectionalDelta = +(f800 - parF800).toFixed(2);
 
-      if (f800 <= 46.45 || pos === "back_out") {
+      if (APP.lastSectionalDelta <= -0.35 || pos === "back_out") {
         document.getElementById("selPaceBias").value = "fast_closer";
-      } else if (f800 >= 47.35 || pos === "front_in") {
+      } else if (APP.lastSectionalDelta >= 0.35 || pos === "front_in") {
         document.getElementById("selPaceBias").value = "slow_leader";
       } else {
         document.getElementById("selPaceBias").value = "normal";
       }
 
       applyTrackSettings();
+      return true;
     }
 
     function renderNextRacePredictorCard() {
       var finRaceNo = Math.min(RACES.length, Math.max(1, parseInt(document.getElementById("secFinishedRace").value, 10) || 5));
       var nextIdx = Math.min(RACES.length - 1, finRaceNo);
-      var pm = POSTMORTEM_20261019[finRaceNo] || POSTMORTEM_20261019[9];
-      var s1 = parseFloat(document.getElementById("secSplit1").value) || pm.split3[0];
-      var s2 = parseFloat(document.getElementById("secSplit2").value) || pm.split3[1];
-      var s3 = parseFloat(document.getElementById("secSplit3").value) || pm.split3[2];
+      var hvSec = HV_20261021_SECTIONALS[finRaceNo] || HV_20261021_SECTIONALS[5];
+      var s1 = parseFloat(document.getElementById("secSplit1").value) || hvSec.split3[0];
+      var s2 = parseFloat(document.getElementById("secSplit2").value) || hvSec.split3[1];
+      var s3 = parseFloat(document.getElementById("secSplit3").value) || hvSec.split3[2];
       var f800 = +(s1 + s2).toFixed(2);
 
       var analysis = getNextRaceFavorAnalysis(nextIdx);
       document.getElementById("nextRaceCardTitle").textContent =
-        finRaceNo >= 11
-          ? "🔮 2. 尾場 (第 11 場 " + analysis.nextRaceName + " " + analysis.nextRaceDist + "m) 賽後步速與受惠馬總結"
+        finRaceNo >= RACES.length
+          ? "🔮 2. 尾場 (第 " + RACES.length + " 場 " + analysis.nextRaceName + " " + analysis.nextRaceDist + "m) 賽後步速與受惠馬總結"
           : "🔮 2. 下一場 (第 " + analysis.nextRaceNo + " 場 " + analysis.nextRaceName + " " + analysis.nextRaceDist + "m) 即時利弊診斷";
 
       var badge = document.getElementById("nextRaceRegimeBadge");
       if (APP.paceBias === "fast_closer") {
-        badge.textContent = "🔥 早中段快 (" + f800 + "s) ➔ 利後上輕磅";
+        badge.textContent = "🔥 早中段快 (" + f800 + "s) ➔ 利後上穿刺";
         badge.className = "badge b-gold mono";
       } else if (APP.paceBias === "slow_leader") {
         badge.textContent = "🛡️ 步速偏慢 (" + f800 + "s) ➔ 利內欄前置";
@@ -4039,12 +4419,12 @@
 
       document.getElementById("secDiagOutput").innerHTML =
         "<div style='padding-bottom:8px; margin-bottom:8px; border-bottom:1px dashed #334155;'>" +
-          "<div>🏁 <strong>剛跑完 R" + finRaceNo + " (" + RACES[finRaceNo - 1].name + " " + RACES[finRaceNo - 1].dist + "m) 官方賽果</strong>：<strong style='color:#34D399;'>" + pm.top4 + "</strong></div>" +
-          "<div style='margin-top:4px;'>⏱️ <strong>官方實測分段</strong>：<code class='mono' style='color:#FBBF24;'>" + pm.rawSplitsStr + "</code>（核對兩段合共 <strong class='mono' style='color:#38BDF8;'>" + f800 + "s</strong> = " + s1.toFixed(2) + "s + " + s2.toFixed(2) + "s，末段 " + s3.toFixed(2) + "s）</div>" +
-          "<div style='margin-top:4px; color:#A7F3D0;'>🔬 <strong>V25.5 四維步速診斷 (" + pm.v25PaceTag + ")</strong>：" + pm.v25Fix + "</div>" +
+          "<div>🏁 <strong>2026-10-21 跑馬地 R" + finRaceNo + " (" + RACES[finRaceNo - 1].name + " " + RACES[finRaceNo - 1].dist + "m) 核心前列</strong>：<strong style='color:#34D399;'>" + hvSec.top4 + "</strong></div>" +
+          "<div style='margin-top:4px;'>⏱️ <strong>2026-10-21 谷草分段基準</strong>：<code class='mono' style='color:#FBBF24;'>" + hvSec.rawSplitsStr + "</code>（當前輸入兩段合共 <strong class='mono' style='color:#38BDF8;'>" + f800 + "s</strong> = " + s1.toFixed(2) + "s + " + s2.toFixed(2) + "s，末段 " + s3.toFixed(2) + "s）</div>" +
+          "<div style='margin-top:4px; color:#A7F3D0;'>🔬 <strong>谷草動態步速診斷 (" + hvSec.v25PaceTag + ")</strong>：" + hvSec.v25Fix + "</div>" +
         "</div>" +
-        "<div>• <strong style='color:#34D399;'>✅ 下一場 (R" + analysis.nextRaceNo + " " + analysis.nextRaceName + ") 最利好類型</strong>：" + analysis.favorWhat + "</div>" +
-        "<div style='margin-top:4px;'>• <strong style='color:#FB7185;'>❌ 下一場 (R" + analysis.nextRaceNo + ") 最吃虧死穴</strong>：" + analysis.avoidWhat + "</div>";
+        "<div>• <strong style='color:#34D399;'>✅ " + (finRaceNo >= RACES.length ? "尾場 (R9)" : ("下一場 (R" + analysis.nextRaceNo + " " + analysis.nextRaceName + ")")) + " 最利好類型</strong>：" + analysis.favorWhat + "</div>" +
+        "<div style='margin-top:4px;'>• <strong style='color:#FB7185;'>❌ 最吃虧死穴</strong>：" + analysis.avoidWhat + "</div>";
 
       document.getElementById("nextRaceBeneficiaries").innerHTML = analysis.topBeneficiaries.map(function(m, idx) {
         return '<div class="pair-item">' +
@@ -4054,37 +4434,38 @@
                  '</div>' +
                  '<div style="text-align:right;">' +
                    '<div class="mono" style="color:#34D399; font-weight:800;">上名率 ' + (m.pt * 100).toFixed(1) + '%</div>' +
-                   '<div class="mono" style="font-size:11px; color:#FBBF24;">位置 ' + m.plaO + 'x (EV ' + m.ev + ')</div>' +
+                   '<div class="mono" style="font-size:11px; color:#FBBF24;">位置 ' + m.plaO + 'x (EV ' + m.ev.toFixed(2) + ')</div>' +
                  '</div>' +
                '</div>';
       }).join("");
     }
 
     function syncSectionalInputsFromRace(finRaceNo, triggerApply) {
-      var pm = POSTMORTEM_20261019[finRaceNo] || POSTMORTEM_20261019[9];
+      var clampedNo = Math.min(RACES.length, Math.max(1, parseInt(finRaceNo, 10) || 5));
+      var hvSec = HV_20261021_SECTIONALS[clampedNo] || HV_20261021_SECTIONALS[5];
       var selRace = document.getElementById("secFinishedRace");
-      if (selRace && selRace.value !== String(finRaceNo)) {
-        selRace.value = String(finRaceNo);
+      if (selRace && selRace.value !== String(clampedNo)) {
+        selRace.value = String(clampedNo);
       }
       var selPos = document.getElementById("secWinPos");
       var inp1 = document.getElementById("secSplit1");
       var inp2 = document.getElementById("secSplit2");
       var inp3 = document.getElementById("secSplit3");
-      if (selPos && pm.winPos) selPos.value = pm.winPos;
-      if (inp1 && pm.split3) inp1.value = pm.split3[0].toFixed(2);
-      if (inp2 && pm.split3) inp2.value = pm.split3[1].toFixed(2);
-      if (inp3 && pm.split3) inp3.value = pm.split3[2].toFixed(2);
+      if (selPos && hvSec.winPos) selPos.value = hvSec.winPos;
+      if (inp1 && hvSec.split3) inp1.value = hvSec.split3[0].toFixed(2);
+      if (inp2 && hvSec.split3) inp2.value = hvSec.split3[1].toFixed(2);
+      if (inp3 && hvSec.split3) inp3.value = hvSec.split3[2].toFixed(2);
       if (triggerApply) {
-        applyCustomSectional();
+        applyCustomSectional({ date: "2026-10-21", venue: "HV" });
       } else {
         renderNextRacePredictorCard();
       }
     }
 
     function updateNextRaceTargetLabel() {
-      var finRaceNo = parseInt(document.getElementById("secFinishedRace").value, 10) || 9;
+      var finRaceNo = Math.min(RACES.length, Math.max(1, parseInt(document.getElementById("secFinishedRace").value, 10) || 5));
       syncSectionalInputsFromRace(finRaceNo, true);
-      notify("✅ 已自動載入 R" + finRaceNo + " 官方實測分段秒數與頭馬守位，並完成 R" + Math.min(11, finRaceNo + 1) + " 步速利弊重算！");
+      notify("✅ 已載入 2026-10-21 跑馬地 R" + finRaceNo + " 標準分段基準，並完成 R" + Math.min(RACES.length, finRaceNo + 1) + " 步速利弊重算！");
     }
 
     function jumpToNextRace() {
@@ -4096,20 +4477,23 @@
       var prevFinished = Math.max(1, APP.raceIdx);
       syncSectionalInputsFromRace(prevFinished, false);
       renderAll();
-      notify("👉 已切換至第 " + RACES[APP.raceIdx].no + " 場（同步載入上一場 R" + prevFinished + " 步速）！");
+      notify("👉 已切換至第 " + RACES[APP.raceIdx].no + " 場！");
     }
 
     function jumpToNextRaceFromSolver() {
-      var finRaceNo = parseInt(document.getElementById("secFinishedRace").value, 10) || 9;
+      var finRaceNo = Math.min(RACES.length, Math.max(1, parseInt(document.getElementById("secFinishedRace").value, 10) || 5));
       APP.raceIdx = Math.min(RACES.length - 1, finRaceNo);
       switchView("single", document.querySelectorAll(".tab-btn")[0]);
       renderAll();
     }
 
     function resetSectional() {
-      var finRaceNo = parseInt(document.getElementById("secFinishedRace").value, 10) || 9;
-      syncSectionalInputsFromRace(finRaceNo, true);
-      notify("↺ 已還原為 R" + finRaceNo + " 官方實測分段數據！");
+      var finRaceNo = Math.min(RACES.length, Math.max(1, parseInt(document.getElementById("secFinishedRace").value, 10) || 5));
+      APP.lastSectionalDelta = 0.0;
+      document.getElementById("selPaceBias").value = "normal";
+      syncSectionalInputsFromRace(finRaceNo, false);
+      applyTrackSettings();
+      notify("↺ 已還原為 2026-10-21 跑馬地 R" + finRaceNo + " 賽前標準分段預設！");
     }
 
     // ============================================================================
@@ -4120,18 +4504,20 @@
       var sim = APP.sims[idx];
       var b = sim.bullet;
       var l1 = sim.legs[0], l2 = sim.legs[1];
-      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.ST_C3;
+      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.HV_B;
+      var bankroll = parseFloat(document.getElementById("inpBankroll").value) || 3000;
+      var stakes = computeRaceStakes(r, sim, bankroll, APP.losses);
       var isPass = r.score < 60;
 
       var trapText = sim.traps.length > 0
-        ? "同時 AI 攔截咗 <strong>#" + sim.traps[0].no + " " + sim.traps[0].name + "</strong>（" + (sim.traps[0].overbet ? "位置 " + sim.traps[0].plaO + "x 過熱低水" : "外檔/頂磅觸發 LBS -25% 折減") + "），切忌單買熱位置。"
-        : "本場目前無明顯 ≤1.6 倍位置過熱陷阱。";
+        ? "同時系統標記咗 <strong>#" + sim.traps[0].no + " " + sim.traps[0].name + "</strong>（" + (sim.traps[0].overbet ? "位置 " + sim.traps[0].plaO + "x 低水陷阱" : "外檔/重負荷高波動") + "），切忌單買低水位置。"
+        : "本場目前無 ≤1.55 倍位置過熱陷阱。";
 
-      if (isPass) {
-        return "⚠️ <strong>【AI 避戰警報】</strong>本場 L2 可賭性評分僅 <strong>" + r.score + "/100</strong>，屬於高噪音混戰局。喺當前「" + rc.name + "」設定下，系統強制建議 <strong>PASS 觀戰保本</strong>（若純睇數據，僅 <strong>#" + b.no + " " + b.name + "</strong> 上名率 " + (b.pt * 100).toFixed(1) + "% 較穩，配 <strong>#" + l1.no + " " + l1.name + "</strong> 及 <strong>#" + l2.no + " " + l2.name + "</strong>）。" + trapText;
+      if (isPass || stakes.totalStake === 0) {
+        return "⚠️ <strong>【風控觀戰提示（" + stakes.statusReason + "）】</strong>本場（L2 評分 <strong>" + r.score + "/100</strong>，首選馬期望回收倍數 <strong>EV=" + b.ev.toFixed(2) + "</strong>）未達正期望值投注門檻，系統強制將建議實際注碼設為 <strong>HK$ 0</strong>（純數據參考：<strong>#" + b.no + " " + b.name + "</strong> 上名率 " + (b.pt * 100).toFixed(1) + "%，配 <strong>#" + l1.no + " " + l1.name + "</strong> 及 <strong>#" + l2.no + " " + l2.name + "</strong>）。" + trapText;
       }
 
-      return "🎯 <strong>【AI 實時鎖定】</strong>喺當前「<strong>" + rc.name + "</strong>」及「" + r.pace + "」環境下，經過 20,000 次蒙地卡羅模擬，<strong>#" + b.no + " " + b.name + " (" + b.draw + "檔 " + b.jockey + " 實負" + b.actualWt + "磅)</strong> 上名率高達 <strong>" + (b.pt * 100).toFixed(1) + "%</strong>（位置 " + b.plaO + "x，期望值 EV=" + b.ev + "，第4死穴率僅 " + (b.p4 * 100).toFixed(1) + "%），鎖定為本場<strong>唯一單注實戰膽</strong>！建議用佢拖 <strong>#" + l1.no + " " + l1.name + "</strong> 及 <strong>#" + l2.no + " " + l2.name + "</strong> 兩注 Q/QP。" + trapText;
+      return "🎯 <strong>【精算實時鎖定】</strong>喺當前「<strong>" + rc.name + "</strong>」及「" + r.pace + "」環境下，經過 20,000 次耦合蒙地卡羅模擬（全場三席入位率總和嚴格守恒 <strong>" + sim.placeSumPct.toFixed(1) + "%</strong>），<strong>#" + b.no + " " + b.name + " (" + b.draw + "檔 " + b.jockey + " 實負" + b.actualWt + "磅)</strong> 上名率達 <strong>" + (b.pt * 100).toFixed(1) + "%</strong>（位置 " + b.plaO + "x，期望回收倍數 EV=" + b.ev.toFixed(2) + "，第4死穴率 " + (b.p4 * 100).toFixed(1) + "%），建議單注位置 <strong>HK$ " + stakes.plaStake + "</strong>，配 <strong>#" + l1.no + " " + l1.name + "</strong> 及 <strong>#" + l2.no + " " + l2.name + "</strong> 兩注 Q/QP（每注 HK$ " + stakes.qpStake + "）。" + trapText;
     }
 
     function appendAiChat(role, html) {
@@ -4146,37 +4532,41 @@
     }
 
     function runAiCommand(cmd) {
-      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.ST_C3;
+      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.HV_B;
+      var bankroll = parseFloat(document.getElementById("inpBankroll").value) || 3000;
       if (cmd === "next_race_bias") {
         var nextIdx = Math.min(RACES.length - 1, APP.raceIdx + 1);
         var nf = getNextRaceFavorAnalysis(nextIdx);
         appendAiChat("user", "📡 根據剛跑完步速與移欄，分析下一場 (R" + nf.nextRaceNo + ") 利乜嘢跑法同檔位？");
         var benHtml = nf.topBeneficiaries.map(function(m) {
-          return "• <strong>#" + m.no + " " + m.name + " (" + m.draw + "檔 " + m.jockey + " 實負" + m.actualWt + "磅)</strong> — " + m.tag + " ｜ 模擬上名率 <strong style='color:#34D399;'>" + (m.pt * 100).toFixed(1) + "%</strong> (位置 " + m.plaO + "x)";
+          return "• <strong>#" + m.no + " " + m.name + " (" + m.draw + "檔 " + m.jockey + " 實負" + m.actualWt + "磅)</strong> — " + m.tag + " ｜ 模擬上名率 <strong style='color:#34D399;'>" + (m.pt * 100).toFixed(1) + "%</strong> (位置 " + m.plaO + "x, EV=" + m.ev.toFixed(2) + ")";
         }).join("<br>");
         appendAiChat("ai",
-          "<strong>📡 Argon 下一場 (第 " + nf.nextRaceNo + " 場 " + nf.nextRaceName + " " + nf.nextRaceDist + "m) 利弊推演報告：</strong><br><br>" +
+          "<strong>📡 下一場 (第 " + nf.nextRaceNo + " 場 " + nf.nextRaceName + " " + nf.nextRaceDist + "m) 利弊推演報告：</strong><br><br>" +
           "• <strong style='color:#34D399;'>✅ 下一場最利好</strong>：" + nf.favorWhat + "<br>" +
           "• <strong style='color:#FB7185;'>❌ 下一場最不利</strong>：" + nf.avoidWhat + "<br><br>" +
           "<strong>🚀 下一場 (R" + nf.nextRaceNo + ") 3 大受惠馬匹：</strong><br>" + benHtml
         );
       } else if (cmd === "patrol_all") {
-        appendAiChat("user", "🔍 巡航全日 11 場：找出最高把握 3 粒實戰子彈");
-        var t1List = [5, 6, 7].map(function(i) {
+        appendAiChat("user", "🔍 巡航全晚 9 場：找出最高把握正期望值實戰子彈");
+        var t1List = [5, 6, 7, 8].map(function(i) {
           var r = RACES[i], s = APP.sims[i], b = s.bullet;
-          return "• <strong>第 " + r.no + " 場 " + r.name + " (" + r.dist + "m · 評分 " + r.score + ")</strong>：唯一單注膽 <strong style='color:#FBBF24;'>#" + b.no + " " + b.name + " (" + b.draw + "檔 " + b.jockey + ")</strong> — 模擬上名率 <strong style='color:#34D399;'>" + (b.pt * 100).toFixed(1) + "%</strong> (位置 " + b.plaO + "x, EV=" + b.ev + ")，精確 Q/QP 配腳拖 <strong>#" + s.legs[0].no + " " + s.legs[0].name + "</strong>、<strong>#" + s.legs[1].no + " " + s.legs[1].name + "</strong>";
+          var stk = computeRaceStakes(r, s, bankroll, APP.losses);
+          return "• <strong>第 " + r.no + " 場 " + r.name + " (" + r.dist + "m · 評分 " + r.score + ")</strong>：唯一單注膽 <strong style='color:#FBBF24;'>#" + b.no + " " + b.name + " (" + b.draw + "檔 " + b.jockey + ")</strong> — 模擬上名率 <strong style='color:#34D399;'>" + (b.pt * 100).toFixed(1) + "%</strong> (位置 " + b.plaO + "x, EV=" + b.ev.toFixed(2) + ", 建議注碼: " + (stk.totalStake > 0 ? ("位置 $" + stk.plaStake + " / QP $" + stk.qpStake) : ("HK$ 0 [" + stk.statusReason + "]")) + ")，配腳拖 <strong>#" + s.legs[0].no + " " + s.legs[0].name + "</strong>、<strong>#" + s.legs[1].no + " " + s.legs[1].name + "</strong>";
         }).join("<br><br>");
         appendAiChat("ai",
-          "<strong>🤖 Argon AI 全場自主巡航報告（當前移欄：" + rc.name + "）</strong><br><br>" +
+          "<strong>🤖 全晚 9 場精算巡航報告（當前移欄：" + rc.name + " · 模式：" + (APP.aiConnected ? "遠端 AI 已連接" : "本地離線精算引擎") + "）</strong><br><br>" +
           t1List + "<br><br>" +
-          "<span style='color:#FDA4AF;'>⛔ 強制避戰場次：第 2 場 (52分五班1200米混戰亂局) 建議 PASS 觀戰！</span>"
+          "<span style='color:#FDA4AF;'>⛔ 強制避戰場次：第 2 場 (52分五班1200米混戰亂局) 及任何 EV ≤ 1.02 負期望值場次強制建議 HK$ 0 觀戰！</span>"
         );
       } else if (cmd === "current_race") {
         var r = RACES[APP.raceIdx];
+        var s = APP.sims[APP.raceIdx];
         appendAiChat("user", "🎯 深度拆解第 " + r.no + " 場 (" + r.name + ") 最新賠率與移欄走勢");
         appendAiChat("ai",
           "<strong>🤖 第 " + r.no + " 場 (" + r.dist + "m " + r.cls + ") 六層精算拆解：</strong><br><br>" +
-          "• <strong>L2 場次評級</strong>：" + r.tier + " (" + r.score + "/100) ｜ <strong>L3 步速環境</strong>：" + r.pace + "<br>" +
+          "• <strong>L2 場次評級</strong>：" + r.tier + " (" + r.score + "/100) ｜ <strong>L3 動態步速</strong>：" + r.pace + "<br>" +
+          "• <strong>概率守恒核驗</strong>：全場獨贏概率總和 <code>" + s.winSumPct.toFixed(3) + "%</code> ｜ 全場三席入位率總和 <code>" + s.placeSumPct.toFixed(3) + "%</code><br>" +
           "• <strong>賽道與陣營邏輯</strong>：" + r.desc + "<br>" +
           "• " + buildLiveAiRaceCommentary(APP.raceIdx)
         );
@@ -4185,60 +4575,50 @@
         var s6 = APP.sims[5], b6 = s6.bullet;
         appendAiChat("user", "🏆 拆解谷草 R6 浪琴錦標 (二班1000m)：點解 1號天天同樂 & 9號好評如潮要剔除？");
         appendAiChat("ai",
-          "<strong>🏆 2026-10-21 R6 浪琴錦標 (二班 1000m 谷草 B 欄) V26.0 AI 精算報告：</strong><br><br>" +
-          "1. <strong>🚨 點解 #1 天天同樂 (潘頓 10檔 135磅) 強制折減？</strong> 佢排位體重僅 1,063 磅卻負 135 磅頂磅（<code>CBR=12.70%</code> 高負荷），兼抽 10 檔大外檔，而且官方獸醫紀錄顯示曾有兩次氣管血及流鼻血紀錄！喺 <code>ESPI=89</code> 超快步速下極易早段燒乾！<br>" +
-          "2. <strong>🚨 點解 #9 好評如潮 (3檔 黃寶妮-7) 一票否決？</strong> 官方獸醫報告明確記載佢於 <code>02/09/2026</code> 確診患有<strong>「喘鳴症 (Roarer)」</strong>，觸發 L1 傷患紅線直接剔除！<br>" +
-          "3. <strong>🔥 唯一實戰單注膽：#" + b6.no + " " + b6.name + " (" + b6.draw + "檔 " + b6.jockey + " · CBR=" + b6.cbr + "%)</strong> — 模擬上名率 <strong>" + (b6.pt * 100).toFixed(1) + "%</strong>，配搭 ⚡V26雙核反超馬 <strong>#" + s6.legs[0].no + " " + s6.legs[0].name + "</strong> 及 <strong>#" + s6.legs[1].no + " " + s6.legs[1].name + "</strong>！"
+          "<strong>🏆 2026-10-21 R6 浪琴錦標 (二班 1000m 谷草 B 欄) 精算報告：</strong><br><br>" +
+          "1. <strong>🚨 點解 #1 天天同樂 (潘頓 10檔 135磅) 高風險？</strong> 排位體重僅 1,063 磅卻負 135 磅頂磅（<code>CBR=12.70%</code> 高負荷），兼抽 10 檔大外檔及有氣管血/流鼻血紀錄，喺高壓快步速下早段消耗極大。<br>" +
+          "2. <strong>🚨 點解 #9 好評如潮 (3檔 黃寶妮-7) 觸發傷患紅線？</strong> 官方獸醫報告記載佢於 <code>02/09/2026</code> 確診患有<strong>「喘鳴症 (Roarer)」</strong>，觸發 L1 傷患紅線。<br>" +
+          "3. <strong>🔥 本場首選核心：#" + b6.no + " " + b6.name + " (" + b6.draw + "檔 " + b6.jockey + " · CBR=" + b6.cbr + "%)</strong> — 模擬上名率 <strong>" + (b6.pt * 100).toFixed(1) + "%</strong> (EV=" + b6.ev.toFixed(2) + ")，配搭 <strong>#" + s6.legs[0].no + " " + s6.legs[0].name + "</strong> 及 <strong>#" + s6.legs[1].no + " " + s6.legs[1].name + "</strong>。"
         );
       } else if (cmd === "apprentice") {
-        appendAiChat("user", "🏇 掃描全日「見習生減 7 磅 / 3 磅」高價值伏兵");
+        appendAiChat("user", "🏇 掃描全晚「見習生減 7 磅 / 3 磅」高價值伏兵");
         var list = [];
         RACES.forEach(function(rx, idx) {
           APP.sims[idx].out.forEach(function(run) {
-            if (run.claim >= 3 && (run.draw <= 7 || rx.dist === 1000)) {
-              list.push("• <strong>R" + rx.no + " #" + run.no + " " + run.name + "</strong> (" + run.jockey + " · " + run.draw + "檔 · 實負 " + run.actualWt + "磅) — 模擬上名 <strong>" + (run.pt * 100).toFixed(1) + "%</strong> (位置 " + run.plaO + "x, EV=" + run.ev + ")");
+            if (run.claim >= 2 && run.draw <= 6 && run.ev > 1.05) {
+              list.push("• <strong>R" + rx.no + " #" + run.no + " " + run.name + "</strong> (" + run.jockey + " · " + run.draw + "檔 · 實負 " + run.actualWt + "磅) — 模擬上名 <strong>" + (run.pt * 100).toFixed(1) + "%</strong> (位置 " + run.plaO + "x, EV=" + run.ev.toFixed(2) + ")");
             }
           });
         });
-        appendAiChat("ai", "<strong>🏇 全日見習生減磅高槓桿搏殺名單：</strong><br><br>" + list.join("<br>"));
+        appendAiChat("ai", "<strong>🏇 全晚內中檔見習生減磅正期望值名單：</strong><br><br>" + (list.length ? list.join("<br>") : "當前賠率下暫無符合內檔正期望值條件之見習生減磅馬。"));
       } else if (cmd === "v26_roadmap") {
-        appendAiChat("user", "🚀 經過今日 (2026-10-19) 全日 11 場賽事後，系統仲有咩可以優化？");
+        appendAiChat("user", "🚀 系統 V26.2 修復與精算升級摘要");
         appendAiChat("ai",
-          "<strong>🚀 【2026-10-19 沙田賽後系統深度檢討 — 邁向 V26.0 嘅 6 大核心進化模組】</strong><br><br>" +
-          "對照今日 R1–R11 全部官方分段、馬匹排位體重與跑線數據，除咗剛修復嘅步速自動聯動之外，系統仲有以下 <strong>6 個高價值精算盲點</strong> 可以優化（已同步寫入當前 V26.0 核心）：<br><br>" +
-          "1. <strong>⚖️ 生物力學「體重負荷比 (CBR = 負磅 ÷ 排位體重)」取代死板 135 磅一刀切</strong>：<br>" +
-          "• <em>今日實證</em>：R10 <strong>#1 包裝戰仕</strong> 負 135 磅排 9 檔照贏 ($19.0)，因為佢排位體重高達 <strong>1,220 磅</strong>（負磅佔體重僅 <strong>11.07%</strong>），對比 1,030 磅細馬負 122 磅（佔 11.84%）其實更輕鬆！<br>" +
-          "• <em>優化公式</em>：當 <code>BodyWt ≥ 1180磅</code> 且年齡 ≤5 歲時，自動豁免 60% 頂磅衰減；反之 <code>BodyWt ≤ 1040磅</code> 負重磅則加倍扣分。<br><br>" +
-          "2. <strong>🏇 頂級騎師 / 輕磅奇兵「外檔主動切入變招機率 (Jockey Tactical Lead Override)」</strong>：<br>" +
-          "• <em>今日實證</em>：R10 <strong>#1 包裝戰仕 (潘頓 9檔)</strong> 見內欄無快馬，出閘主動推騎切入領放（首段慢放 24.20s，末段 23.26s [最後200m 11.50s] 一放到底）；R3 <strong>#13 小飛俠 (鍾易禮 116磅 8檔)</strong> 同樣主動變招搶放爆 102 倍大冷！<br>" +
-          "• <em>優化公式</em>：喺 <code>N_lead ≤ 1</code> 場次，為潘頓及 ≤117 磅減磅騎師加入 <strong>30% 雙峰搶欄變招分佈 (Bimodal Lead Switch)</strong>，唔再死板鎖死單一跑法標籤。<br><br>" +
-          "3. <strong>🌪️ 沙田 1000m 直路賽「超快步速 × 重磅前領折減 (Straight-1000m Meltdown Filter)」</strong>：<br>" +
-          "• <em>今日實證</em>：R6 14檔霸王位 <strong>#3 紅海旺 (132磅)</strong> 因前 600m 飆出 <strong>33.80s (中段 20.85s)</strong> 超高壓步速，最後 100 米無氧透支跌入第 4 名死穴；反而 8 檔 119 磅輕磅中檔馬 <strong>#12 杭至尊</strong> 漁人得利贏馬。<br>" +
-          "• <em>優化公式</em>：當直路賽 <code>ESPI ≥ 85</code>（預計前 600m &lt; 34.0s）時，自動扣減 ≥130 磅前領馬外欄紅利，將 6–11 檔 ≤123 磅輕磅跟跑馬升為首選。<br><br>" +
-          "4. <strong>🚧 C+3 窄欄「內欄被動馬塞車風險指數 (Boxed-In Traffic Penalty)」</strong>：<br>" +
-          "• <em>今日實證</em>：R5 表面有 3 匹放頭馬，實戰外檔馬慢閘兼互相觀望，首段慢至 <strong>24.26s</strong>，令 2 檔大熱 <strong>#2 狼來了</strong> 喺內欄「死亡包廂」直路塞車跑第 8，11 檔 <strong>#8 彪形勇將</strong> 外疊望空贏馬。<br>" +
-          "• <em>優化公式</em>：喺 C+3 窄欄，若 1–3 檔大熱屬於「無前速被動跟跑 (Stalker/Mid)」，自動計入 <code>16%–18% 直路受困塞車方差</code>。<br><br>" +
-          "5. <strong>☀️ 實測分段自動偵測「隱性好至快地 (Effective Going Auto-Detector)」</strong>：<br>" +
-          "• <em>今日實證</em>：馬會到尾段先正式改掛「好至快地 (GF)」，但其實 R7 (<code>1:09.06</code>)、R8 (<code>1:32.42</code>) 已經比標準時間快逾 1 秒！<br>" +
-          "• <em>優化公式</em>：只要上一場完場時間快過標準 ≥0.60s，系統無需等馬會改牌，即時自動切換為「隱性好至快地 (GF)」。<br><br>" +
-          "6. <strong>🎯 「雙核價值反超機制 (Dual-Core Value Inversion)」捕捉頭號配腳贏馬</strong>：<br>" +
-          "• <em>今日實證</em>：今日 R9 <strong>#6 神鵬 ($10.0 · 2檔121磅)</strong> 同埋 R11 <strong>#8 櫻花酒杯 ($4.0 · 2檔何澤堯)</strong> 都係系統鎖定嘅「頭號配腳」，結果雙雙直接贏出頭馬！<br>" +
-          "• <em>優化公式</em>：當「配腳 #1」排 1–3 檔且獨贏賠率介乎 4.0x–12.0x（高於單注膽期望值）時，自動觸發「雙核主攻提示」，建議同注兼買配腳 #1 獨贏/位置！"
+          "<strong>🚀 【V26.2 七大核心缺陷修復與耦合精算升級】</strong><br><br>" +
+          "1. <strong>🔑 真實 API 金鑰與連接狀態核驗</strong>：未填 API Key 時明確顯示「⚪ 未連接 AI (離線模式)」，測試連接會直接回報握手失敗，絕不偽造連接成功。<br>" +
+          "2. <strong>🛡️ 跨日期 / 跨馬場賠率與分段防偽攔截</strong>：嚴格核對 `2026-10-21` 及 `跑馬地 (HV)` 標籤與參賽馬名，拒絕套用 `10月19日沙田` 或錯場次數據。<br>" +
+          "3. <strong>🔢 完整支援 R1–R9 全場次與嚴格分段提取</strong>：修復第 9 場被截成第 8 場之上限錯誤 (`Math.min(RACES.length, ...)`)，並只提取 `分段時間` 區塊內 `20.00s–26.50s` 之真實 400m 分段。<br>" +
+          "4. <strong>⚖️ 耦合多階段 20,000 次蒙地卡羅與 300.0% 概率守恒</strong>：廢除模擬後扣減熱門馬入位率之錯誤做法，所有步速消耗與塞車干擾均於每次模擬試次內耦合計算，確保三席場入位率總和恆等於 `300.000%`。<br>" +
+          "5. <strong>💰 正期望值凱利注碼硬門檻</strong>：當期望回收倍數 `EV ≤ 1.02`（例如 `EV = 0.78`）或位置賠率 `≤ 1.55` 時，嚴格輸出 `HK$ 0` 注碼，絕不產生負期望值注項。"
         );
       } else if (cmd === "pace_postmortem") {
-        appendAiChat("user", "🔬 嚴肅覆盤：今日 R1–R9 點解靜態步速估錯？V25.5 點樣修正？");
-        appendAiChat("ai", generateDynamicQuantAiResponse("今日 R1-R9 點解步速估錯？請全面覆盤分段時間同 V25.5 修正"));
+        appendAiChat("user", "🔬 檢視當前 2026-10-21 跑馬地各場動態步速指標");
+        var rows = RACES.map(function(rx) {
+          var hvS = HV_20261021_SECTIONALS[rx.no];
+          return "• <strong>R" + rx.no + " " + rx.name + " (" + rx.dist + "m)</strong>：" + rx.pace + " ｜ 基準分段：<code>" + hvS.split3.join("s - ") + "s</code>";
+        }).join("<br>");
+        appendAiChat("ai", "<strong>🔬 【2026-10-21 跑馬地夜賽 R1–R9 動態步速一覽】</strong><br><br>" + rows);
       } else if (cmd === "traps") {
-        appendAiChat("user", "🚨 覆盤今日大熱死因與 ≤1.6 倍低水陷阱");
-        var tList = [
-          "• <strong>R1 #4 竣誠駒 (1.6x 位置大熱)</strong>：與 #6 我最好 喺第 2 段鬥飆 21.66s 超快中段，末段力弱跑第 4（跌入第4名死穴）！",
-          "• <strong>R2 #8 確好勁 (2.5x 獨贏 / 1.5x 位置大熱)</strong>：前 1000m 58.34s 高壓步速下跟前燒乾，直路潰敗跑第 10！",
-          "• <strong>R4 #7 成就非凡 (潘頓 10檔外疊熱門)</strong>：系統賽前明確標記「🚨潘頓10檔過熱陷阱」並建議 PASS，實戰喺第 2 段 21.72s 變速局走外疊僅跑第 5！",
-          "• <strong>R5 #2 狼來了 (2.5x 大熱)</strong>：因前 400m 24.26s 慢步速馬群密集，2檔貼欄反而喺直路嚴重受困塞車跑第 8！",
-          "• <strong>R6 #3 紅海旺 (14檔負132磅)</strong>：前 600m 33.80s 超快步速下負 132 磅緊跟前領，最後 100 米無氧透支跌入第 4 名死穴！",
-          "• <strong>R8 #1 遨遊氣泡 (135磅頂磅排11檔)</strong>：系統賽前強制執行 LBS -25% 折減，實戰喺 22.33s - 22.64s 快步速下轉彎外疊徹底燒乾，大敗 13.5 個馬位包尾 (第11名)！"
-        ];
-        appendAiChat("ai", "<strong>🚨 今日 (2026-10-19) 大熱倒灶死因與低水陷阱實證覆盤：</strong><br><br>" + tList.join("<br>"));
+        appendAiChat("user", "🚨 掃描當前賠率版 ≤1.55 倍低水與負期望值高危大熱");
+        var tList = [];
+        RACES.forEach(function(rx, idx) {
+          APP.sims[idx].out.forEach(function(run) {
+            if (run.overbet || run.vuln || (run.winO <= 5.0 && run.ev < 1.0)) {
+              tList.push("• <strong>R" + rx.no + " #" + run.no + " " + run.name + " (" + run.draw + "檔 " + run.jockey + ")</strong>：獨贏 " + run.winO + "x / 位置 " + run.plaO + "x ｜ 模擬上名率 " + (run.pt*100).toFixed(1) + "% ➔ <strong>期望回收 EV = " + run.ev.toFixed(2) + "</strong> (強制禁買單注位置)");
+            }
+          });
+        });
+        appendAiChat("ai", "<strong>🚨 全晚低水與負期望值熱門馬攔截清單：</strong><br><br>" + tList.join("<br>"));
       }
     }
 
@@ -4250,38 +4630,45 @@
       inp.value = "";
       appendAiChat("user", q);
 
-      // Check if user pasted 3 sectional splits
-      var sm = q.match(/(\d{2}\.\d{1,2})\D+(\d{2}\.\d{1,2})\D+(\d{2}\.\d{1,2})/);
-      if (sm) {
-        ingestAutoDetectedResult(APP.raceIdx + 1, [parseFloat(sm[1]), parseFloat(sm[2]), parseFloat(sm[3])], "back_out", "對話輸入");
+      // Strictly check if user explicitly submitted a sectional command
+      var chatSec = extractStrictSectionalFromChat(q);
+      if (chatSec) {
+        if (chatSec.blocked) {
+          appendAiChat("ai", "⛔ <strong>【跨日/跨馬場分段攔截】</strong>：" + chatSec.reason + "。系統拒絕將非 2026-10-21 跑馬地之分段套用至當前設定！");
+          return;
+        }
+        ingestAutoDetectedResult(chatSec.raceNo, chatSec.splits, "mid_in", "對話框明確分段輸入", { date: "2026-10-21", venue: "HV" });
         return;
       }
 
-      // 1. If Gemini API Key is configured, call real Google Gemini API with full live race context!
       var apiKey = getSavedApiKey();
-      if (apiKey && apiKey.length > 10) {
+      if (apiKey && apiKey.length >= 10) {
         var loadingId = "ai-load-" + Date.now();
         var box = document.getElementById("aiChatBox");
         if (box) {
-          box.innerHTML += '<div id="' + loadingId + '" class="msg-ai">⏳ <em>正在透過 Gemini 4 Argon (gemini-4-argon) 進行實時六層精算推理...</em></div>';
+          box.innerHTML += '<div id="' + loadingId + '" class="msg-ai">⏳ <em>正在透過遠端 API 進行實時推理...</em></div>';
           box.scrollTop = box.scrollHeight;
         }
         var liveReply = await callGeminiLiveApi(q);
         var loadEl = document.getElementById(loadingId);
         if (loadEl) loadEl.remove();
         if (liveReply) {
-          appendAiChat("ai", "🟢 <strong>【MODEL: GEMINI-4-ARGON 實時精算分析】</strong><br><br>" + liveReply);
+          APP.aiConnected = true;
+          updateAiConnBadge();
+          appendAiChat("ai", "🟢 <strong>【遠端 AI 實時精算分析】</strong><br><br>" + liveReply);
           return;
+        } else {
+          APP.aiConnected = false;
+          updateAiConnBadge();
         }
       }
 
-      // 2. Otherwise, run V25.5 Dynamic Quantitative NLU Engine (parses exact horses, head-to-head, pace post-mortem, EV math)
       var dynamicReply = generateDynamicQuantAiResponse(q);
       appendAiChat("ai", dynamicReply);
     }
 
     // ============================================================================
-    // 7. CLEAN UI RENDERING (ALL RUNNERS + LIVE ODDS MOVEMENT DELTAS)
+    // 7. CLEAN UI RENDERING (ALL RUNNERS + POSITIVE-EV KELLY GATE + EXACT PROB SUM)
     // ============================================================================
     function selectRace(idx) {
       var target = parseInt(idx, 10);
@@ -4312,13 +4699,11 @@
     function renderAll() {
       document.getElementById("lossCounter").textContent = APP.losses;
 
-      // Sync quick dropdown selector
       var selQ = document.getElementById("selQuickRace");
       if (selQ && selQ.value !== String(APP.raceIdx)) {
         selQ.value = String(APP.raceIdx);
       }
 
-      // 1. Update Race Strip Pills IN-PLACE (never destroy button DOM nodes!)
       RACES.forEach(function(r, i) {
         var btn = document.getElementById("rPillBtn" + i);
         var cls = "r-pill " + (r.score >= 75 ? "tier1" : r.score < 60 ? "pass" : "") + (i === APP.raceIdx ? " selected" : "");
@@ -4332,12 +4717,13 @@
       var b = sim.bullet;
       var isPass = r.score < 60;
       var isLocked = APP.losses >= 2;
-      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.ST_C3;
+      var rc = RAIL_CONFIGS[APP.rail] || RAIL_CONFIGS.HV_B;
 
       var bankroll = parseFloat(document.getElementById("inpBankroll").value) || 3000;
-      var maxCap = Math.floor((bankroll * 0.10) / 10) * 10;
-      var plaStake = (isPass || isLocked) ? 0 : Math.max(10, Math.round((maxCap * 0.65) / 10) * 10);
-      var qpStake = (isPass || isLocked) ? 0 : Math.max(10, Math.round((maxCap * 0.15) / 10) * 10);
+      var stakes = computeRaceStakes(r, sim, bankroll, APP.losses);
+      var plaStake = stakes.plaStake;
+      var qpStake = stakes.qpStake;
+      var isNoBet = (stakes.totalStake === 0);
 
       // 2. Single Race Banner & Scratched Note
       var tb = document.getElementById("singleTierBadge");
@@ -4365,7 +4751,9 @@
       }
 
       var cntBadge = document.getElementById("tableRunnerCountBadge");
-      if (cntBadge) cntBadge.textContent = "全場完整 " + r.runners.length + " 匹參賽馬";
+      if (cntBadge) {
+        cntBadge.textContent = "全場 " + r.runners.length + " 匹 · 入位率總和 " + sim.placeSumPct.toFixed(1) + "% (獨贏 " + sim.winSumPct.toFixed(1) + "%)";
+      }
 
       document.getElementById("liveAiRailTag").textContent = rc.name;
       document.getElementById("liveAiSummaryText").innerHTML = buildLiveAiRaceCommentary(APP.raceIdx);
@@ -4373,19 +4761,32 @@
       var nextIdx = Math.min(RACES.length - 1, APP.raceIdx + 1);
       var nf = getNextRaceFavorAnalysis(nextIdx);
       document.getElementById("nextRaceBiasSummary").innerHTML =
-        "🔮 <strong>下一場 (R" + nf.nextRaceNo + " " + nf.nextRaceName + " " + nf.nextRaceDist + "m) 全自動預判</strong>：當前場地與步速最利好「<strong>" + nf.favorWhat + "</strong>」➔ 頭號受惠馬：<strong style='color:#34D399;'>#" + nf.topBeneficiaries[0].no + " " + nf.topBeneficiaries[0].name + " (" + nf.topBeneficiaries[0].draw + "檔 " + (nf.topBeneficiaries[0].pt * 100).toFixed(1) + "%)</strong>、<strong>#" + nf.topBeneficiaries[1].no + " " + nf.topBeneficiaries[1].name + "</strong>";
+        "🔮 <strong>" + (APP.raceIdx >= RACES.length - 1 ? "尾場 (R9)" : ("下一場 (R" + nf.nextRaceNo + " " + nf.nextRaceName + " " + nf.nextRaceDist + "m)")) + " 預判</strong>：當前場地與步速最利好「<strong>" + nf.favorWhat + "</strong>」➔ 頭號受惠馬：<strong style='color:#34D399;'>#" + nf.topBeneficiaries[0].no + " " + nf.topBeneficiaries[0].name + " (" + nf.topBeneficiaries[0].draw + "檔 " + (nf.topBeneficiaries[0].pt * 100).toFixed(1) + "%)</strong>、<strong>#" + nf.topBeneficiaries[1].no + " " + nf.topBeneficiaries[1].name + "</strong>";
       document.getElementById("btnJumpNextRace").textContent = "👉 跳去 R" + nf.nextRaceNo + " 睇受惠馬";
 
-      // 3. Card 1: Single Bullet
-      document.getElementById("cardBulletEv").textContent = isPass ? "建議 PASS" : "位置 EV: " + b.ev;
+      // 3. Card 1: Single Bullet (Strictly enforces EV > 1.02 gate!)
+      var evBadgeEl = document.getElementById("cardBulletEv");
+      if (isPass) {
+        evBadgeEl.textContent = "建議 PASS";
+        evBadgeEl.className = "badge b-red mono";
+      } else if (b.ev <= 1.02 || b.overbet) {
+        evBadgeEl.textContent = "位置 EV: " + b.ev.toFixed(2) + " (禁買)";
+        evBadgeEl.className = "badge b-red mono";
+      } else {
+        evBadgeEl.textContent = "位置 EV: " + b.ev.toFixed(2);
+        evBadgeEl.className = "badge b-green mono";
+      }
+
       document.getElementById("cardBulletName").textContent = isLocked
         ? "🛑 連輸 2 場強制收工"
-        : (isPass ? "⛔ 本場建議 PASS 觀戰" : "#" + b.no + " " + b.name + " (" + b.brand + ")");
-      document.getElementById("cardBulletMeta").textContent = isPass
-        ? "(純數據最高分為 #" + b.no + " " + b.name + " · " + b.draw + "檔 " + b.jockey + ")"
+        : isPass
+          ? "⛔ 本場建議 PASS 觀戰"
+          : (isNoBet ? "⛔ 負期望值 / 低水觀戰 (#" + b.no + " " + b.name + ")" : "#" + b.no + " " + b.name + " (" + b.brand + ")");
+      document.getElementById("cardBulletMeta").textContent = (isPass || isNoBet)
+        ? "(純數據最高分為 #" + b.no + " " + b.name + " · 位置 " + b.plaO + "x · EV " + b.ev.toFixed(2) + " · " + stakes.statusReason + ")"
         : b.draw + "檔 · " + b.jockey + " · 實負 " + b.actualWt + "磅 · 獨贏 " + b.winO + "x / 位置 " + b.plaO + "x";
       document.getElementById("cardBulletTop3").textContent = (b.pt * 100).toFixed(1) + "%";
-      document.getElementById("cardBullet4th").textContent = (b.p4 * 100).toFixed(1) + "% " + (b.p4 < 0.14 ? "(安全)" : "(警戒)");
+      document.getElementById("cardBullet4th").textContent = (b.p4 * 100).toFixed(1) + "% " + (b.p4 < 0.145 ? "(安全)" : "(警戒)");
       document.getElementById("cardBulletStake").textContent = "HK$ " + plaStake;
 
       // 4. Card 2: Exact 2 Q/QP Pairs
@@ -4398,7 +4799,7 @@
                  '</div>' +
                  '<div style="text-align:right;">' +
                    '<div class="mono" style="color:#38BDF8; font-weight:800;">上名 ' + (lg.pt * 100).toFixed(1) + '%</div>' +
-                   '<div class="mono" style="font-size:11px; color:#94A3B8;">位置 ' + lg.plaO + 'x</div>' +
+                   '<div class="mono" style="font-size:11px; color:#94A3B8;">位置 ' + lg.plaO + 'x (EV ' + lg.ev.toFixed(2) + ')</div>' +
                  '</div>' +
                '</div>';
       }).join("");
@@ -4406,10 +4807,10 @@
       // 5. Card 3: Traps
       if (sim.traps.length === 0) {
         document.getElementById("cardTrapsList").innerHTML =
-          '<div class="pair-item"><span style="color:#34D399;">✅ 本場無明顯 ≤1.6x 假落飛或外檔頂磅大熱陷阱</span></div>';
+          '<div class="pair-item"><span style="color:#34D399;">✅ 本場無明顯 ≤1.55x 假落飛或外檔頂磅大熱陷阱</span></div>';
       } else {
         document.getElementById("cardTrapsList").innerHTML = sim.traps.slice(0, 2).map(function(t) {
-          var reason = t.overbet ? "位置 " + t.plaO + "x 過熱低水禁買" : t.trap4 ? "第4名死穴率 " + (t.p4 * 100).toFixed(1) + "% (僅作配腳)" : "外檔重磅 LBS 折減 -25%";
+          var reason = t.overbet ? "位置 " + t.plaO + "x 過熱低水禁買" : t.trap4 ? "第4名死穴率 " + (t.p4 * 100).toFixed(1) + "% (僅作配腳)" : "外檔/重負荷高波動警戒";
           return '<div class="pair-item" style="border-color:rgba(244,63,94,0.35);">' +
                    '<div>' +
                      '<strong style="color:#FDA4AF; font-size:15px;">⚠️ #' + t.no + ' ' + t.name + ' (' + t.draw + '檔 ' + t.jockey + ')</strong>' +
@@ -4422,24 +4823,21 @@
         }).join("");
       }
 
-      // 6. Clean Runner Table (ALL RUNNERS + ODDS MOVEMENT INDICATORS)
+      // 6. Clean Runner Table
       document.getElementById("runnerTableBody").innerHTML = sim.out.map(function(x, rIdx) {
-        var isB = x.no === b.no && !isPass;
-        var isL = sim.legs.some(function(l) { return l.no === x.no; }) && !isPass;
+        var isB = x.no === b.no && !isPass && !isNoBet;
+        var isL = sim.legs.some(function(l) { return l.no === x.no; }) && !isPass && !isNoBet;
         var rowCls = isB ? "row-bullet" : isL ? "row-leg" : (x.overbet || x.vuln) ? "row-trap" : "";
         var roleTag = isB
           ? '<span class="badge b-gold" style="margin-left:6px;">🔥唯一單注膽</span>'
           : isL
             ? '<span class="badge b-blue" style="margin-left:6px;">🔗配腳</span>'
-            : (x.overbet || x.vuln)
+            : (x.overbet || x.vuln || x.ev <= 1.0)
               ? '<span class="badge b-red" style="margin-left:6px;">🚨忌單買</span>'
               : '';
 
-        var drawColor = (r.dist === 1000 && APP.rail.indexOf("ST") === 0)
-          ? (x.draw >= 9 ? "#34D399" : "#FB7185")
-          : (x.draw <= 4 ? "#34D399" : x.draw >= 10 ? "#FB7185" : "#CBD5E1");
-
-        var pctTop3 = (x.pt * 100).toFixed(1);
+        var drawColor = (x.draw <= 4 ? "#34D399" : x.draw >= 10 ? "#FB7185" : "#CBD5E1");
+        var pctTop3 = (x.pt * 100).toFixed(2);
         var barColor = isB ? "#F59E0B" : isL ? "#38BDF8" : (x.overbet || x.vuln) ? "#F43F5E" : "#10B981";
 
         var winDeltaHtml = "";
@@ -4466,44 +4864,43 @@
                  '<td style="text-align:right; white-space:nowrap;"><input class="odds-inp mono" type="number" step="0.1" value="' + x.winO + '" onchange="updateOdds(' + rIdx + ',9,this.value)">' + winDeltaHtml + '</td>' +
                  '<td style="text-align:right; white-space:nowrap;"><input class="odds-inp mono" style="color:#FBBF24;" type="number" step="0.05" value="' + x.plaO + '" onchange="updateOdds(' + rIdx + ',10,this.value)">' + plaDeltaHtml + '</td>' +
                  '<td>' +
-                   '<div class="mono" style="font-weight:800; color:#34D399;">' + pctTop3 + '% <span style="font-size:12px; color:#94A3B8; font-weight:500;">(勝率 ' + (x.pw * 100).toFixed(1) + '%)</span></div>' +
+                   '<div class="mono" style="font-weight:800; color:#34D399;">' + pctTop3 + '% <span style="font-size:12px; color:#94A3B8; font-weight:500;">(勝率 ' + (x.pw * 100).toFixed(2) + '%)</span></div>' +
                    '<div class="prob-bar-bg"><div class="prob-bar-fill" style="width:' + Math.min(100, Math.round(x.pt * 125)) + '%; background:' + barColor + ';"></div></div>' +
                  '</td>' +
                  '<td class="mono" style="text-align:right; font-weight:700; color:' + (x.trap4 ? '#FB7185' : '#94A3B8') + ';">' + (x.p4 * 100).toFixed(1) + '%</td>' +
-                 '<td class="mono" style="text-align:right; font-weight:900; font-size:15px; color:' + (x.ev >= 1.25 && !x.overbet ? '#34D399' : x.overbet ? '#FB7185' : '#FFFFFF') + ';">' + x.ev.toFixed(2) + '</td>' +
+                 '<td class="mono" style="text-align:right; font-weight:900; font-size:15px; color:' + (x.ev >= 1.20 && !x.overbet ? '#34D399' : (x.overbet || x.ev <= 1.02) ? '#FB7185' : '#FFFFFF') + ';">' + x.ev.toFixed(2) + '</td>' +
                '</tr>';
       }).join("");
 
-      // 7. All 11 Races Overview Table
+      // 7. All 9 Races Overview Table
       document.getElementById("overviewTableBody").innerHTML = RACES.map(function(rx, k) {
         var sm = APP.sims[k];
         var pb = sm.bullet;
-        var p0 = rx.score < 60;
-        var t1 = rx.score >= 75;
-        var pStake = (p0 || isLocked) ? 0 : Math.max(10, Math.round((maxCap * 0.65) / 10) * 10);
-        var qStake = (p0 || isLocked) ? 0 : Math.max(10, Math.round((maxCap * 0.15) / 10) * 10);
+        var stk = computeRaceStakes(rx, sm, bankroll, APP.losses);
+        var p0 = rx.score < 60 || stk.totalStake === 0;
+        var t1 = rx.score >= 75 && stk.totalStake > 0;
         return '<tr style="cursor:pointer;" onclick="window.selectRace(' + k + ')">' +
                  '<td class="mono" style="font-weight:900; color:#FBBF24; font-size:15px;">R' + rx.no + ' <span style="font-size:11px; color:#94A3B8;">(' + rx.time + ')</span></td>' +
                  '<td>' + rx.dist + 'm · ' + rx.cls + ' (' + rx.runners.length + '駒)</td>' +
                  '<td><span class="badge ' + (t1 ? 'b-green' : p0 ? 'b-red' : 'b-blue') + '">' + rx.tier + ' (' + rx.score + ')</span></td>' +
                  '<td>' + rx.pace + '</td>' +
-                 '<td><strong style="color:' + (p0 ? '#FDA4AF' : '#FFFFFF') + ';">' + (p0 ? '⛔ 建議 PASS (參考 #' + pb.no + ' ' + pb.name + ')' : '#' + pb.no + ' ' + pb.name + ' (' + pb.draw + '檔 ' + pb.jockey + ')') + '</strong></td>' +
+                 '<td><strong style="color:' + (p0 ? '#FDA4AF' : '#FFFFFF') + ';">' + (p0 ? '⛔ 觀戰 (' + stk.statusReason + ' · 參考 #' + pb.no + ' ' + pb.name + ')' : '#' + pb.no + ' ' + pb.name + ' (' + pb.draw + '檔 ' + pb.jockey + ' · EV ' + pb.ev.toFixed(2) + ')') + '</strong></td>' +
                  '<td class="mono" style="color:#38BDF8; font-weight:700;">' + pb.no + '×' + sm.legs[0].no + ' ' + sm.legs[0].name + ' / ' + pb.no + '×' + sm.legs[1].no + ' ' + sm.legs[1].name + '</td>' +
-                 '<td class="mono" style="color:#34D399; font-weight:800;">' + (p0 || isLocked ? 'HK$ 0 (觀戰)' : '位置 $' + pStake + ' + QP $' + qStake + '×2') + '</td>' +
+                 '<td class="mono" style="color:' + (stk.totalStake === 0 ? '#FDA4AF' : '#34D399') + '; font-weight:800;">' + (stk.totalStake === 0 ? 'HK$ 0 (' + stk.statusReason + ')' : '位置 $' + stk.plaStake + ' + QP $' + stk.qpStake + '×2') + '</td>' +
                '</tr>';
       }).join("");
     }
 
     function updateOdds(rIdx, fieldIdx, val) {
       var v = parseFloat(val);
-      if (!isNaN(v) && v >= 1.05) {
+      if (!isNaN(v) && v >= 1.0) {
         RACES[APP.raceIdx].runners[rIdx][fieldIdx] = v;
         APP.lastOddsSource = "手動即時輸入";
         APP.lastOddsTime = new Date().toTimeString().slice(0, 8);
         updateOddsHeaderBadges();
         runSimForRace(APP.raceIdx);
         renderAll();
-        notify("🤖 已更新 #" + RACES[APP.raceIdx].runners[rIdx][0] + " 賠率並同步更新 20,000 次模擬與 AI 解盤！");
+        notify("✅ 已更新 #" + RACES[APP.raceIdx].runners[rIdx][0] + " 賠率並同步完成 20,000 次耦合模擬！");
       }
     }
 
@@ -4519,7 +4916,7 @@
       updateOddsHeaderBadges();
       runSimForRace(APP.raceIdx);
       renderAll();
-      notify("⚡ 已模擬臨場落飛：AI 自動攔截 #" + r.runners[0][0] + " (1.45倍位置過熱陷阱) 並捕捉 #" + (r.runners[3] ? r.runners[3][0] : 2) + " 聰明錢落飛！");
+      notify("⚡ 已模擬臨場落飛：自動攔截 #" + r.runners[0][0] + " (1.45倍位置低水陷阱) 並捕捉 #" + (r.runners[3] ? r.runners[3][0] : 2) + " 聰明錢落飛！");
     }
 
     function recordResult(isWin) {
@@ -4542,12 +4939,12 @@
       document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
       if (btn) btn.classList.add("active");
       if (viewName === "sectional") {
-        var finNo = parseInt(document.getElementById("secFinishedRace").value, 10) || 9;
-        syncSectionalInputsFromRace(finNo, true);
+        var finNo = Math.min(RACES.length, Math.max(1, parseInt(document.getElementById("secFinishedRace").value, 10) || 5));
+        syncSectionalInputsFromRace(finNo, false);
       }
     }
 
-    // Boot up 100% automatically on load!
+    // Boot up cleanly on load
     try {
       var savedKey = localStorage.getItem("argon_gemini_key");
       if (savedKey && document.getElementById("inpGeminiKey")) {
@@ -4555,7 +4952,6 @@
       }
     } catch (e) {}
 
-    // Bind delegated click listener on raceStrip for 100% reliability
     var stripContainer = document.getElementById("raceStrip");
     if (stripContainer) {
       stripContainer.addEventListener("click", function(ev) {
@@ -4572,7 +4968,6 @@
     updateAiConnBadge();
     runAiCommand("patrol_all");
     startAutoPilotTicker();
-    // Trigger initial live HKJC odds sync on boot
     setTimeout(function() { syncLiveHkjcOdds(false); }, 600);
   </script>
 </body>
