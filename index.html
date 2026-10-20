@@ -114,7 +114,9 @@
     .r-pill {
       padding: 8px 10px; border-radius: 10px; border: 1px solid #1E293B;
       background: #020617; color: #CBD5E1; cursor: pointer; text-align: left; transition: 0.15s;
+      position: relative; z-index: 10; user-select: none; -webkit-user-select: none; touch-action: manipulation;
     }
+    .r-pill * { pointer-events: none; }
     .r-pill:hover { border-color: #475569; }
     .r-pill .r-no { font-size: 14px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
     .r-pill .r-tag { font-size: 11px; margin-top: 3px; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -384,20 +386,45 @@
       </div>
     </div>
 
-    <!-- RACE SELECTOR STRIP (R1 - R11) -->
+    <!-- RACE SELECTOR STRIP (R1 - R9) -->
     <div class="race-strip-wrap">
       <div class="strip-header">
-        <span style="font-size:13px; font-weight:800; color:#FBBF24;">
-          選擇場次 (2026-10-21 跑馬地夜賽 B欄 R1–R9 全部 104 匹官方排位 & 體重 CBR) &nbsp;|&nbsp; <span style="color:#6EE7B7;">綠框 = 主攻場 (全日精選3場)</span> &nbsp;|&nbsp; <span style="color:#FDA4AF;">紅框 = 建議 PASS</span>
-        </span>
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <span style="font-size:13px; font-weight:800; color:#FBBF24;">
+            🏇 點擊切換場次 (2026-10-21 跑馬地 B欄 R1–R9)：
+          </span>
+          <button type="button" class="btn btn-slate" style="padding:5px 10px;" onclick="stepRace(-1)">◀ 上一場</button>
+          <select id="selQuickRace" onchange="selectRace(this.value)" style="width:auto; min-width:210px; padding:5px 10px; font-size:13px; font-weight:800; color:#FBBF24; border-color:#F59E0B;">
+            <option value="0">第 1 場 (18:40) 四班 1650m — 觀望 (73)</option>
+            <option value="1">第 2 場 (19:10) 五班 1200m — ⛔PASS (52)</option>
+            <option value="2">第 3 場 (19:40) 四班 1650m — 觀望 (74)</option>
+            <option value="3">第 4 場 (20:10) 四班 1200m — 觀望 (71)</option>
+            <option value="4">第 5 場 (20:40) 四班 1000m — 觀望 (72)</option>
+            <option value="5" selected>第 6 場 (21:10) 二班 1000m 浪琴錦標 — 🔥主攻 (88)</option>
+            <option value="6">第 7 場 (21:40) 四班 1200m — 🔥主攻 (83)</option>
+            <option value="7">第 8 場 (22:15) 三班 1200m — 🔥主攻 (81)</option>
+            <option value="8">第 9 場 (22:50) 三班 1650m — 🔥主攻 (76)</option>
+          </select>
+          <button type="button" class="btn btn-slate" style="padding:5px 10px;" onclick="stepRace(1)">下一場 ▶</button>
+        </div>
         <div style="display:flex; flex-wrap:wrap; gap:8px;">
-          <button class="btn btn-green" onclick="syncLiveHkjcOdds(true)">📡 強制刷新本場馬會賠率</button>
-          <button class="btn btn-sky" onclick="switchView('sectional', document.querySelectorAll('.tab-btn')[1])">📡 睇剛跑完步速 ➔ 下一場受惠馬</button>
-          <button class="btn btn-slate" onclick="simulateOddsDrop()">⚡ 模擬臨場落飛</button>
-          <button class="btn btn-amber" onclick="switchView('overview', document.querySelectorAll('.tab-btn')[3])">📋 睇全晚 9 場總表</button>
+          <button type="button" class="btn btn-green" onclick="syncLiveHkjcOdds(true)">📡 強制刷新本場馬會賠率</button>
+          <button type="button" class="btn btn-sky" onclick="switchView('sectional', document.querySelectorAll('.tab-btn')[1])">📡 睇剛跑完步速 ➔ 下一場受惠馬</button>
+          <button type="button" class="btn btn-slate" onclick="simulateOddsDrop()">⚡ 模擬臨場落飛</button>
+          <button type="button" class="btn btn-amber" onclick="switchView('overview', document.querySelectorAll('.tab-btn')[3])">📋 睇全晚 9 場總表</button>
         </div>
       </div>
-      <div id="raceStrip" class="race-strip"></div>
+      <div id="raceStrip" class="race-strip">
+        <button type="button" id="rPillBtn0" data-race-index="0" class="r-pill" onclick="selectRace(0)"><div class="r-no"><span>R1</span><span class="mono" style="font-size:11px;">1650m</span></div><span class="r-tag">觀望 (73) · 11駒</span></button>
+        <button type="button" id="rPillBtn1" data-race-index="1" class="r-pill pass" onclick="selectRace(1)"><div class="r-no"><span>R2</span><span class="mono" style="font-size:11px;">1200m</span></div><span class="r-tag">⛔PASS (52) · 12駒</span></button>
+        <button type="button" id="rPillBtn2" data-race-index="2" class="r-pill" onclick="selectRace(2)"><div class="r-no"><span>R3</span><span class="mono" style="font-size:11px;">1650m</span></div><span class="r-tag">觀望 (74) · 10駒</span></button>
+        <button type="button" id="rPillBtn3" data-race-index="3" class="r-pill" onclick="selectRace(3)"><div class="r-no"><span>R4</span><span class="mono" style="font-size:11px;">1200m</span></div><span class="r-tag">觀望 (71) · 12駒</span></button>
+        <button type="button" id="rPillBtn4" data-race-index="4" class="r-pill" onclick="selectRace(4)"><div class="r-no"><span>R5</span><span class="mono" style="font-size:11px;">1000m</span></div><span class="r-tag">觀望 (72) · 12駒</span></button>
+        <button type="button" id="rPillBtn5" data-race-index="5" class="r-pill tier1 selected" onclick="selectRace(5)"><div class="r-no"><span>R6</span><span class="mono" style="font-size:11px;">1000m</span></div><span class="r-tag">🔥主攻 (88) · 10駒</span></button>
+        <button type="button" id="rPillBtn6" data-race-index="6" class="r-pill tier1" onclick="selectRace(6)"><div class="r-no"><span>R7</span><span class="mono" style="font-size:11px;">1200m</span></div><span class="r-tag">🔥主攻 (83) · 12駒</span></button>
+        <button type="button" id="rPillBtn7" data-race-index="7" class="r-pill tier1" onclick="selectRace(7)"><div class="r-no"><span>R8</span><span class="mono" style="font-size:11px;">1200m</span></div><span class="r-tag">🔥主攻 (81) · 12駒</span></button>
+        <button type="button" id="rPillBtn8" data-race-index="8" class="r-pill tier1" onclick="selectRace(8)"><div class="r-no"><span>R9</span><span class="mono" style="font-size:11px;">1650m</span></div><span class="r-tag">🔥主攻 (76) · 12駒</span></button>
+      </div>
     </div>
 
     <!-- ==================================================================== -->
@@ -620,13 +647,11 @@
                   <option value="2">剛跑完 R2 ➔ 推演 R3</option>
                   <option value="3">剛跑完 R3 ➔ 推演 R4</option>
                   <option value="4">剛跑完 R4 ➔ 推演 R5</option>
-                  <option value="5">剛跑完 R5 ➔ 推演 R6</option>
+                  <option value="5" selected>剛跑完 R5 ➔ 推演 R6 (浪琴錦標)</option>
                   <option value="6">剛跑完 R6 ➔ 推演 R7</option>
-                  <option value="7">剛跑完 R7 ➔ 推演 R8 (G2)</option>
-                  <option value="8">剛跑完 R8 ➔ 推演 R9</option>
-                  <option value="9" selected>剛跑完 R9 ➔ 推演 R10</option>
-                  <option value="10">剛跑完 R10 ➔ 推演 R11</option>
-                  <option value="11">剛跑完 R11 ➔ 全日尾場總結</option>
+                  <option value="7">剛跑完 R7 ➔ 推演 R8</option>
+                  <option value="8">剛跑完 R8 ➔ 推演 R9 (尾場)</option>
+                  <option value="9">剛跑完 R9 ➔ 全晚尾場總結</option>
                 </select>
               </div>
               <div>
@@ -3056,14 +3081,11 @@
       }
     };
 
-    // Enrich RACES with V25.5 ESPI & Post-Mortem data
+    // Attach 2026-10-19 Sha Tin Post-Mortem reference without overwriting 2026-10-21 Happy Valley racecard pace/desc!
     RACES.forEach(function(r) {
       var pm = POSTMORTEM_20261019[r.no];
       if (pm) {
-        r.espi = pm.espi;
-        r.pace = pm.v25PaceTag;
-        r.postMortem = pm;
-        r.desc = "【賽後覆盤：" + pm.top4 + "】分段：" + pm.rawSplitsStr + "。步速修正：" + pm.v25Fix;
+        r.stPostMortem = pm;
       }
     });
 
@@ -3734,8 +3756,8 @@
       // Step 1: Sync Live HKJC Odds
       var oddsSynced = await syncLiveHkjcOdds(false);
 
-      // Step 2: Multi-Proxy CORS Auto-Fetch of HKJC LocalResults page
-      var hkjcUrl = "https://racing.hkjc.com/racing/information/Chinese/Racing/LocalResults.aspx";
+      // Step 2: Multi-Proxy CORS Auto-Fetch of HKJC LocalResults page (ONLY if it matches 21/10/2026 Happy Valley!)
+      var hkjcUrl = "https://racing.hkjc.com/racing/information/Chinese/Racing/LocalResults.aspx?RaceDate=2026/10/21&Racecourse=HV";
       var proxies = [
         "https://api.allorigins.win/get?url=" + encodeURIComponent(hkjcUrl),
         "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(hkjcUrl)
@@ -3746,15 +3768,18 @@
           var resp = await fetch(proxies[p]);
           if (resp && resp.ok) {
             var rawText = await resp.text();
-            var splits = rawText.match(/\b2[1-8]\.\d{2}\b/g);
-            var raceMatch = rawText.match(/第\s*(\d{1,2})\s*場/);
-            if (splits && splits.length >= 3) {
-              var rNum = raceMatch ? Math.min(10, parseInt(raceMatch[1], 10)) : 7;
-              var sp3 = [parseFloat(splits[0]), parseFloat(splits[1]), parseFloat(splits[2])];
-              var f800 = sp3[0] + sp3[1];
-              var autoPos = f800 <= 46.45 ? "back_out" : f800 >= 47.35 ? "front_in" : "mid_in";
-              ingestAutoDetectedResult(rNum, sp3, autoPos, "HKJC 雲端代理直連");
-              return;
+            // Strictly verify the result page is for 21/10/2026 before auto-ingesting!
+            if (rawText.indexOf("21/10/2026") !== -1) {
+              var splits = rawText.match(/\b2[1-8]\.\d{2}\b/g);
+              var raceMatch = rawText.match(/第\s*(\d{1,2})\s*場/);
+              if (splits && splits.length >= 3) {
+                var rNum = raceMatch ? Math.min(8, parseInt(raceMatch[1], 10)) : 5;
+                var sp3 = [parseFloat(splits[0]), parseFloat(splits[1]), parseFloat(splits[2])];
+                var f800 = sp3[0] + sp3[1];
+                var autoPos = f800 <= 46.45 ? "back_out" : f800 >= 47.35 ? "front_in" : "mid_in";
+                ingestAutoDetectedResult(rNum, sp3, autoPos, "HKJC 雲端代理直連");
+                return;
+              }
             }
           }
         } catch (err) {}
@@ -3933,7 +3958,7 @@
     }
 
     function renderNextRacePredictorCard() {
-      var finRaceNo = parseInt(document.getElementById("secFinishedRace").value, 10) || 9;
+      var finRaceNo = Math.min(RACES.length, Math.max(1, parseInt(document.getElementById("secFinishedRace").value, 10) || 5));
       var nextIdx = Math.min(RACES.length - 1, finRaceNo);
       var pm = POSTMORTEM_20261019[finRaceNo] || POSTMORTEM_20261019[9];
       var s1 = parseFloat(document.getElementById("secSplit1").value) || pm.split3[0];
@@ -4205,18 +4230,49 @@
     // ============================================================================
     // 7. CLEAN UI RENDERING (ALL RUNNERS + LIVE ODDS MOVEMENT DELTAS)
     // ============================================================================
+    function selectRace(idx) {
+      var target = parseInt(idx, 10);
+      if (isNaN(target) || target < 0 || target >= RACES.length) return;
+      APP.raceIdx = target;
+      var singleView = document.getElementById("view-single");
+      if (singleView && singleView.classList.contains("hidden")) {
+        switchView("single", document.querySelectorAll(".tab-btn")[0]);
+      }
+      try {
+        syncSectionalInputsFromRace(Math.max(1, target), false);
+      } catch (e) {}
+      renderAll();
+      var r = RACES[target];
+      var b = APP.sims[target] && APP.sims[target].bullet;
+      if (r && b) {
+        notify("🏇 已切換至第 " + r.no + " 場 (" + r.time + " " + r.name + " " + r.dist + "m) · 單注核心：#" + b.no + " " + b.name);
+      }
+    }
+    window.selectRace = selectRace;
+
+    function stepRace(delta) {
+      var next = (APP.raceIdx + delta + RACES.length) % RACES.length;
+      selectRace(next);
+    }
+    window.stepRace = stepRace;
+
     function renderAll() {
       document.getElementById("lossCounter").textContent = APP.losses;
 
-      // 1. Race Strip Pills
-      document.getElementById("raceStrip").innerHTML = RACES.map(function(r, i) {
+      // Sync quick dropdown selector
+      var selQ = document.getElementById("selQuickRace");
+      if (selQ && selQ.value !== String(APP.raceIdx)) {
+        selQ.value = String(APP.raceIdx);
+      }
+
+      // 1. Update Race Strip Pills IN-PLACE (never destroy button DOM nodes!)
+      RACES.forEach(function(r, i) {
+        var btn = document.getElementById("rPillBtn" + i);
         var cls = "r-pill " + (r.score >= 75 ? "tier1" : r.score < 60 ? "pass" : "") + (i === APP.raceIdx ? " selected" : "");
-        var tag = r.score >= 75 ? "🔥主攻 (" + r.score + ")" : r.score < 60 ? "⛔PASS (" + r.score + ")" : "觀望 (" + r.score + ")";
-        return '<button class="' + cls + '" onclick="APP.raceIdx=' + i + ';syncSectionalInputsFromRace(Math.max(1, i), false);renderAll()">' +
-                 '<div class="r-no"><span>R' + r.no + '</span><span class="mono" style="font-size:11px;">' + r.dist + 'm</span></div>' +
-                 '<span class="r-tag">' + tag + ' · ' + r.runners.length + '駒</span>' +
-               '</button>';
-      }).join("");
+        if (btn) {
+          btn.className = cls;
+        }
+      });
 
       var r = RACES[APP.raceIdx];
       var sim = APP.sims[APP.raceIdx];
@@ -4239,11 +4295,14 @@
       document.getElementById("singlePaceBadge").textContent = r.pace;
 
       var scrBadge = document.getElementById("scratchedNoteBadge");
-      if (r.no === 8) {
-        scrBadge.textContent = "📢 官方退出：#4 白鷺金剛 (已剔除)";
+      if (r.no === 6) {
+        scrBadge.textContent = "🚨 獸醫紅線：#9 好評如潮(喘鳴症) & #1 天天同樂(流鼻血/氣管血)";
         scrBadge.classList.remove("hidden");
-      } else if (r.no === 10) {
-        scrBadge.textContent = "📢 官方變動：#3 活力拍檔退出 ➔ 後備 #3 風將 (何澤堯 122磅) 補上";
+      } else if (r.no === 7) {
+        scrBadge.textContent = "🚨 獸醫紅線：#2 賢知友您(心律不正常) & #8 快樂高球(氣管血)";
+        scrBadge.classList.remove("hidden");
+      } else if (r.no === 1 || r.no === 4) {
+        scrBadge.textContent = "🚨 已啟動 L1 獸醫傷患紅線與 CBR 體重負荷比過濾";
         scrBadge.classList.remove("hidden");
       } else {
         scrBadge.classList.add("hidden");
@@ -4367,7 +4426,7 @@
         var t1 = rx.score >= 75;
         var pStake = (p0 || isLocked) ? 0 : Math.max(10, Math.round((maxCap * 0.65) / 10) * 10);
         var qStake = (p0 || isLocked) ? 0 : Math.max(10, Math.round((maxCap * 0.15) / 10) * 10);
-        return '<tr style="cursor:pointer;" onclick="APP.raceIdx=' + k + ';switchView(\'single\',document.querySelectorAll(\'.tab-btn\')[0]);renderAll()">' +
+        return '<tr style="cursor:pointer;" onclick="window.selectRace(' + k + ')">' +
                  '<td class="mono" style="font-weight:900; color:#FBBF24; font-size:15px;">R' + rx.no + ' <span style="font-size:11px; color:#94A3B8;">(' + rx.time + ')</span></td>' +
                  '<td>' + rx.dist + 'm · ' + rx.cls + ' (' + rx.runners.length + '駒)</td>' +
                  '<td><span class="badge ' + (t1 ? 'b-green' : p0 ? 'b-red' : 'b-blue') + '">' + rx.tier + ' (' + rx.score + ')</span></td>' +
@@ -4440,8 +4499,19 @@
       }
     } catch (e) {}
 
+    // Bind delegated click listener on raceStrip for 100% reliability
+    var stripContainer = document.getElementById("raceStrip");
+    if (stripContainer) {
+      stripContainer.addEventListener("click", function(ev) {
+        var btn = ev.target.closest ? ev.target.closest("button[data-race-index]") : ev.target;
+        if (btn && btn.getAttribute("data-race-index") !== null) {
+          selectRace(parseInt(btn.getAttribute("data-race-index"), 10));
+        }
+      });
+    }
+
     runAllSims();
-    syncSectionalInputsFromRace(9, true);
+    syncSectionalInputsFromRace(5, false);
     renderAll();
     updateAiConnBadge();
     runAiCommand("patrol_all");
