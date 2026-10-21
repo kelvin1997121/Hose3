@@ -647,9 +647,9 @@
                 <select id="secFinishedRace" onchange="updateNextRaceTargetLabel()">
                   <option value="1">剛跑完 R1 ➔ 推演 R2</option>
                   <option value="2">剛跑完 R2 ➔ 推演 R3</option>
-                  <option value="3">剛跑完 R3 ➔ 推演 R4</option>
+                  <option value="3" selected>剛跑完 R3 (官方實測) ➔ 推演 R4</option>
                   <option value="4">剛跑完 R4 ➔ 推演 R5</option>
-                  <option value="5" selected>剛跑完 R5 ➔ 推演 R6 (浪琴錦標)</option>
+                  <option value="5">剛跑完 R5 ➔ 推演 R6 (浪琴錦標)</option>
                   <option value="6">剛跑完 R6 ➔ 推演 R7</option>
                   <option value="7">剛跑完 R7 ➔ 推演 R8</option>
                   <option value="8">剛跑完 R8 ➔ 推演 R9 (尾場)</option>
@@ -666,18 +666,27 @@
               </div>
               <div>
                 <label style="font-size:11px; color:#94A3B8;">前段 400m (秒)</label>
-                <input id="secSplit1" type="number" step="0.01" value="22.95" onchange="applyCustomSectional()">
+                <input id="secSplit1" type="number" step="0.01" value="22.39" onchange="applyCustomSectional()">
               </div>
               <div>
                 <label style="font-size:11px; color:#94A3B8;">中段 400m (秒)</label>
-                <input id="secSplit2" type="number" step="0.01" value="21.85" onchange="applyCustomSectional()">
+                <input id="secSplit2" type="number" step="0.01" value="25.12" onchange="applyCustomSectional()">
               </div>
               <div>
                 <label style="font-size:11px; color:#94A3B8;">末段 400m (秒)</label>
-                <input id="secSplit3" type="number" step="0.01" value="22.90" onchange="applyCustomSectional()">
+                <input id="secSplit3" type="number" step="0.01" value="24.84" onchange="applyCustomSectional()">
               </div>
               <div style="display:flex; align-items:end;">
                 <button class="btn btn-slate" style="width:100%; justify-content:center;" onclick="applyCustomSectional()">套用微調</button>
+              </div>
+            </div>
+            <div style="margin-top:10px; padding-top:10px; border-top:1px dashed #334155;">
+              <label style="font-size:11px; font-weight:800; color:#38BDF8; display:block; margin-bottom:5px;">
+                📋 0.1秒貼上馬會賽果/分段時間文字（穿透瀏覽器 CORS 攔截，支援直接複製馬會賽果頁）：
+              </label>
+              <div style="display:flex; gap:6px;">
+                <input id="txtSecPaste" type="text" class="mono" style="font-size:12px; flex:1;" placeholder="貼上馬會賽果分段，例如：分段時間 : 27.40 22.39 25.12 (12.44 12.68) 24.84 (12.37 12.47)">
+                <button type="button" class="btn btn-sky" style="white-space:nowrap;" onclick="parsePastedHkjcSectional()">⚡ 解析官方分段</button>
               </div>
             </div>
           </div>
@@ -1194,84 +1203,96 @@
     // ============================================================================
     var HV_20261021_SECTIONALS = {
       1: {
-        date: "2026-10-21", venue: "HV", raceNo: 1, dist: 1650,
-        split3: [23.82, 23.40, 23.58],
+        date: "2026-10-21", venue: "HV", raceNo: 1, dist: 1650, isLiveOfficial: true,
+        firstSplit: 27.95,
+        split3: [23.69, 24.40, 24.35],
+        parF800: 47.20,
         winPos: "mid_in",
-        rawSplitsStr: "27.95s - 23.82s - 23.40s - 23.58s (2026-10-21 谷草B欄 四班1650m 基準 1:38.75)",
-        top4: "#6 部族高手 (1檔潘頓) · #11 幸福約定 (2檔輕磅) · #1 太子 (降班馬) · #2 本領非凡 (4檔)",
-        v25PaceTag: "⚖️ 谷草1650m標準均速內欄局 (ESPI=62)",
-        v25Fix: "2026-10-21 谷草 R1 僅兩駒具前領意圖 (#3 爆笑 10檔外疊切入)，1–4檔內欄黃金包廂馬 (#6 部族高手、#11 幸福約定) 慳位優勢顯著。"
+        rawSplitsStr: "【馬會官方實測分段】27.95s | 23.69s | 24.40s (12.30 12.10) | 24.35s (12.34 12.01) · 完成時間 1:40.39（頭馬 #6 部族高手 個人分段：28.31s - 23.57s - 24.48s - 24.03s）",
+        top4: "🏆 冠 #6 部族高手 ($2.9·1檔潘頓·走位4-4-4-1) ➔ 亞 #11 幸福約定 ($6.8·2檔艾兆禮·走位5-8-1-2) ➔ 季 #5 龍文瑞安 ($21·5檔楊明綸·走位7-6-8-3) ➔ 殿 #2 本領非凡 ($5.6·3檔何澤堯·第4死穴)",
+        v25PaceTag: "🟢 馬會實測：慢步速內欄好位控制局 (中兩段 48.09s 慢標準+0.89s)",
+        v25Fix: "R1 馬會官方實測分段 27.95s - 23.69s - 24.40s 偏慢，1檔 #6 部族高手 (走位4-4-4-1) 貼欄省位末段交出 24.03s 勝出，與 2檔 #11 幸福約定 包辦連贏 Q（完全命中本系統 R1 單注膽 #6 拖 #11 Q/QP），而 1,053磅細馬負重磅之 #2 本領非凡 跌落第 4 名死穴！"
       },
       2: {
-        date: "2026-10-21", venue: "HV", raceNo: 2, dist: 1200,
-        split3: [23.35, 22.68, 23.52],
-        winPos: "mid_in",
-        rawSplitsStr: "23.35s - 22.68s - 23.52s (2026-10-21 谷草B欄 五班1200m 基準 1:09.55)",
-        top4: "#1 友得盈 (4檔潘頓降五班) · #3 金風萬里 (1檔貼欄) · #9 勝在當下 (2檔搶放) · #4 靖哥哥",
-        v25PaceTag: "⚡ 五班1200m中快混戰局 (ESPI=74)",
-        v25Fix: "2026-10-21 谷草 R2 五班混戰可賭性低 (52分建議 PASS)，前段 46.03s 偏快，利好 1–4 檔守好位馬。"
+        date: "2026-10-21", venue: "HV", raceNo: 2, dist: 1200, isLiveOfficial: true,
+        firstSplit: 23.49,
+        split3: [23.49, 22.45, 24.11],
+        parF800: 46.60,
+        winPos: "back_out",
+        rawSplitsStr: "【馬會官方實測分段】23.49s | 22.45s (10.87 11.58) | 24.11s (12.30 11.81) · 完成時間 1:10.05（頭馬 #6 朗日雪峰 個人分段：24.21s - 22.49s - 23.35s）",
+        top4: "🏆 冠 #6 朗日雪峰 ($49·9檔奧爾民·走位9-8-1) ➔ 亞 #4 靖哥哥 ($4.7·8檔周俊樂·走位7-6-2) ➔ 季 #2 領航多福 ($24·11檔艾道拿·走位12-11-3) ➔ 殿 #1 友得盈 ($6.5·4檔潘頓·走位3-3-4燒乾)",
+        v25PaceTag: "🔥 馬會實測：前800m 45.94s (中段 22.45s) 超快步速大後上收割局",
+        v25Fix: "R2 馬會官方實測第 2 段狂飆至 22.45s（前 800m 僅 45.94s），早段跟前馬末段減速至 24.11s 集體潰敗（4檔跟前 #1 友得盈 3-3-4 燒乾跌落第4）；9檔 1,252磅大馬 #6 朗日雪峰 (9-8-1 末段 23.35s) 聯同 8檔 #4 靖哥哥、11檔 #2 領航多福 大外一氣包辦三甲！"
       },
       3: {
-        date: "2026-10-21", venue: "HV", raceNo: 3, dist: 1650,
-        split3: [23.78, 23.32, 23.48],
-        winPos: "front_in",
-        rawSplitsStr: "27.80s - 23.78s - 23.32s - 23.48s (2026-10-21 谷草B欄 四班1650m 基準 1:38.38)",
-        top4: "#8 金駒永騰 (2檔何澤堯) · #1 開心三寶 (3檔降班) · #4 越駿聯歡 (8檔) · #5 先到先得 (5檔)",
-        v25PaceTag: "⚖️ 谷草1650m內欄省位局 (ESPI=64)",
-        v25Fix: "2026-10-21 谷草 R3 步速正常，2檔 #8 金駒永騰 與 3檔 #1 開心三寶 守內欄黃金包廂位。"
+        date: "2026-10-21", venue: "HV", raceNo: 3, dist: 1650, isLiveOfficial: true,
+        firstSplit: 27.40,
+        split3: [22.39, 25.12, 24.84],
+        parF800: 48.20,
+        winPos: "mid_in",
+        rawSplitsStr: "【馬會官方實測分段】27.40s | 22.39s | 25.12s (12.44 12.68) | 24.84s (12.37 12.47) · 完成時間 1:39.75（頭馬 #3 都靈冠星 個人分段：27.84s - 22.71s - 24.40s - 24.80s）",
+        top4: "🏆 冠 #3 都靈冠星 ($10·7檔潘頓·走位2-2-2-1) ➔ 亞 #8 金駒永騰 ($2.6·2檔何澤堯·走位3-3-3-2) ➔ 季 #10 康昌之星 ($10·10檔艾兆禮·走位9-8-7-3) ➔ 殿 #9 唯美主義 ($15·9檔潘明輝·走位10-10-10-4)",
+        v25PaceTag: "🌪️ 馬會實測：第2段 22.39s 急搶 + 第3段 25.12s 急收之風琴變速消耗局",
+        v25Fix: "R3 馬會官方實測首 850m 僅 49.79s（27.40s + 第2段 22.39s 超快搶放！），早段搶放之大熱 #4 越駿聯歡 體力透支潰敗；跟守第 2–3 位好位之潘頓 #3 都靈冠星 (2-2-2-1) 與本系統單注膽 2檔 #8 金駒永騰 (3-3-3-2) 串 Q，10檔後上輕磅馬 #10 康昌之星 (9-8-7-3) 追入季軍！"
       },
       4: {
-        date: "2026-10-21", venue: "HV", raceNo: 4, dist: 1200,
+        date: "2026-10-21", venue: "HV", raceNo: 4, dist: 1200, isLiveOfficial: false,
         split3: [23.42, 22.74, 23.40],
+        parF800: 46.60,
         winPos: "mid_in",
-        rawSplitsStr: "23.42s - 22.74s - 23.40s (2026-10-21 谷草B欄 四班1200m 基準 1:09.56)",
-        top4: "#3 馬馳登 (5檔奧爾民) · #12 三強 (7檔輕磅) · #10 高明豐勝 (1檔) · #5 豐才 (2檔)",
-        v25PaceTag: "⚡ 谷草1200m中快步速局 (ESPI=68)",
-        v25Fix: "2026-10-21 谷草 R4 前段有外檔減磅馬 #4 明德輝煌 (11檔) 推快，利好中內欄守好位之 #3 馬馳登 與 #10 高明豐勝。"
+        rawSplitsStr: "⏳ [賽前同班基準] 23.42s - 22.74s - 23.40s (待 R4 完場後自動連網或貼上更新官方實測分段)",
+        top4: "待開跑（賽前核心：#3 馬馳登 · #12 三強 · #10 高明豐勝 · #5 豐才）",
+        v25PaceTag: "⚡ 谷草1200m中快步速預判 (ESPI=68)",
+        v25Fix: "結合今晚 R1–R3 實測規律：凡早中段出現 22.4s 急促快步速，外檔搶放馬必燒乾！R4 有 11檔 #4 明德輝煌 搶放推快，最利好 5檔 #3 馬馳登、1檔 #10 高明豐勝、2檔 #5 豐才 守好位及 7檔輕磅後上 #12 三強 收割。"
       },
       5: {
-        date: "2026-10-21", venue: "HV", raceNo: 5, dist: 1000,
+        date: "2026-10-21", venue: "HV", raceNo: 5, dist: 1000, isLiveOfficial: false,
         split3: [22.95, 21.85, 22.90],
+        parF800: 44.60,
         winPos: "back_out",
-        rawSplitsStr: "12.55s - 21.85s - 22.90s [前800m折算 44.80s] (2026-10-21 谷草B欄 四班1000m 基準 0:57.30)",
-        top4: "#12 馬運高 (4檔輕磅) · #11 皇金合 (6檔準繩) · #7 鋼鐵安防 (9檔快馬) · #10 超強六十 (3檔)",
-        v25PaceTag: "🔥 谷草1000m短途高速激戰 (ESPI=81)",
+        rawSplitsStr: "⏳ [賽前同班基準] 12.55s - 21.85s - 22.90s (待 R5 完場後自動連網或貼上更新官方實測分段)",
+        top4: "待開跑（賽前核心：#12 馬運高 · #11 皇金合 · #8 精益飛駒 · #4 友駿同心）",
+        v25PaceTag: "🔥 谷草1000m短途高速激戰預判 (ESPI=81)",
         v25Fix: "2026-10-21 谷草 R5 多匹快馬 (#2 長勝金剛、#7 鋼鐵安防、#8 精益飛駒) 搶放，利好 #12 馬運高 與 #11 皇金合 跟守好位衝刺。"
       },
       6: {
-        date: "2026-10-21", venue: "HV", raceNo: 6, dist: 1000,
+        date: "2026-10-21", venue: "HV", raceNo: 6, dist: 1000, isLiveOfficial: false,
         split3: [22.68, 21.52, 22.75],
+        parF800: 44.10,
         winPos: "back_out",
-        rawSplitsStr: "12.38s - 21.52s - 22.75s [前800m折算 44.20s] (2026-10-21 谷草B欄 二班1000m 浪琴錦標 0:56.65)",
-        top4: "#8 好好戀愛 (4檔巴度) · #4 馬力 (6檔艾兆禮) · #3 八駿巨昇 (1檔貼欄) · #10 燭光晚餐 (7檔後追)",
-        v25PaceTag: "🔥 二班1000m極速高壓局 (ESPI=89)",
+        rawSplitsStr: "⏳ [賽前同班基準] 12.38s - 21.52s - 22.75s (待 R6 完場後自動連網或貼上更新官方實測分段)",
+        top4: "待開跑（賽前核心：#8 好好戀愛 · #4 馬力 · #3 八駿巨昇 · #10 燭光晚餐）",
+        v25PaceTag: "🔥 二班1000m極速高壓局預判 (ESPI=89)",
         v25Fix: "2026-10-21 谷草 R6 浪琴錦標 4 匹快馬搶放，4檔 #8 好好戀愛 與 6檔 #4 馬力 借快步速穿刺最受惠。"
       },
       7: {
-        date: "2026-10-21", venue: "HV", raceNo: 7, dist: 1200,
+        date: "2026-10-21", venue: "HV", raceNo: 7, dist: 1200, isLiveOfficial: false,
         split3: [23.38, 22.65, 23.32],
+        parF800: 46.50,
         winPos: "mid_in",
-        rawSplitsStr: "23.38s - 22.65s - 23.32s (2026-10-21 谷草B欄 四班1200m 基準 1:09.35)",
-        top4: "#3 合夥飛馳 (1檔黃金位) · #5 鋁主角 (5檔潘頓) · #11 領袖勁力 (2檔巴度) · #10 飛躍成就 (8檔)",
-        v25PaceTag: "⚖️ 谷草1200m標準中快局 (ESPI=69)",
+        rawSplitsStr: "⏳ [賽前同班基準] 23.38s - 22.65s - 23.32s (待 R7 完場後自動連網或貼上更新官方實測分段)",
+        top4: "待開跑（賽前核心：#3 合夥飛馳 · #5 鋁主角 · #11 領袖勁力 · #10 飛躍成就）",
+        v25PaceTag: "⚖️ 谷草1200m標準中快局預判 (ESPI=69)",
         v25Fix: "2026-10-21 谷草 R7 內欄 1–5 檔黃金包廂 (#3 合夥飛馳、#5 鋁主角、#11 領袖勁力) 全面主導。"
       },
       8: {
-        date: "2026-10-21", venue: "HV", raceNo: 8, dist: 1200,
+        date: "2026-10-21", venue: "HV", raceNo: 8, dist: 1200, isLiveOfficial: false,
         split3: [23.28, 22.55, 23.22],
+        parF800: 46.20,
         winPos: "front_in",
-        rawSplitsStr: "23.28s - 22.55s - 23.22s (2026-10-21 谷草B欄 三班1200m 基準 1:09.05)",
-        top4: "#8 飛馬座 (1檔黃金位) · #5 粵港資駒 (3檔霍宏聲) · #7 江江彩彩 (5檔艾道拿) · #4 快活英雄 (2檔)",
-        v25PaceTag: "⚡ 三班1200m內欄省位局 (ESPI=71)",
+        rawSplitsStr: "⏳ [賽前同班基準] 23.28s - 22.55s - 23.22s (待 R8 完場後自動連網或貼上更新官方實測分段)",
+        top4: "待開跑（賽前核心：#8 飛馬座 · #5 粵港資駒 · #7 江江彩彩 · #4 快活英雄）",
+        v25PaceTag: "⚡ 三班1200m內欄省位局預判 (ESPI=71)",
         v25Fix: "2026-10-21 谷草 R8 三班1200m，1–5檔內欄馬 (#8 飛馬座、#5 粵港資駒、#7 江江彩彩) 貼欄省位優勢明顯。"
       },
       9: {
-        date: "2026-10-21", venue: "HV", raceNo: 9, dist: 1650,
+        date: "2026-10-21", venue: "HV", raceNo: 9, dist: 1650, isLiveOfficial: false,
         split3: [23.68, 23.18, 23.32],
+        parF800: 47.00,
         winPos: "front_in",
-        rawSplitsStr: "27.60s - 23.68s - 23.18s - 23.32s (2026-10-21 谷草B欄 三班1650m 尾場基準 1:37.78)",
-        top4: "#2 幸運派彩 (1檔巴度) · #9 納百川 (2檔周俊樂) · #4 一定掂 (3檔奧爾民) · #10 哥倫布 (6檔)",
-        v25PaceTag: "⚖️ 尾場三班1650m內欄均速局 (ESPI=66)",
+        rawSplitsStr: "⏳ [賽前同班基準] 27.60s - 23.68s - 23.18s - 23.32s (待 R9 完場後自動連網或貼上更新官方實測分段)",
+        top4: "待開跑（賽前核心：#2 幸運派彩 · #9 納百川 · #4 一定掂 · #10 哥倫布）",
+        v25PaceTag: "⚖️ 尾場三班1650m內欄均速局預判 (ESPI=66)",
         v25Fix: "2026-10-21 谷草 R9 尾場，1檔 #2 幸運派彩、2檔 #9 納百川 與 3檔 #4 一定掂 佔盡谷草 B 欄內欄優勢。"
       }
     };
@@ -1332,6 +1353,10 @@
         }
       }
 
+      // Strip <select> date dropdowns and <script>/<nav> from full HTML pages so HKJC's own historical date selector doesn't self-block
+      if (txt.indexOf("<html") !== -1 || txt.indexOf("<select") !== -1) {
+        txt = txt.replace(/<select[\s\S]*?<\/select>/gi, " ").replace(/<script[\s\S]*?<\/script>/gi, " ").replace(/<nav[\s\S]*?<\/nav>/gi, " ");
+      }
       // 2. Validate raw text for explicit wrong dates
       var isoMatches = txt.match(/\b(202\d)[-\/.](0?[1-9]|1[0-2])[-\/.](0?[1-9]|[12]\d|3[01])\b/g);
       if (isoMatches) {
@@ -2277,43 +2302,93 @@
     // ============================================================================
     // STRICT SECTIONAL PARSER (Prevents Non-Sectional Numbers & Truncated Race 9)
     // ============================================================================
-    function extractStrictSectionalFromHtml(rawText) {
+    function extractStrictSectionalFromHtml(rawText, fallbackRaceNo) {
       if (!rawText || typeof rawText !== "string") return null;
+      // Unwrap AllOrigins JSON wrapper if present
+      if (rawText.trim().indexOf("{") === 0) {
+        try {
+          var wrapped = JSON.parse(rawText);
+          if (wrapped && typeof wrapped.contents === "string") {
+            rawText = wrapped.contents;
+          }
+        } catch (e) {}
+      }
+
+      if (rawText.indexOf("有關資料將於稍後公佈") !== -1) return null;
+
       var ctxCheck = validatePayloadMeetingContext(rawText, null);
       if (!ctxCheck.ok) return null;
-
-      // Require explicit 21/10/2026 AND Happy Valley / 跑馬地 AND explicit 分段時間 label
-      if (rawText.indexOf("21/10/2026") === -1 && rawText.indexOf("2026/10/21") === -1 && rawText.indexOf("2026-10-21") === -1) {
-        return null;
-      }
-      if (rawText.indexOf("跑馬地") === -1 && rawText.toUpperCase().indexOf("HAPPY VALLEY") === -1) {
-        return null;
-      }
 
       var secIdx = rawText.indexOf("分段時間");
       if (secIdx === -1) secIdx = rawText.indexOf("Sectional Time");
       if (secIdx === -1) return null;
 
       // Extract race number (1..RACES.length, never truncating Race 9 to 8!)
-      var raceMatch = rawText.match(/第\s*(\d{1,2})\s*場/);
-      var rNum = raceMatch ? parseInt(raceMatch[1], 10) : NaN;
+      var raceMatch = rawText.match(/第\s*(\d{1,2})\s*場/) || rawText.match(/Race\s*(\d{1,2})/i);
+      var rNum = raceMatch ? parseInt(raceMatch[1], 10) : (fallbackRaceNo || NaN);
       if (isNaN(rNum) || rNum < 1 || rNum > RACES.length) return null;
 
-      // Isolate ONLY the sectional block and strip out dividends/odds/weights
-      var secSlice = rawText.slice(secIdx, secIdx + 500);
-      var stopIdx = secSlice.search(/派彩|獨贏|位置|連贏|Dividend|Pool/i);
+      // Isolate ONLY the sectional block and strip out HKJC's 200m sub-splits in parentheses like (12.44 12.68)
+      var secSlice = rawText.slice(secIdx, secIdx + 650);
+      var stopIdx = secSlice.search(/派彩|獨贏|位置|連贏|Dividend|Pool|沿途走位/i);
       if (stopIdx !== -1) secSlice = secSlice.slice(0, stopIdx);
-      secSlice = secSlice.replace(/<[^>]+>/g, " ").replace(/\$[\d,.]+/g, " ").replace(/\d+(?:\.\d+)?\s*(?:倍|%|磅|m\b|米)/g, " ");
+      secSlice = secSlice
+        .replace(/<[^>]+>/g, " ")
+        .replace(/\(\s*1\d\.\d{2}[\s,]+1\d\.\d{2}\s*\)/g, " ")
+        .replace(/\$[\d,.]+/g, " ")
+        .replace(/\d+(?:\.\d+)?\s*(?:倍|%|磅|m\b|米)/g, " ");
 
-      var splitTokens = secSlice.match(/\b(2[0-6]\.\d{2})\b/g);
-      if (!splitTokens || splitTokens.length < 3) return null;
+      var allSplits = secSlice.match(/\b(2[0-8]\.\d{2})\b/g);
+      if (!allSplits || allSplits.length < 3) return null;
 
-      // Take the last 3 valid 400m splits in [20.00, 26.50]
+      // Take the last 3 valid 400m splits in [20.00, 26.80]
+      var splitTokens = allSplits.filter(function(v) {
+        var fv = parseFloat(v);
+        return fv >= 20.0 && fv <= 26.8;
+      });
+      if (splitTokens.length < 3) return null;
       var last3 = splitTokens.slice(-3).map(function(v) { return parseFloat(v); });
-      for (var i = 0; i < 3; i++) {
-        if (isNaN(last3[i]) || last3[i] < 20.0 || last3[i] > 26.5) return null;
+      return {
+        raceNo: rNum,
+        splits: last3,
+        allSplitsStr: allSplits.join("s | ") + "s"
+      };
+    }
+
+    function parsePastedHkjcSectional() {
+      var el = document.getElementById("txtSecPaste");
+      var raw = el ? el.value.trim() : "";
+      if (!raw) {
+        notify("⚠️ 請先貼上馬會賽果分段時間文字！");
+        return false;
       }
-      return { raceNo: rNum, splits: last3 };
+      var ctxCheck = validatePayloadMeetingContext(raw, null);
+      if (!ctxCheck.ok) {
+        notify("⛔ 已攔截非本賽日分段：" + ctxCheck.reason);
+        return false;
+      }
+      var curFinNo = Math.min(RACES.length, Math.max(1, parseInt(document.getElementById("secFinishedRace").value, 10) || 3));
+      // Remove 200m sub-splits in parentheses e.g. (12.44 12.68)
+      var cleaned = raw.replace(/\(\s*1\d\.\d{2}[\s,]+1\d\.\d{2}\s*\)/g, " ");
+      var rMatch = cleaned.match(/第\s*(\d{1,2})\s*場|R(\d{1,2})/i);
+      if (rMatch) {
+        var parsedNo = parseInt(rMatch[1] || rMatch[2], 10);
+        if (parsedNo >= 1 && parsedNo <= RACES.length) curFinNo = parsedNo;
+      }
+      var tokens = cleaned.match(/\b(2[0-6]\.\d{2})\b/g);
+      if (!tokens || tokens.length < 3) {
+        notify("⚠️ 未能識別 3 段 400m 分段秒數（需介乎 20.00s - 26.80s）！");
+        return false;
+      }
+      var sp3 = tokens.slice(-3).map(function(v) { return parseFloat(v); });
+      if (HV_20261021_SECTIONALS[curFinNo]) {
+        HV_20261021_SECTIONALS[curFinNo].split3 = sp3;
+        HV_20261021_SECTIONALS[curFinNo].isLiveOfficial = true;
+        HV_20261021_SECTIONALS[curFinNo].rawSplitsStr = "【馬會官方實測分段】" + sp3.map(function(v){return v.toFixed(2);}).join("s | ") + "s";
+      }
+      var pos = (sp3[0] <= 22.65 || (sp3[0] + sp3[1]) <= 46.10) ? "back_out" : "mid_in";
+      ingestAutoDetectedResult(curFinNo, sp3, pos, "手動貼上馬會官方分段 (2026-10-21 HV)", { date: "2026-10-21", venue: "HV" });
+      return true;
     }
 
     function extractStrictSectionalFromChat(queryText) {
@@ -2351,27 +2426,43 @@
 
       var oddsSynced = await syncLiveHkjcOdds(false);
 
-      var hkjcUrl = "https://racing.hkjc.com/racing/information/Chinese/Racing/LocalResults.aspx?RaceDate=2026/10/21&Racecourse=HV";
-      var proxies = [
-        "https://api.allorigins.win/get?url=" + encodeURIComponent(hkjcUrl),
-        "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(hkjcUrl)
-      ];
-
-      for (var p = 0; p < proxies.length; p++) {
-        try {
-          var resp = await fetch(proxies[p]);
-          if (resp && resp.ok) {
-            var rawText = await resp.text();
-            var parsedSec = extractStrictSectionalFromHtml(rawText);
-            if (parsedSec) {
-              var sp3 = parsedSec.splits;
-              var f800 = sp3[0] + sp3[1];
-              var autoPos = f800 <= 45.80 ? "back_out" : f800 >= 47.20 ? "front_in" : "mid_in";
-              ingestAutoDetectedResult(parsedSec.raceNo, sp3, autoPos, "HKJC 2026-10-21 跑馬地賽果直連", { date: "2026-10-21", venue: "HV" });
-              return;
-            }
+      var targetFinRace = Math.min(RACES.length, Math.max(1, parseInt(document.getElementById("secFinishedRace").value, 10) || 3));
+      var candidateRaces = [targetFinRace];
+      if (targetFinRace < RACES.length && !HV_20261021_SECTIONALS[targetFinRace + 1].isLiveOfficial) {
+        candidateRaces.push(targetFinRace + 1);
+      }
+      for (var cIdx = 0; cIdx < candidateRaces.length; cIdx++) {
+        var rCheck = candidateRaces[cIdx];
+        var hkjcUrls = [
+          "https://racing.hkjc.com/zh-hk/local/information/localresults?racedate=2026/10/21&Racecourse=HV&RaceNo=" + rCheck,
+          "https://racing.hkjc.com/racing/information/Chinese/Racing/LocalResults.aspx?RaceDate=2026/10/21&Racecourse=HV&RaceNo=" + rCheck
+        ];
+        for (var u = 0; u < hkjcUrls.length; u++) {
+          var proxies = [
+            "https://api.allorigins.win/get?url=" + encodeURIComponent(hkjcUrls[u]),
+            "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(hkjcUrls[u])
+          ];
+          for (var p = 0; p < proxies.length; p++) {
+            try {
+              var resp = await fetch(proxies[p]);
+              if (resp && resp.ok) {
+                var rawText = await resp.text();
+                var parsedSec = extractStrictSectionalFromHtml(rawText, rCheck);
+                if (parsedSec) {
+                  var sp3 = parsedSec.splits;
+                  if (HV_20261021_SECTIONALS[parsedSec.raceNo]) {
+                    HV_20261021_SECTIONALS[parsedSec.raceNo].split3 = sp3;
+                    HV_20261021_SECTIONALS[parsedSec.raceNo].isLiveOfficial = true;
+                    HV_20261021_SECTIONALS[parsedSec.raceNo].rawSplitsStr = "【馬會官方實測分段】" + parsedSec.allSplitsStr;
+                  }
+                  var autoPos = (sp3[0] <= 22.65 || (sp3[0] + sp3[1]) <= 46.10) ? "back_out" : (sp3[0] + sp3[1]) >= 47.60 ? "front_in" : "mid_in";
+                  ingestAutoDetectedResult(parsedSec.raceNo, sp3, autoPos, "HKJC 2026-10-21 跑馬地 R" + parsedSec.raceNo + " 官方賽果直連", { date: "2026-10-21", venue: "HV" });
+                  return;
+                }
+              }
+            } catch (err) {}
           }
-        } catch (err) {}
+        }
       }
 
       if (oddsSynced) {
@@ -2596,10 +2687,13 @@
 
       var pos = document.getElementById("secWinPos").value;
       var f800 = +(s1 + s2).toFixed(2);
-      var parF800 = +(hvRef.split3[0] + hvRef.split3[1]).toFixed(2);
-      APP.lastSectionalDelta = +(f800 - parF800).toFixed(2);
+      var parF800 = hvRef.parF800 || (hvRef.dist >= 1600 ? 47.20 : hvRef.dist <= 1000 ? 44.50 : 46.60);
+      var rawDelta = +(f800 - parF800).toFixed(2);
+      // Detect extreme early/mid 400m surge (e.g., R2 22.45s or R3 22.39s followed by accordion breather)
+      var hasSurgeSplit = (hvRef.dist >= 1600 && Math.min(s1, s2) <= 22.65) || (hvRef.dist === 1200 && Math.min(s1, s2) <= 22.55);
+      APP.lastSectionalDelta = hasSurgeSplit ? Math.min(rawDelta, -0.45) : rawDelta;
 
-      if (APP.lastSectionalDelta <= -0.35 || pos === "back_out") {
+      if (APP.lastSectionalDelta <= -0.35 || pos === "back_out" || hasSurgeSplit) {
         document.getElementById("selPaceBias").value = "fast_closer";
       } else if (APP.lastSectionalDelta >= 0.35 || pos === "front_in") {
         document.getElementById("selPaceBias").value = "slow_leader";
@@ -3183,8 +3277,9 @@
       });
     }
 
+    APP.raceIdx = 3;
     runAllSims();
-    syncSectionalInputsFromRace(5, false);
+    syncSectionalInputsFromRace(3, true);
     renderAll();
     updateAiConnBadge();
     runAiCommand("patrol_all");
