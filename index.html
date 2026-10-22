@@ -298,7 +298,7 @@
         <button class="tab-btn active" onclick="switchView('single', this)">🎯 單場實戰看板</button>
         <button class="tab-btn" onclick="switchView('sectional', this)">📡 賽果步速 ➔ 下一場利弊</button>
         <button class="tab-btn" onclick="switchView('ai', this)">🤖 Argon 即時 AI 分析</button>
-        <button class="tab-btn" onclick="switchView('overview', this)">📋 全晚 9 場總表</button>
+        <button id="tabBtnOverviewTop" class="tab-btn" onclick="switchView('overview', this)">📋 全日 11 場總表</button>
       </div>
     </div>
   </header>
@@ -429,7 +429,7 @@
           <button type="button" class="btn btn-green" onclick="syncLiveHkjcOdds(true)">📡 強制刷新本場馬會賠率</button>
           <button type="button" class="btn btn-sky" onclick="switchView('sectional', document.querySelectorAll('.tab-btn')[1])">📡 睇剛跑完步速 ➔ 下一場受惠馬</button>
           <button type="button" class="btn btn-slate" onclick="simulateOddsDrop()">⚡ 模擬臨場落飛</button>
-          <button type="button" class="btn btn-amber" onclick="switchView('overview', document.querySelectorAll('.tab-btn')[3])">📋 睇全晚 9 場總表</button>
+          <button type="button" id="btnOverviewQuick" class="btn btn-amber" onclick="switchView('overview', document.querySelectorAll('.tab-btn')[3])">📋 睇全日 11 場總表</button>
         </div>
       </div>
       <div id="raceStrip" class="race-strip">
@@ -760,7 +760,7 @@
             <button class="cmd-btn" onclick="runAiCommand('next_race_bias')">📡 1. 根據剛跑完步速，分析下一場利乜嘢跑法同檔位？</button>
             <button class="cmd-btn" onclick="runAiCommand('patrol_all')">🔍 2. 巡航全晚 9 場：V28.0 校準後最高把握核心馬 (8戰全入前二)</button>
             <button class="cmd-btn" onclick="runAiCommand('current_race')">🎯 3. 深度拆解當前場次（結合最新賠率與聯合協同矩陣）</button>
-            <button class="cmd-btn" onclick="runAiCommand('r8_g2')">🏆 4. 拆解谷草 R6 浪琴錦標：1000m無氧短途傷患衰減點樣捕捉 1×9 ($75 QP)？</button>
+            <button id="btnAiCmdFeatureRace" class="cmd-btn" onclick="runAiCommand('r8_g2')">🏆 4. 拆解焦點錦標賽（沙田 R7 G2 精英碗 / 谷草 R6 浪琴錦標）</button>
             <button class="cmd-btn" onclick="runAiCommand('apprentice')">🏇 5. 掃描全日「見習生減 7 磅 / 3 磅」高價值伏兵</button>
             <button class="cmd-btn" onclick="runAiCommand('traps')">🚨 6. 掃描當前賠率版 ≤1.6 倍假落飛與高危大熱</button>
           </div>
@@ -4633,7 +4633,7 @@
       }).join("; ");
 
       var sysInstruction =
-        "你係 HKJC V28.0 香港賽馬六層量化精算專家。請用專業廣東話回答問題，並嚴格引用以下 2026-10-21 跑馬地夜賽實時運算數據：\n" +
+        "你係 HKJC V29.1 香港賽馬六層量化精算專家。請用專業廣東話回答問題，並嚴格引用以下 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " 實時運算數據：\n" +
         "【當前檢視場次】第 " + curR.no + " 場 " + curR.name + " (" + curR.dist + "m, " + curR.cls + ")，步速指標：" + curR.pace + "\n" +
         "【當前場次20,000次蒙地卡羅排位數據】" + runnerSummary;
 
@@ -4706,16 +4706,17 @@
         : "⚪ [LOCAL OFFLINE QUANT ENGINE · 本地離線精算規則引擎 (未連接遠端 AI)]";
 
       var headerTrace = '<div class="mono" style="font-size:11px; color:#38BDF8; background:#020617; border:1px solid #1E293B; padding:6px 10px; border-radius:8px; margin-bottom:8px;">' +
-        engineModeLabel + ' ｜ 目標場次：2026-10-21 谷草 R' + curR.no + ' (' + curR.dist + 'm · 動態 ESPI=' + (curR.espi || 65) + ') ｜ 命中實體：' +
+        engineModeLabel + ' ｜ 目標場次：' + ACTIVE_MEETING.dateIso + ' ' + ACTIVE_MEETING.venueName + ' R' + curR.no + ' (' + curR.dist + 'm · 動態 ESPI=' + (curR.espi || 65) + ') ｜ 命中實體：' +
         (mentionedHorses.length > 0 ? mentionedHorses.map(function(m){ return "R" + m.race.no + "#" + m.runner.no + m.runner.name; }).join(", ") : "全局步速與精算矩陣") +
         '</div>';
 
       if (/步速|估錯|覆盤|分段|死因|檢討|點解|慢放|快放/.test(q) && mentionedHorses.length === 0) {
-        var hvSec = HV_20261021_SECTIONALS[curR.no];
+        var secMap = getActiveSectionalMap();
+        var hvSec = secMap[curR.no] || secMap[1];
         return headerTrace +
-          "<strong>🔬 【2026-10-21 跑馬地第 " + curR.no + " 場 (" + curR.name + " " + curR.dist + "m) 動態步速與分段推演】</strong><br><br>" +
+          "<strong>🔬 【" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + "第 " + curR.no + " 場 (" + curR.name + " " + curR.dist + "m) 動態步速與分段推演】</strong><br><br>" +
           "• <strong>本場動態步速指標</strong>：<strong style='color:#38BDF8;'>" + curR.pace + "</strong><br>" +
-          "• <strong>2026-10-21 谷草同程基準分段</strong>：<code class='mono' style='color:#FBBF24;'>" + hvSec.rawSplitsStr + "</code><br>" +
+          "• <strong>同程分段基準 / 實測</strong>：<code class='mono' style='color:#FBBF24;'>" + hvSec.rawSplitsStr + "</code><br>" +
           "• <strong>步速利弊診斷</strong>：" + hvSec.v25Fix;
       }
 
@@ -5006,7 +5007,7 @@
         var jockeyTerm = 0.0;
         if (isElite) {
           jockeyTerm = -0.062;
-          if ((trainerName === "姚本輝" || trainerName === "蘇偉賢" || trainerName === "方嘉柏" || trainerName === "羅富全" || trainerName === "游達榮" || trainerName === "黎昭昇" || trainerName === "伍鵬志" || trainerName === "大衛希斯" || trainerName === "廖康銘" || trainerName === "徐雨石") && draw >= 1 && draw <= 6) {
+          if (trainerName && ((isShaTinStraight1000 && draw >= 9) || (!isShaTinStraight1000 && draw >= 1 && draw <= 6))) {
             jockeyTerm -= 0.048;
           }
           if (jockey.indexOf("潘頓") !== -1 && (rtgDiff >= 2.5 || bodyWt >= 1200 || (draw <= 5 && winO <= 5.5))) {
@@ -5105,7 +5106,8 @@
           muBase -= Math.min(0.065, oddsRatio * 0.26);
         }
 
-        var isVulnFav = (winO <= 4.2 || plaO <= 1.55) && ((r.dist > 1000 && draw >= 8 && claim === 0) || (actualWt >= 134 && bodyWt <= 1055) || totalVetPenalty >= 0.16);
+        var isGeomTrapDraw = isShaTinStraight1000 ? (draw <= 4) : (draw >= 8 && claim === 0);
+        var isVulnFav = (winO <= 4.2 || plaO <= 1.55) && (isGeomTrapDraw || (actualWt >= 134 && bodyWt <= 1055) || totalVetPenalty >= 0.16);
 
         var stylePaceSens = r.dist <= 1000
           ? (style === "L" || style === "S" ? -0.030 : 0.020)
@@ -5349,7 +5351,7 @@
           Object.keys(byRaceWin).forEach(function(rNoStr) {
             var rIdx = parseInt(rNoStr, 10) - 1;
             if (rIdx >= 0 && rIdx < RACES.length) {
-              updated += applyFetchedOddsToRace(rIdx, byRaceWin[rNoStr], byRacePla[rNoStr], "馬會官方 GraphQL API (2026-10-21 HV)");
+              updated += applyFetchedOddsToRace(rIdx, byRaceWin[rNoStr], byRacePla[rNoStr], "馬會官方 GraphQL API (" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueCode + ")");
             }
           });
           if (updated > 0) return updated;
@@ -5359,7 +5361,7 @@
             var rIdx = parseInt(rNoStr, 10) - 1;
             var obj = j.races[rNoStr];
             if (rIdx >= 0 && rIdx < RACES.length && obj) {
-              updated += applyFetchedOddsToRace(rIdx, obj.win || {}, obj.pla || {}, "雲端 JSON 實時流 (2026-10-21 HV)");
+              updated += applyFetchedOddsToRace(rIdx, obj.win || {}, obj.pla || {}, "雲端 JSON 實時流 (" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueCode + ")");
             }
           });
           if (updated > 0) return updated;
@@ -5383,7 +5385,7 @@
             if (pts.length >= 2) plaMap[String(parseInt(pts[0], 10))] = parseFloat(pts[1]);
           });
         }
-        updated += applyFetchedOddsToRace(targetRaceIdx, winMap, plaMap, "bet.hkjc.com 實時池 (2026-10-21 HV)");
+        updated += applyFetchedOddsToRace(targetRaceIdx, winMap, plaMap, "bet.hkjc.com 實時池 (" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueCode + ")");
         if (updated > 0) return updated;
       }
 
@@ -5418,7 +5420,7 @@
             }
           }
         });
-        updated += applyFetchedOddsToRace(targetRaceIdx, wM, pM, "馬會實時彩池同步 (2026-10-21 HV)");
+        updated += applyFetchedOddsToRace(targetRaceIdx, wM, pM, "馬會實時彩池同步 (" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueCode + ")");
       }
 
       return updated;
@@ -5446,7 +5448,7 @@
             var gText = await gResp.text();
             if (parseHkjcOddsPayload(gText, APP.raceIdx) > 0) {
               renderAll();
-              if (showToastFeedback) notify("✅ 已直連馬會 GraphQL (info.cld.hkjc.com) 同步 2026-10-21 跑馬地實時賠率！");
+              if (showToastFeedback) notify("✅ 已直連馬會 GraphQL (info.cld.hkjc.com) 同步 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + "實時賠率！");
               return true;
             }
           }
@@ -5470,7 +5472,7 @@
               var raw = await resp.text();
               if (parseHkjcOddsPayload(raw, APP.raceIdx) > 0) {
                 renderAll();
-                if (showToastFeedback) notify("✅ 已透過雲端代理同步 2026-10-21 跑馬地第 " + rNo + " 場實時賠率！");
+                if (showToastFeedback) notify("✅ 已透過雲端代理同步 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + "第 " + rNo + " 場實時賠率！");
                 return true;
               }
             }
@@ -5551,7 +5553,7 @@
           return 0;
         }
 
-        count = applyFetchedOddsToRace(APP.raceIdx, wMap, pMap, "手動貼上馬會實時賠率 (2026-10-21 HV)");
+        count = applyFetchedOddsToRace(APP.raceIdx, wMap, pMap, "手動貼上馬會實時賠率 (" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueCode + ")");
       }
 
       if (count > 0) {
@@ -5701,7 +5703,7 @@
         getActiveSectionalMap()[curFinNo].rawSplitsStr = "【馬會官方實測分段】" + sp3.map(function(v){return v.toFixed(2);}).join("s | ") + "s";
       }
       var pos = (sp3[0] <= 22.65 || (sp3[0] + sp3[1]) <= 46.10) ? "back_out" : "mid_in";
-      ingestAutoDetectedResult(curFinNo, sp3, pos, "手動貼上馬會官方分段 (2026-10-21 HV)", { date: ACTIVE_MEETING.dateIso, venue: ACTIVE_MEETING.venueCode });
+      ingestAutoDetectedResult(curFinNo, sp3, pos, "手動貼上馬會官方分段 (" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueCode + ")", { date: ACTIVE_MEETING.dateIso, venue: ACTIVE_MEETING.venueCode });
       return true;
     }
 
@@ -5736,7 +5738,7 @@
       var detailEl = document.getElementById("autoSyncDetailLog");
       var nowStr = new Date().toTimeString().slice(0, 8);
 
-      logEl.innerHTML = "⏳ [" + nowStr + "] 正在同步香港賽馬會 GraphQL 實時賠率池 (WIN/PLA) 與 2026-10-21 跑馬地官方賽果分段時間...";
+      logEl.innerHTML = "⏳ [" + nowStr + "] 正在同步香港賽馬會 GraphQL 實時賠率池 (WIN/PLA) 與 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + "官方賽果分段時間...";
 
       var oddsSynced = await syncLiveHkjcOdds(false);
 
@@ -5770,7 +5772,7 @@
                     getActiveSectionalMap()[parsedSec.raceNo].rawSplitsStr = "【馬會官方實測分段】" + parsedSec.allSplitsStr;
                   }
                   var autoPos = (sp3[0] <= 22.65 || (sp3[0] + sp3[1]) <= 46.10) ? "back_out" : (sp3[0] + sp3[1]) >= 47.60 ? "front_in" : "mid_in";
-                  ingestAutoDetectedResult(parsedSec.raceNo, sp3, autoPos, "HKJC 2026-10-21 跑馬地 R" + parsedSec.raceNo + " 官方賽果直連", { date: ACTIVE_MEETING.dateIso, venue: ACTIVE_MEETING.venueCode });
+                  ingestAutoDetectedResult(parsedSec.raceNo, sp3, autoPos, "HKJC " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " R" + parsedSec.raceNo + " 官方賽果直連", { date: ACTIVE_MEETING.dateIso, venue: ACTIVE_MEETING.venueCode });
                   return;
                 }
               }
@@ -5780,12 +5782,12 @@
       }
 
       if (oddsSynced) {
-        logEl.innerHTML = "✅ [" + nowStr + "] 已成功同步 2026-10-21 跑馬地最新實時 WIN/PLA 賠率，並完成 20,000 次蒙地卡羅重算！";
+        logEl.innerHTML = "✅ [" + nowStr + "] 已成功同步 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + "最新實時 WIN/PLA 賠率，並完成 20,000 次蒙地卡羅重算！";
       } else {
         logEl.innerHTML = "✅ [" + nowStr + "] 自動巡航待命中：若瀏覽器沙盒阻擋跨域直連馬會，可點擊上方「📋 貼上馬會賠率頁文字 (0.1秒同步)」或直接改表格賠率！";
       }
       if (detailEl) {
-        detailEl.innerHTML = "• [" + nowStr + "] 賠率與賽果掃描完成（當前賠率源：" + APP.lastOddsSource + "）。<br>• 已啟用跨日/跨馬場防偽校驗：任何非 2026-10-21 或非跑馬地 (HV) 之賠率與分段均會被自動攔截。";
+        detailEl.innerHTML = "• [" + nowStr + "] 賠率與賽果掃描完成（當前賠率源：" + APP.lastOddsSource + "）。<br>• 已啟用跨日/跨馬場防偽校驗：任何非 " + ACTIVE_MEETING.dateIso + " 或非" + ACTIVE_MEETING.venueName + " (" + ACTIVE_MEETING.venueCode + ") 之賠率與分段均會被自動攔截。";
       }
     }
 
@@ -5793,7 +5795,7 @@
       // Guard against cross-date or cross-venue sectional application (e.g., 2026-10-19 Sha Tin!)
       var srcCheck = validatePayloadMeetingContext(String(sourceName || ""), meta || null);
       if (!srcCheck.ok) {
-        notify("⛔ 跨日/跨馬場分段攔截：" + srcCheck.reason + "（嚴禁套用至 2026-10-21 跑馬地設定）！");
+        notify("⛔ 跨日/跨馬場分段攔截：" + srcCheck.reason + "（嚴禁套用至 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + "設定）！");
         return false;
       }
       if (!Array.isArray(splitsArr) || splitsArr.length < 3) {
@@ -5832,7 +5834,7 @@
         : ("已全自動切換至 <strong>下一場 R" + nf.nextRaceNo + " (" + nf.nextRaceName + ")</strong>");
 
       document.getElementById("autoPilotLogLine").innerHTML =
-        "🎯 [" + nowStr + " · " + sourceName + "] 已捕獲 <strong>2026-10-21 谷草 R" + validFinNo + " 分段 (" + splitsArr.map(function(v){return parseFloat(v).toFixed(2);}).join("s / ") + "s)</strong> ➔ " + actionLabel + "，鎖定受惠馬 <strong>#" + nf.topBeneficiaries[0].no + " " + nf.topBeneficiaries[0].name + "</strong>！";
+        "🎯 [" + nowStr + " · " + sourceName + "] 已捕獲 <strong>" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " R" + validFinNo + " 分段 (" + splitsArr.map(function(v){return parseFloat(v).toFixed(2);}).join("s / ") + "s)</strong> ➔ " + actionLabel + "，鎖定受惠馬 <strong>#" + nf.topBeneficiaries[0].no + " " + nf.topBeneficiaries[0].name + "</strong>！";
 
       var detailEl = document.getElementById("autoSyncDetailLog");
       if (detailEl) {
@@ -5843,14 +5845,14 @@
       }
 
       appendAiChat("ai",
-        "⚡ <strong>【2026-10-21 跑馬地分段推進通報 · " + nowStr + "】</strong><br>" +
+        "⚡ <strong>【" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + "分段推進通報 · " + nowStr + "】</strong><br>" +
         "系統已套用 <strong>第 " + validFinNo + " 場</strong> 分段：<code>" + splitsArr.map(function(v){return parseFloat(v).toFixed(2);}).join("s - ") + "s</code>（前兩段合共 " + (parseFloat(splitsArr[0]) + parseFloat(splitsArr[1])).toFixed(2) + "s）。<br><br>" +
         "🔮 <strong>" + (isFinalRaceFinished ? ("尾場 (第 " + nf.nextRaceNo + " 場 " + nf.nextRaceName + ") 步速總結") : ("推演下一場 (第 " + nf.nextRaceNo + " 場 " + nf.nextRaceName + ")")) + "</strong>：<br>" +
         "• <strong>最利好方向</strong>：" + nf.favorWhat + "<br>" +
         "• <strong>最受惠馬匹</strong>：<strong style='color:#34D399;'>#" + nf.topBeneficiaries[0].no + " " + nf.topBeneficiaries[0].name + " (上名率 " + (nf.topBeneficiaries[0].pt * 100).toFixed(1) + "%)</strong>、<strong>#" + nf.topBeneficiaries[1].no + " " + nf.topBeneficiaries[1].name + "</strong>"
       );
 
-      notify("🤖 已完成 2026-10-21 谷草 R" + validFinNo + " 步速分析（當前聚焦 R" + nf.nextRaceNo + "）！");
+      notify("🤖 已完成 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " R" + validFinNo + " 步速分析（當前聚焦 R" + nf.nextRaceNo + "）！");
       return true;
     }
 
@@ -5863,7 +5865,7 @@
         finNo,
         hvSec.split3,
         hvSec.winPos,
-        "2026-10-21 跑馬地夜賽 (B欄) R" + finNo + " 模擬完場 ➔ 推演 R" + Math.min(RACES.length, finNo + 1),
+        ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " R" + finNo + " 模擬完場 ➔ 推演 R" + Math.min(RACES.length, finNo + 1),
         { date: ACTIVE_MEETING.dateIso, venue: ACTIVE_MEETING.venueCode }
       );
     }
@@ -5896,21 +5898,26 @@
       var avoidWhat = "";
       var favoredRunners = [];
 
-      if (APP.paceBias === "fast_closer") {
+      var isNextSt1000 = (APP.rail.indexOf("ST_") === 0 && nr.dist === 1000);
+      if (isNextSt1000) {
+        favorWhat = "「沙田 1000m 直路 9–14 檔看台外欄高速走廊馬 (+0.28s 幾何紅利)」+「見習生減磅快馬」";
+        avoidWhat = "1–4 檔內欄直路劣勢馬、內欄慢閘受困馬";
+        favoredRunners = nSim.out.filter(function(x) { return x.draw >= 9 && !x.vuln; }).sort(function(a,b){ return b.pt - a.pt; });
+      } else if (APP.paceBias === "fast_closer") {
         favorWhat = "「中外檔後上馬 (Closer)」+「內中欄受讓輕磅好位馬」（快步速受惠）";
         avoidWhat = "早段外檔硬搶放頭馬、≤1.55 倍位置過熱低水馬";
         favoredRunners = nSim.out.filter(function(x) { return x.style === "C" || (x.style === "S" && x.draw <= 6); }).sort(function(a,b){ return b.pt - a.pt; });
       } else if (APP.paceBias === "slow_leader") {
         favorWhat = "「1–4 檔貼欄單騎放頭 (Leader)」+「黃金包廂跟前馬 (Stalker)」";
-        avoidWhat = "9–12 檔留後大外一氣馬（慢步速物理上追唔切）";
+        avoidWhat = "9–14 檔留後大外一氣馬（慢步速物理上追唔切）";
         favoredRunners = nSim.out.filter(function(x) { return x.draw <= 5 && (x.style === "L" || x.style === "S"); }).sort(function(a,b){ return b.pt - a.pt; });
       } else if (APP.paceBias === "rolled_outer") {
         favorWhat = "「壓地後中外疊好位順走馬 (4–8檔)」+「高班底準繩馬」";
         avoidWhat = "內欄受困被動馬及外檔重負荷馬";
         favoredRunners = nSim.out.filter(function(x) { return !x.vuln; }).sort(function(a,b){ return b.pt - a.pt; });
       } else {
-        favorWhat = "「" + rc.name + " 1–4 檔省位黃金包廂馬」+「合理步速守好位馬」";
-        avoidWhat = "10–12 檔轉彎三疊無遮擋重負荷熱門馬";
+        favorWhat = "「" + rc.name + " 1–5 檔省位黃金包廂馬」+「合理步速守好位馬」";
+        avoidWhat = "10–14 檔轉彎三疊無遮擋重負荷熱門馬";
         favoredRunners = nSim.out.filter(function(x) { return x.draw <= 5 && !x.vuln; }).sort(function(a,b){ return b.pt - a.pt; });
       }
 
@@ -5971,7 +5978,7 @@
 
       var totalRunnersCount = RACES.reduce(function(acc, r) { return acc + r.runners.length; }, 0);
       document.getElementById("topBiasSummary").textContent =
-        "【V28.0 完場覆盤版】當前設定：" + rc.name + " · 內欄修正 " + APP.insideAdj.toFixed(2) + "s / 外檔 +" + APP.outerPen.toFixed(2) + "s · 2026-10-21 谷草全場 " + totalRunnersCount + " 駒及 R1–R9 官方賽果分段已同步";
+        "【V29.1 雙賽日終極版】當前賽日：" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " (" + rc.name + ") · 內欄修正 " + APP.insideAdj.toFixed(2) + "s / 外檔 +" + APP.outerPen.toFixed(2) + "s · 全場 " + RACES.length + " 場共 " + totalRunnersCount + " 駒已載入";
 
       runAllSims();
       renderAll();
@@ -6054,11 +6061,11 @@
 
       document.getElementById("secDiagOutput").innerHTML =
         "<div style='padding-bottom:8px; margin-bottom:8px; border-bottom:1px dashed #334155;'>" +
-          "<div>🏁 <strong>2026-10-21 跑馬地 R" + finRaceNo + " (" + RACES[finRaceNo - 1].name + " " + RACES[finRaceNo - 1].dist + "m) 核心前列</strong>：<strong style='color:#34D399;'>" + hvSec.top4 + "</strong></div>" +
-          "<div style='margin-top:4px;'>⏱️ <strong>2026-10-21 谷草分段基準</strong>：<code class='mono' style='color:#FBBF24;'>" + hvSec.rawSplitsStr + "</code>（當前輸入兩段合共 <strong class='mono' style='color:#38BDF8;'>" + f800 + "s</strong> = " + s1.toFixed(2) + "s + " + s2.toFixed(2) + "s，末段 " + s3.toFixed(2) + "s）</div>" +
-          "<div style='margin-top:4px; color:#A7F3D0;'>🔬 <strong>谷草動態步速診斷 (" + hvSec.v25PaceTag + ")</strong>：" + hvSec.v25Fix + "</div>" +
+          "<div>🏁 <strong>" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " R" + finRaceNo + " (" + RACES[finRaceNo - 1].name + " " + RACES[finRaceNo - 1].dist + "m) 狀態 / 賽果</strong>：<strong style='color:#34D399;'>" + hvSec.top4 + "</strong></div>" +
+          "<div style='margin-top:4px;'>⏱️ <strong>" + ACTIVE_MEETING.venueName + "分段基準 / 實測</strong>：<code class='mono' style='color:#FBBF24;'>" + hvSec.rawSplitsStr + "</code>（當前輸入兩段合共 <strong class='mono' style='color:#38BDF8;'>" + f800 + "s</strong> = " + s1.toFixed(2) + "s + " + s2.toFixed(2) + "s，末段 " + s3.toFixed(2) + "s）</div>" +
+          "<div style='margin-top:4px; color:#A7F3D0;'>🔬 <strong>動態步速診斷 (" + hvSec.v25PaceTag + ")</strong>：" + hvSec.v25Fix + "</div>" +
         "</div>" +
-        "<div>• <strong style='color:#34D399;'>✅ " + (finRaceNo >= RACES.length ? "尾場 (R9)" : ("下一場 (R" + analysis.nextRaceNo + " " + analysis.nextRaceName + ")")) + " 最利好類型</strong>：" + analysis.favorWhat + "</div>" +
+        "<div>• <strong style='color:#34D399;'>✅ " + (finRaceNo >= RACES.length ? ("尾場 (R" + RACES.length + ")") : ("下一場 (R" + analysis.nextRaceNo + " " + analysis.nextRaceName + ")")) + " 最利好類型</strong>：" + analysis.favorWhat + "</div>" +
         "<div style='margin-top:4px;'>• <strong style='color:#FB7185;'>❌ 最吃虧死穴</strong>：" + analysis.avoidWhat + "</div>";
 
       document.getElementById("nextRaceBeneficiaries").innerHTML = analysis.topBeneficiaries.map(function(m, idx) {
@@ -6101,7 +6108,7 @@
     function updateNextRaceTargetLabel() {
       var finRaceNo = Math.min(RACES.length, Math.max(1, parseInt(document.getElementById("secFinishedRace").value, 10) || 5));
       syncSectionalInputsFromRace(finRaceNo, true);
-      notify("✅ 已載入 2026-10-21 跑馬地 R" + finRaceNo + " 標準分段基準，並完成 R" + Math.min(RACES.length, finRaceNo + 1) + " 步速利弊重算！");
+      notify("✅ 已載入 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " R" + finRaceNo + " 標準分段基準，並完成 R" + Math.min(RACES.length, finRaceNo + 1) + " 步速利弊重算！");
     }
 
     function jumpToNextRace() {
@@ -6129,7 +6136,7 @@
       document.getElementById("selPaceBias").value = "normal";
       syncSectionalInputsFromRace(finRaceNo, false);
       applyTrackSettings();
-      notify("↺ 已還原為 2026-10-21 跑馬地 R" + finRaceNo + " 賽前標準分段預設！");
+      notify("↺ 已還原為 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " R" + finRaceNo + " 賽前標準分段預設！");
     }
 
     // ============================================================================
@@ -6138,9 +6145,12 @@
     function buildLiveAiRaceCommentary(idx) {
       var r = RACES[idx];
       var hvOff = getActiveSectionalMap()[r.no];
+      var bannerTitlePrefix = (hvOff && hvOff.isLiveOfficial)
+        ? ("🏁 【" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " 馬會官方完場賽果 · 覆盤驗證】 ")
+        : ("📅 【" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " 賽前排位精算基準 · 尚未開跑】 ");
       var officialResultBanner = hvOff ? (
         "<div style=\"background:rgba(16,185,129,0.14); border:1px solid rgba(16,185,129,0.45); border-radius:10px; padding:10px 12px; margin-bottom:10px;\">" +
-          "<div style=\"font-weight:900; color:#34D399; font-size:13px;\">🏁 【2026-10-21 馬會官方完場賽果 · V28.0 覆盤驗證】 " + hvOff.top4 + "</div>" +
+          "<div style=\"font-weight:900; color:#34D399; font-size:13px;\">" + bannerTitlePrefix + hvOff.top4 + "</div>" +
           "<div class=\"mono\" style=\"font-size:12px; color:#FBBF24; margin-top:4px;\">⏱️ " + hvOff.rawSplitsStr + "</div>" +
           "<div style=\"font-size:12px; color:#E2E8F0; margin-top:4px;\">🔬 " + hvOff.v25Fix + "</div>" +
         "</div>"
@@ -6220,15 +6230,27 @@
           "• " + buildLiveAiRaceCommentary(APP.raceIdx)
         );
       } else if (cmd === "r8_g2") {
-        APP.raceIdx = 5; renderAll();
-        var s6 = APP.sims[5], b6 = s6.bullet;
-        appendAiChat("user", "🏆 拆解谷草 R6 浪琴錦標 (二班1000m)：V28.0 點樣修正傷患一刀切並捕捉 #1 天天同樂 ($69) × #9 好評如潮 ($75 QP)？");
-        appendAiChat("ai",
-          "<strong>🏆 2026-10-21 R6 浪琴錦標 (二班 1000m 谷草 B 欄) V28.0 精算解剖：</strong><br><br>" +
-          "1. <strong>🔬 1000m 無氧短途傷患衰減定律 (<code>distVetScale = 0.08</code>)</strong>：1000米短途全長僅 56.76 秒（近乎純無氧磷酸肌酸供能，僅轉一個彎），舊有氣管血或喘鳴症 (Roarer) 喺 1000m 嘅耗氧折損僅為 1650m 中距離嘅 8%！<br>" +
-          "2. <strong>🔥 唯一單注膽：#" + b6.no + " " + b6.name + " (潘頓 · 100分頂班馬)</strong> — 評分高出全場均值 +16.8 分，潘頓早段順走二疊守第 2 位（2-1-1），20,000 次模擬勝率 <strong>" + (b6.pw * 100).toFixed(1) + "%</strong>、上名率 <strong>" + (b6.pt * 100).toFixed(1) + "%</strong> (EV=" + b6.ev.toFixed(2) + "，實戰贏 $69.0 獨贏 / $22.5 位置)。<br>" +
-          "3. <strong>🔗 聯合協同雙配腳：#" + s6.legs[0].no + " " + s6.legs[0].name + " (協同QP率 " + ((s6.legs[0].jointPla || 0)*100).toFixed(1) + "%) & #" + s6.legs[1].no + " " + s6.legs[1].name + " (協同QP率 " + ((s6.legs[1].jointPla || 0)*100).toFixed(1) + "%)</strong> — 9號「好評如潮」3檔黃寶妮(-7磅)實負108磅超輕負荷 (CBR=9.51%)，實戰跑第 3 ($21.0 位置)，精準命中 <code>1×9</code> 位置Q ($75.00)！"
-        );
+        if (ACTIVE_MEETING.key === "ST_20261025") {
+          APP.raceIdx = 6; renderAll();
+          var s7 = APP.sims[6], b7 = s7.bullet, vp7 = s7.valPlace || b7;
+          appendAiChat("user", "🏆 拆解 2026-10-25 沙田 R7 六福珠寶精英碗 (G2 1200m 讓賽)：9 駒頂尖短途對決點樣鎖定單注膽與配腳？");
+          appendAiChat("ai",
+            "<strong>🏆 2026-10-25 沙田 R7 六福珠寶精英碗 (G2 1200m 草地 A 欄) V29.1 精算解剖：</strong><br><br>" +
+            "1. <strong>⚡ 步速與賽道幾何</strong>：早段有 9檔「#2 顏色之皇」與 6檔「#5 美麗第一」快放（動態 ESPI=" + RACES[6].espi + " 高壓快步速），沙田 A 欄 (30.5m) 1200米轉彎 1–5 檔且守好位之馬匹極具穿刺優勢。<br>" +
+            "2. <strong>🔥 唯一單注膽：#" + b7.no + " " + b7.name + " (" + b7.draw + "檔 " + b7.jockey + " · 實負" + b7.actualWt + "磅)</strong> — 20,000 次模擬勝率 <strong>" + (b7.pw * 100).toFixed(1) + "%</strong>、上名率 <strong>" + (b7.pt * 100).toFixed(1) + "%</strong>（位置 " + b7.plaO + "x, EV=" + b7.ev.toFixed(2) + "）。<br>" +
+            "3. <strong>🔗 聯合協同雙配腳：#" + s7.legs[0].no + " " + s7.legs[0].name + " (協同QP率 " + ((s7.legs[0].jointPla || 0)*100).toFixed(1) + "%) & #" + s7.legs[1].no + " " + s7.legs[1].name + " (協同QP率 " + ((s7.legs[1].jointPla || 0)*100).toFixed(1) + "%)</strong> ｜ 💎 專屬高性價比位置：<strong>#" + vp7.no + " " + vp7.name + " (" + vp7.plaO + "x)</strong> ｜ 📦 3馬Box QP：<code>#" + b7.no + " × #" + s7.legs[0].no + " × #" + s7.legs[1].no + "</code>。"
+          );
+        } else {
+          APP.raceIdx = 5; renderAll();
+          var s6 = APP.sims[5], b6 = s6.bullet;
+          appendAiChat("user", "🏆 拆解谷草 R6 浪琴錦標 (二班1000m)：V29.1 點樣修正傷患一刀切並捕捉 #1 天天同樂 ($69) × #9 好評如潮 ($75 QP)？");
+          appendAiChat("ai",
+            "<strong>🏆 2026-10-21 R6 浪琴錦標 (二班 1000m 谷草 B 欄) V29.1 精算解剖：</strong><br><br>" +
+            "1. <strong>🔬 1000m 無氧短途傷患衰減定律 (<code>distVetScale = 0.08</code>)</strong>：1000米短途全長僅 56.76 秒（近乎純無氧磷酸肌酸供能，僅轉一個彎），舊有氣管血或喘鳴症 (Roarer) 喺 1000m 嘅耗氧折損僅為 1650m 中距離嘅 8%！<br>" +
+            "2. <strong>🔥 唯一單注膽：#" + b6.no + " " + b6.name + " (潘頓 · 100分頂班馬)</strong> — 評分高出全場均值 +16.8 分，潘頓早段順走二疊守第 2 位（2-1-1），20,000 次模擬勝率 <strong>" + (b6.pw * 100).toFixed(1) + "%</strong>、上名率 <strong>" + (b6.pt * 100).toFixed(1) + "%</strong> (EV=" + b6.ev.toFixed(2) + "，實戰贏 $69.0 獨贏 / $22.5 位置)。<br>" +
+            "3. <strong>🔗 聯合協同雙配腳：#" + s6.legs[0].no + " " + s6.legs[0].name + " (協同QP率 " + ((s6.legs[0].jointPla || 0)*100).toFixed(1) + "%) & #" + s6.legs[1].no + " " + s6.legs[1].name + " (協同QP率 " + ((s6.legs[1].jointPla || 0)*100).toFixed(1) + "%)</strong> — 9號「好評如潮」3檔黃寶妮(-7磅)實負108磅超輕負荷 (CBR=9.51%)，實戰跑第 3 ($21.0 位置)，精準命中 <code>1×9</code> 位置Q ($75.00)！"
+          );
+        }
       } else if (cmd === "apprentice") {
         appendAiChat("user", "🏇 掃描全晚「見習生減 7 磅 / 3 磅」高價值伏兵");
         var list = [];
@@ -6254,17 +6276,17 @@
           "8. <strong>🐛 Bug #8：低水位置大熱階梯斷崖 (Step-Function Cliff) 與雙模態注碼</strong>：當頭號核心位置 ≤1.55x 但獨贏具正期望值（如 R4 #4 明德輝煌），V28.0 自動啟動 <code>WIN_QP_ANCHOR</code>（轉買獨贏膽 + 雙位置Q），全晚 8 場可攻賽事 <strong>8 戰全入前二（7冠1亞）、7 場命中 Q/QP</strong>，且通過 30 輪 ±10% 賠率擾動壓力測試（Top-2 穩定度 100%）！"
         );
       } else if (cmd === "pace_postmortem") {
-        appendAiChat("user", "🔬 2026-10-21 跑馬地 R1–R9 全晚官方實測分段與賽果總覆盤");
+        appendAiChat("user", "🔬 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " R1–R" + RACES.length + " 分段步速與精算總覽");
         var rows = RACES.map(function(rx) {
           var hvS = getActiveSectionalMap()[rx.no];
           return "<div style='margin-bottom:10px; padding-bottom:8px; border-bottom:1px dashed #334155;'>" +
             "<strong>R" + rx.no + " " + rx.name + " (" + rx.dist + "m)</strong> ｜ <span style='color:#38BDF8;'>" + hvS.v25PaceTag + "</span><br>" +
-            "• <strong>官方分段</strong>：<code class='mono' style='color:#FBBF24;'>" + hvS.rawSplitsStr + "</code><br>" +
-            "• <strong>官方四甲</strong>：<span style='color:#34D399;'>" + hvS.top4 + "</span><br>" +
-            "• <strong>覆盤結論</strong>：" + hvS.v25Fix +
+            "• <strong>分段基準/實測</strong>：<code class='mono' style='color:#FBBF24;'>" + hvS.rawSplitsStr + "</code><br>" +
+            "• <strong>狀態/四甲</strong>：<span style='color:#34D399;'>" + hvS.top4 + "</span><br>" +
+            "• <strong>診斷結論</strong>：" + hvS.v25Fix +
           "</div>";
         }).join("");
-        appendAiChat("ai", "<strong>🔬 【2026-10-21 跑馬地夜賽 R1–R9 官方實測分段與賽果全覆盤】</strong><br><br>" + rows);
+        appendAiChat("ai", "<strong>🔬 【" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " R1–R" + RACES.length + " 分段步速與精算總覽】</strong><br><br>" + rows);
       } else if (cmd === "traps") {
         appendAiChat("user", "🚨 掃描當前賠率版 ≤1.55 倍低水與負期望值高危大熱");
         var tList = [];
@@ -6291,7 +6313,7 @@
       var chatSec = extractStrictSectionalFromChat(q);
       if (chatSec) {
         if (chatSec.blocked) {
-          appendAiChat("ai", "⛔ <strong>【跨日/跨馬場分段攔截】</strong>：" + chatSec.reason + "。系統拒絕將非 2026-10-21 跑馬地之分段套用至當前設定！");
+          appendAiChat("ai", "⛔ <strong>【跨日/跨馬場分段攔截】</strong>：" + chatSec.reason + "。系統拒絕將非 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + "之分段套用至當前設定！");
           return;
         }
         ingestAutoDetectedResult(chatSec.raceNo, chatSec.splits, "mid_in", "對話框明確分段輸入", { date: ACTIVE_MEETING.dateIso, venue: ACTIVE_MEETING.venueCode });
@@ -6348,7 +6370,17 @@
         hdrTitle.textContent = "🏇 點擊切換場次 (" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " R1–R" + RACES.length + ")：";
       }
       if (ovTitle) {
-        ovTitle.textContent = "📋 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " (" + ACTIVE_MEETING.defaultRail.replace("_", " ") + "欄) 全日 " + RACES.length + " 場 V29.0 排位量化與精算總表";
+        ovTitle.textContent = "📋 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " (" + ACTIVE_MEETING.defaultRail.replace("_", " ") + "欄) 全日 " + RACES.length + " 場 V29.1 排位量化與精算總表";
+      }
+      var tabOvBtn = document.getElementById("tabBtnOverviewTop");
+      if (tabOvBtn) tabOvBtn.textContent = "📋 全" + (ACTIVE_MEETING.venueCode === "HV" ? "晚 " : "日 ") + RACES.length + " 場總表";
+      var qOvBtn = document.getElementById("btnOverviewQuick");
+      if (qOvBtn) qOvBtn.textContent = "📋 睇全" + (ACTIVE_MEETING.venueCode === "HV" ? "晚 " : "日 ") + RACES.length + " 場總表";
+      var featBtn = document.getElementById("btnAiCmdFeatureRace");
+      if (featBtn) {
+        featBtn.textContent = ACTIVE_MEETING.key === "ST_20261025"
+          ? "🏆 4. 拆解沙田 R7 精英碗 (G2 1200m)：頂班短途對決點樣鎖定單注膽與配腳？"
+          : "🏆 4. 拆解谷草 R6 浪琴錦標：1000m無氧短途傷患衰減點樣捕捉 1×9 ($75 QP)？";
       }
       if (strip) {
         strip.innerHTML = RACES.map(function(r, i) {
