@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HKJC V29.0 Argon — 2026-10-25 沙田日賽(11場) & 2026-10-21 谷草覆盤(9場) 雙賽日精算終端</title>
+  <title>HKJC V29.4 Argon — 2026-10-25 沙田日賽(11場) & 2026-10-21 谷草覆盤(9場) 雙賽日精算終端</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -288,10 +288,10 @@
   <header>
     <div class="container header-row">
       <div class="brand-box">
-        <div class="brand-logo" style="font-size:15px;">V29.0</div>
+        <div class="brand-logo" style="font-size:15px;">V29.4</div>
         <div>
-          <div class="brand-title" id="mainBrandTitle">HKJC V29.0 ARGON — 2026-10-25 沙田日賽 (A欄 11場) & 10-21 谷草覆盤 (9場) 雙賽日精算終端</div>
-          <div class="brand-sub" id="topBiasSummary">V29.0 雙賽日無縫切換：2026-10-25 沙田 A 欄 (11場排位) + 2026-10-21 谷草 B 欄 (8戰全中覆盤) · 17.5% 彩池抽水率校準 · 直路/轉彎幾何 · 專屬位置與 3馬 Box QP 矩陣</div>
+          <div class="brand-title" id="mainBrandTitle">HKJC V29.4 ARGON — 2026-10-25 沙田日賽 (A欄 11場) & 10-21 谷草覆盤 (9場) 雙賽日精算終端</div>
+          <div class="brand-sub" id="topBiasSummary">V29.4 雙賽日無縫切換：2026-10-25 沙田 A 欄 (11場排位) + 2026-10-21 谷草 B 欄 (8戰全中覆盤) · 17.5% 彩池抽水率校準 · 直路/轉彎幾何 · 專屬位置與 3馬 Box QP 矩陣</div>
         </div>
       </div>
       <div class="nav-tabs">
@@ -320,13 +320,13 @@
             <span id="oddsSyncStatusBadge" class="badge b-blue mono" style="margin-left:6px;">賠率源：馬會 eWin 實時獨贏/位置彩池 (2026-10-25 沙田 ST · 全自動免貼上)</span>
           </div>
           <div id="autoPilotLogLine" style="font-size:12px; color:#A7F3D0; margin-top:2px;">
-            已啟用 V29.3 全自動免貼上實時賠率引擎：① HKJC GraphQL 併發直連 (info.cld.hkjc.com) ➔ ② 多重雲端代理自動穿透 ➔ ③ 全日 11 場 eWin 實時彩池全自動同步（完全無需手動貼上）！
+            已啟用 V29.4 全自動免貼上實時賠率引擎：① HKJC GraphQL 併發直連 (info.cld.hkjc.com) ➔ ② 多重雲端代理自動穿透 ➔ ③ 全日 11 場 eWin 實時彩池全自動同步（完全無需手動貼上）！
           </div>
         </div>
       </div>
       <div style="display:flex; flex-wrap:wrap; gap:8px;">
-        <button class="btn btn-amber" onclick="copyCleanGithubHtml()" title="一鍵複製完整 V28.0 源碼貼去 GitHub">📦 複製 GitHub V29.0 源碼</button>
-        <button class="btn btn-sky" onclick="downloadCleanGithubHtml()" title="下載 index.html 直接 Upload 去 GitHub">💾 下載 V29.0 index.html</button>
+        <button class="btn btn-amber" onclick="copyCleanGithubHtml()" title="一鍵複製完整 V29.4 源碼貼去 GitHub">📦 複製 GitHub V29.4 源碼</button>
+        <button class="btn btn-sky" onclick="downloadCleanGithubHtml()" title="下載 V29.4 index.html 直接 Upload 去 GitHub">💾 下載 V29.4 index.html</button>
         <button class="btn btn-green" onclick="triggerImmediateAutoSync()">🔄 立即全自動連網同步</button>
         <button class="btn btn-amber" onclick="runFullAutoRaceDayDemo()">🎬 預演賽日全自動推進 (R7完➔自動跳R8)</button>
         <button id="btnToggleAutoPilot" class="btn btn-slate" onclick="toggleAutoPilot()">⏸️ 暫停自動</button>
@@ -802,7 +802,7 @@
       <div class="table-card">
         <div class="table-header">
           <div>
-            <strong id="overviewTableTitle" style="font-size:18px; color:#FFFFFF;">📋 2026-10-25 沙田日賽 (A欄) 全日 11 場 V29.0 排位量化與精算總表</strong>
+            <strong id="overviewTableTitle" style="font-size:18px; color:#FFFFFF;">📋 2026-10-25 沙田日賽 (A欄) 全日 11 場 V29.4 排位量化與精算總表</strong>
             <div style="font-size:13px; color:#94A3B8; margin-top:2px;">點擊任何一場即可跳去該場詳細排位表。全日建議只攻 3 場綠牌 Tier 1 賽事！</div>
           </div>
         </div>
@@ -3946,7 +3946,7 @@
     "parF800": 45.9,
     "winPos": "mid_in",
     "rawSplitsStr": "【沙田 A 欄 1200m 同班標準分段基準】23.55s | 22.35s | 22.85s (標準後800m: 45.90s)",
-    "top4": "⏳ 待週日 (12:40) 開跑 · V29.0 賽前排位精算鎖定中",
+    "top4": "⏳ 待週日 (12:40) 開跑 · V29.4 賽前排位精算鎖定中",
     "v25PaceTag": "🎯 賽前步速拓撲：⚖️ 標準均速內欄局 (N_lead=1 · 動態ESPI=59)",
     "v25Fix": "【2026-10-25 沙田 R1 賽前預判】【2026-10-25 沙田日賽 · 草地 A 賽道】第 1 場 (12:40) 六福珠寶洛神水賦系列讓賽 (1200米 · 第四班 (條件限制 60-40))，#4 星月峰雲退出後全場共 10 駒正選列陣。已執行馬會 17.5% 彩池抽水率基準校準 (Win Book 121.2% / Place Book 363.6%)、沙田 A 欄 (30.5m) 轉彎 1–5 檔省位與途程分層負磅衰減模型、見習生減磅功率倍增器及 20,000 次耦合蒙地卡羅模擬。"
   },
@@ -3965,7 +3965,7 @@
     "parF800": 47.0,
     "winPos": "mid_in",
     "rawSplitsStr": "【沙田 A 欄 1400m 同班標準分段基準】24.20s | 22.80s | 23.15s (標準後800m: 47.00s)",
-    "top4": "⏳ 待週日 (13:10) 開跑 · V29.0 賽前排位精算鎖定中",
+    "top4": "⏳ 待週日 (13:10) 開跑 · V29.4 賽前排位精算鎖定中",
     "v25PaceTag": "🎯 賽前步速拓撲：🛡️ 慢步速控制局 (N_lead=1 · 動態ESPI=50)",
     "v25Fix": "【2026-10-25 沙田 R2 賽前預判】【2026-10-25 沙田日賽 · 草地 A 賽道】第 2 場 (13:10) 六福珠寶婚嫁系列讓賽 (1400米 · 第五班 (40-0))，全場共 14 駒正選列陣。已執行馬會 17.5% 彩池抽水率基準校準 (Win Book 121.2% / Place Book 363.6%)、沙田 A 欄 (30.5m) 轉彎 1–5 檔省位與途程分層負磅衰減模型、見習生減磅功率倍增器及 20,000 次耦合蒙地卡羅模擬。"
   },
@@ -3984,7 +3984,7 @@
     "parF800": 47.55,
     "winPos": "mid_in",
     "rawSplitsStr": "【沙田 A 欄 1600m 同班標準分段基準】24.45s | 23.10s | 23.25s (標準後800m: 47.55s)",
-    "top4": "⏳ 待週日 (13:40) 開跑 · V29.0 賽前排位精算鎖定中",
+    "top4": "⏳ 待週日 (13:40) 開跑 · V29.4 賽前排位精算鎖定中",
     "v25PaceTag": "🎯 賽前步速拓撲：⚖️ 標準均速內欄局 (N_lead=1 · 動態ESPI=61)",
     "v25Fix": "【2026-10-25 沙田 R3 賽前預判】【2026-10-25 沙田日賽 · 草地 A 賽道】第 3 場 (13:40) 六福珠寶愛很美系列讓賽 (1600米 · 第四班 (60-40))，全場共 14 駒正選列陣。已執行馬會 17.5% 彩池抽水率基準校準 (Win Book 121.2% / Place Book 363.6%)、沙田 A 欄 (30.5m) 轉彎 1–5 檔省位與途程分層負磅衰減模型、見習生減磅功率倍增器及 20,000 次耦合蒙地卡羅模擬。"
   },
@@ -4003,7 +4003,7 @@
     "parF800": 48.65,
     "winPos": "mid_in",
     "rawSplitsStr": "【沙田 A 欄 2000m 同班標準分段基準】24.85s | 23.80s | 23.45s (標準後800m: 48.65s)",
-    "top4": "⏳ 待週日 (14:15) 開跑 · V29.0 賽前排位精算鎖定中",
+    "top4": "⏳ 待週日 (14:15) 開跑 · V29.4 賽前排位精算鎖定中",
     "v25PaceTag": "🎯 賽前步速拓撲：⚖️ 標準均速內欄局 (N_lead=1 · 動態ESPI=58)",
     "v25Fix": "【2026-10-25 沙田 R4 賽前預判】【2026-10-25 沙田日賽 · 草地 A 賽道】第 4 場 (14:15) 六福珠寶香港小姐悅己愛己系列讓賽 (2000米 · 第三班 (80-60))，#11 奇異果退出後全場共 10 駒正選列陣。已執行馬會 17.5% 彩池抽水率基準校準 (Win Book 121.2% / Place Book 363.6%)、沙田 A 欄 (30.5m) 轉彎 1–5 檔省位與途程分層負磅衰減模型、見習生減磅功率倍增器及 20,000 次耦合蒙地卡羅模擬。"
   },
@@ -4022,7 +4022,7 @@
     "parF800": 45.9,
     "winPos": "mid_in",
     "rawSplitsStr": "【沙田 A 欄 1200m 同班標準分段基準】23.55s | 22.35s | 22.85s (標準後800m: 45.90s)",
-    "top4": "⏳ 待週日 (15:05) 開跑 · V29.0 賽前排位精算鎖定中",
+    "top4": "⏳ 待週日 (15:05) 開跑 · V29.4 賽前排位精算鎖定中",
     "v25PaceTag": "🎯 賽前步速拓撲：⚖️ 標準均速內欄局 (N_lead=1 · 動態ESPI=60)",
     "v25Fix": "【2026-10-25 沙田 R5 賽前預判】【2026-10-25 沙田日賽 · 草地 A 賽道】第 5 場 (15:05) 六福珠寶冰．鑽光影金系列讓賽 (1200米 · 第四班 (60-40))，全場共 14 駒正選列陣。已執行馬會 17.5% 彩池抽水率基準校準 (Win Book 121.2% / Place Book 363.6%)、沙田 A 欄 (30.5m) 轉彎 1–5 檔省位與途程分層負磅衰減模型、見習生減磅功率倍增器及 20,000 次耦合蒙地卡羅模擬。"
   },
@@ -4041,7 +4041,7 @@
     "parF800": 43.5,
     "winPos": "front_in",
     "rawSplitsStr": "【沙田 A 欄 1000m 同班標準分段基準】13.15s | 21.15s | 22.35s (標準後800m: 43.50s)",
-    "top4": "⏳ 待週日 (15:35) 開跑 · V29.0 賽前排位精算鎖定中",
+    "top4": "⏳ 待週日 (15:35) 開跑 · V29.4 賽前排位精算鎖定中",
     "v25PaceTag": "🎯 賽前步速拓撲：🔥 高壓快步速局 (N_lead=4 · 動態ESPI=92)",
     "v25Fix": "【2026-10-25 沙田 R6 賽前預判】【2026-10-25 沙田日賽 · 草地 A 賽道】第 6 場 (15:35) 六福珠寶唐宮夜宴系列讓賽 (1000米 · 第三班 (80-60))，全場共 14 駒正選列陣。已執行馬會 17.5% 彩池抽水率基準校準 (Win Book 121.2% / Place Book 363.6%)、1000m 直路看台外欄 (9–14檔) 幾何紅利 (+0.28s)、見習生減磅功率倍增器及 20,000 次耦合蒙地卡羅模擬。"
   },
@@ -4060,7 +4060,7 @@
     "parF800": 45.2,
     "winPos": "mid_in",
     "rawSplitsStr": "【沙田 A 欄 1200m 同班標準分段基準】23.25s | 21.95s | 22.30s (標準後800m: 45.20s)",
-    "top4": "⏳ 待週日 (16:05) 開跑 · V29.0 賽前排位精算鎖定中",
+    "top4": "⏳ 待週日 (16:05) 開跑 · V29.4 賽前排位精算鎖定中",
     "v25PaceTag": "🎯 賽前步速拓撲：🔥 高壓快步速局 (N_lead=2 · 動態ESPI=84)",
     "v25Fix": "【2026-10-25 沙田 R7 賽前預判】【2026-10-25 沙田日賽 · 草地 A 賽道】第 7 場 (16:05) 六福珠寶精英碗（讓賽）G2 (1200米 · 國際二級賽 (G2 讓賽))，全場共 9 駒正選列陣。已執行馬會 17.5% 彩池抽水率基準校準 (Win Book 121.2% / Place Book 363.6%)、沙田 A 欄 (30.5m) 轉彎 1–5 檔省位與途程分層負磅衰減模型、見習生減磅功率倍增器及 20,000 次耦合蒙地卡羅模擬。"
   },
@@ -4079,7 +4079,7 @@
     "parF800": 47.0,
     "winPos": "mid_in",
     "rawSplitsStr": "【沙田 A 欄 1400m 同班標準分段基準】24.20s | 22.80s | 23.15s (標準後800m: 47.00s)",
-    "top4": "⏳ 待週日 (16:40) 開跑 · V29.0 賽前排位精算鎖定中",
+    "top4": "⏳ 待週日 (16:40) 開跑 · V29.4 賽前排位精算鎖定中",
     "v25PaceTag": "🎯 賽前步速拓撲：⚖️ 標準均速內欄局 (N_lead=1 · 動態ESPI=57)",
     "v25Fix": "【2026-10-25 沙田 R8 賽前預判】【2026-10-25 沙田日賽 · 草地 A 賽道】第 8 場 (16:40) 六福珠寶福滿傳家系列讓賽 (1400米 · 第四班 (60-40))，全場共 14 駒正選列陣。已執行馬會 17.5% 彩池抽水率基準校準 (Win Book 121.2% / Place Book 363.6%)、沙田 A 欄 (30.5m) 轉彎 1–5 檔省位與途程分層負磅衰減模型、見習生減磅功率倍增器及 20,000 次耦合蒙地卡羅模擬。"
   },
@@ -4098,7 +4098,7 @@
     "parF800": 47.05,
     "winPos": "mid_in",
     "rawSplitsStr": "【沙田 A 欄 1600m 同班標準分段基準】24.20s | 22.85s | 22.95s (標準後800m: 47.05s)",
-    "top4": "⏳ 待週日 (17:10) 開跑 · V29.0 賽前排位精算鎖定中",
+    "top4": "⏳ 待週日 (17:10) 開跑 · V29.4 賽前排位精算鎖定中",
     "v25PaceTag": "🎯 賽前步速拓撲：⚖️ 標準均速內欄局 (N_lead=2 · 動態ESPI=66)",
     "v25Fix": "【2026-10-25 沙田 R9 賽前預判】【2026-10-25 沙田日賽 · 草地 A 賽道】第 9 場 (17:10) 六福精品廊讓賽 (1600米 · 第二班 (100-80))，全場共 13 駒正選列陣。已執行馬會 17.5% 彩池抽水率基準校準 (Win Book 121.2% / Place Book 363.6%)、沙田 A 欄 (30.5m) 轉彎 1–5 檔省位與途程分層負磅衰減模型、見習生減磅功率倍增器及 20,000 次耦合蒙地卡羅模擬。"
   },
@@ -4117,7 +4117,7 @@
     "parF800": 45.9,
     "winPos": "mid_in",
     "rawSplitsStr": "【沙田 A 欄 1200m 同班標準分段基準】23.55s | 22.35s | 22.85s (標準後800m: 45.90s)",
-    "top4": "⏳ 待週日 (17:45) 開跑 · V29.0 賽前排位精算鎖定中",
+    "top4": "⏳ 待週日 (17:45) 開跑 · V29.4 賽前排位精算鎖定中",
     "v25PaceTag": "🎯 賽前步速拓撲：⚖️ 標準均速內欄局 (N_lead=1 · 動態ESPI=59)",
     "v25Fix": "【2026-10-25 沙田 R10 賽前預判】【2026-10-25 沙田日賽 · 草地 A 賽道】第 10 場 (17:45) 六福珠寶龍門金剛系列讓賽 (1200米 · 第三班 (80-60))，全場共 14 駒正選列陣。已執行馬會 17.5% 彩池抽水率基準校準 (Win Book 121.2% / Place Book 363.6%)、沙田 A 欄 (30.5m) 轉彎 1–5 檔省位與途程分層負磅衰減模型、見習生減磅功率倍增器及 20,000 次耦合蒙地卡羅模擬。"
   },
@@ -4136,7 +4136,7 @@
     "parF800": 47.0,
     "winPos": "mid_in",
     "rawSplitsStr": "【沙田 A 欄 1400m 同班標準分段基準】24.20s | 22.80s | 23.15s (標準後800m: 47.00s)",
-    "top4": "⏳ 待週日 (18:20) 開跑 · V29.0 賽前排位精算鎖定中",
+    "top4": "⏳ 待週日 (18:20) 開跑 · V29.4 賽前排位精算鎖定中",
     "v25PaceTag": "🎯 賽前步速拓撲：🛡️ 慢步速控制局 (N_lead=1 · 動態ESPI=54)",
     "v25Fix": "【2026-10-25 沙田 R11 賽前預判】【2026-10-25 沙田日賽 · 草地 A 賽道】第 11 場 (18:20) 六福珠寶囍愛系列讓賽 (1400米 · 第三班 (80-60))，全場共 14 駒正選列陣。已執行馬會 17.5% 彩池抽水率基準校準 (Win Book 121.2% / Place Book 363.6%)、沙田 A 欄 (30.5m) 轉彎 1–5 檔省位與途程分層負磅衰減模型、見習生減磅功率倍增器及 20,000 次耦合蒙地卡羅模擬。"
   }
@@ -4246,7 +4246,7 @@
       var htmlStr = getCleanGithubHtmlString();
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(htmlStr).then(function() {
-          notify("✅ 已複製完整 V28.0 GitHub 源碼 (" + Math.round(htmlStr.length / 1024) + " KB)！可直接貼去 GitHub index.html！");
+          notify("✅ 已複製完整 V29.4 GitHub 源碼 (" + Math.round(htmlStr.length / 1024) + " KB)！可直接貼去 GitHub index.html！");
         }).catch(function() {
           fallbackCopyText(htmlStr);
         });
@@ -4265,9 +4265,9 @@
         ta.select();
         document.execCommand("copy");
         document.body.removeChild(ta);
-        notify("✅ 已複製完整 V28.0 GitHub 源碼 (" + Math.round(text.length / 1024) + " KB)！可直接貼去 GitHub index.html！");
+        notify("✅ 已複製完整 V29.4 GitHub 源碼 (" + Math.round(text.length / 1024) + " KB)！可直接貼去 GitHub index.html！");
       } catch (e) {
-        notify("⚠️ 瀏覽器限制自動複製，請點擊旁邊「💾 下載 V29.0 index.html」直接上傳 GitHub！");
+        notify("⚠️ 瀏覽器限制自動複製，請點擊旁邊「💾 下載 V29.4 index.html」直接上傳 GitHub！");
       }
     }
 
@@ -4283,9 +4283,9 @@
         a.click();
         document.body.removeChild(a);
         setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
-        notify("💾 已下載最新 V28.0 index.html！請去 GitHub 點 Add file ➔ Upload files 上傳！");
+        notify("💾 已下載最新 V29.4 index.html！請去 GitHub 點 Add file ➔ Upload files 上傳！");
       } catch (e) {
-        notify("⚠️ 下載被攔截，請點擊「📦 複製 GitHub V29.0 源碼」！");
+        notify("⚠️ 下載被攔截，請點擊「📦 複製 GitHub V29.4 源碼」！");
       }
     }
 
@@ -4643,7 +4643,7 @@
       }).join("; ");
 
       var sysInstruction =
-        "你係 HKJC V29.1 香港賽馬六層量化精算專家。請用專業廣東話回答問題，並嚴格引用以下 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " 實時運算數據：\n" +
+        "你係 HKJC V29.4 香港賽馬六層量化精算專家。請用專業廣東話回答問題，並嚴格引用以下 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " 實時運算數據：\n" +
         "【當前檢視場次】第 " + curR.no + " 場 " + curR.name + " (" + curR.dist + "m, " + curR.cls + ")，步速指標：" + curR.pace + "\n" +
         "【當前場次20,000次蒙地卡羅排位數據】" + runnerSummary;
 
@@ -6178,7 +6178,7 @@
 
       var totalRunnersCount = RACES.reduce(function(acc, r) { return acc + r.runners.length; }, 0);
       document.getElementById("topBiasSummary").textContent =
-        "【V29.1 雙賽日終極版】當前賽日：" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " (" + rc.name + ") · 內欄修正 " + APP.insideAdj.toFixed(2) + "s / 外檔 +" + APP.outerPen.toFixed(2) + "s · 全場 " + RACES.length + " 場共 " + totalRunnersCount + " 駒已載入";
+        "【V29.4 雙賽日全自動終極版】當前賽日：" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " (" + rc.name + ") · 內欄修正 " + APP.insideAdj.toFixed(2) + "s / 外檔 +" + APP.outerPen.toFixed(2) + "s · 全場 " + RACES.length + " 場共 " + totalRunnersCount + " 駒已載入";
 
       runAllSims();
       renderAll();
@@ -6435,7 +6435,7 @@
           var s7 = APP.sims[6], b7 = s7.bullet, vp7 = s7.valPlace || b7;
           appendAiChat("user", "🏆 拆解 2026-10-25 沙田 R7 六福珠寶精英碗 (G2 1200m 讓賽)：9 駒頂尖短途對決點樣鎖定單注膽與配腳？");
           appendAiChat("ai",
-            "<strong>🏆 2026-10-25 沙田 R7 六福珠寶精英碗 (G2 1200m 草地 A 欄) V29.1 精算解剖：</strong><br><br>" +
+            "<strong>🏆 2026-10-25 沙田 R7 六福珠寶精英碗 (G2 1200m 草地 A 欄) V29.4 精算解剖：</strong><br><br>" +
             "1. <strong>⚡ 步速與賽道幾何</strong>：早段有 9檔「#2 顏色之皇」與 6檔「#5 美麗第一」快放（動態 ESPI=" + RACES[6].espi + " 高壓快步速），沙田 A 欄 (30.5m) 1200米轉彎 1–5 檔且守好位之馬匹極具穿刺優勢。<br>" +
             "2. <strong>🔥 唯一單注膽：#" + b7.no + " " + b7.name + " (" + b7.draw + "檔 " + b7.jockey + " · 實負" + b7.actualWt + "磅)</strong> — 20,000 次模擬勝率 <strong>" + (b7.pw * 100).toFixed(1) + "%</strong>、上名率 <strong>" + (b7.pt * 100).toFixed(1) + "%</strong>（位置 " + b7.plaO + "x, EV=" + b7.ev.toFixed(2) + "）。<br>" +
             "3. <strong>🔗 聯合協同雙配腳：#" + s7.legs[0].no + " " + s7.legs[0].name + " (協同QP率 " + ((s7.legs[0].jointPla || 0)*100).toFixed(1) + "%) & #" + s7.legs[1].no + " " + s7.legs[1].name + " (協同QP率 " + ((s7.legs[1].jointPla || 0)*100).toFixed(1) + "%)</strong> ｜ 💎 專屬高性價比位置：<strong>#" + vp7.no + " " + vp7.name + " (" + vp7.plaO + "x)</strong> ｜ 📦 3馬Box QP：<code>#" + b7.no + " × #" + s7.legs[0].no + " × #" + s7.legs[1].no + "</code>。"
@@ -6445,7 +6445,7 @@
           var s6 = APP.sims[5], b6 = s6.bullet;
           appendAiChat("user", "🏆 拆解谷草 R6 浪琴錦標 (二班1000m)：V29.1 點樣修正傷患一刀切並捕捉 #1 天天同樂 ($69) × #9 好評如潮 ($75 QP)？");
           appendAiChat("ai",
-            "<strong>🏆 2026-10-21 R6 浪琴錦標 (二班 1000m 谷草 B 欄) V29.1 精算解剖：</strong><br><br>" +
+            "<strong>🏆 2026-10-21 R6 浪琴錦標 (二班 1000m 谷草 B 欄) V29.4 精算解剖：</strong><br><br>" +
             "1. <strong>🔬 1000m 無氧短途傷患衰減定律 (<code>distVetScale = 0.08</code>)</strong>：1000米短途全長僅 56.76 秒（近乎純無氧磷酸肌酸供能，僅轉一個彎），舊有氣管血或喘鳴症 (Roarer) 喺 1000m 嘅耗氧折損僅為 1650m 中距離嘅 8%！<br>" +
             "2. <strong>🔥 唯一單注膽：#" + b6.no + " " + b6.name + " (潘頓 · 100分頂班馬)</strong> — 評分高出全場均值 +16.8 分，潘頓早段順走二疊守第 2 位（2-1-1），20,000 次模擬勝率 <strong>" + (b6.pw * 100).toFixed(1) + "%</strong>、上名率 <strong>" + (b6.pt * 100).toFixed(1) + "%</strong> (EV=" + b6.ev.toFixed(2) + "，實戰贏 $69.0 獨贏 / $22.5 位置)。<br>" +
             "3. <strong>🔗 聯合協同雙配腳：#" + s6.legs[0].no + " " + s6.legs[0].name + " (協同QP率 " + ((s6.legs[0].jointPla || 0)*100).toFixed(1) + "%) & #" + s6.legs[1].no + " " + s6.legs[1].name + " (協同QP率 " + ((s6.legs[1].jointPla || 0)*100).toFixed(1) + "%)</strong> — 9號「好評如潮」3檔黃寶妮(-7磅)實負108磅超輕負荷 (CBR=9.51%)，實戰跑第 3 ($21.0 位置)，精準命中 <code>1×9</code> 位置Q ($75.00)！"
@@ -6570,7 +6570,7 @@
         hdrTitle.textContent = "🏇 點擊切換場次 (" + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " R1–R" + RACES.length + ")：";
       }
       if (ovTitle) {
-        ovTitle.textContent = "📋 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " (" + ACTIVE_MEETING.defaultRail.replace("_", " ") + "欄) 全日 " + RACES.length + " 場 V29.1 排位量化與精算總表";
+        ovTitle.textContent = "📋 " + ACTIVE_MEETING.dateIso + " " + ACTIVE_MEETING.venueName + " (" + ACTIVE_MEETING.defaultRail.replace("_", " ") + "欄) 全日 " + RACES.length + " 場 V29.4 排位量化與精算總表";
       }
       var tabOvBtn = document.getElementById("tabBtnOverviewTop");
       if (tabOvBtn) tabOvBtn.textContent = "📋 全" + (ACTIVE_MEETING.venueCode === "HV" ? "晚 " : "日 ") + RACES.length + " 場總表";
